@@ -175,7 +175,20 @@ Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
 - Unit test for Lambda in Eclipse
 - h
 
+
 ## V0.5 Change Logics to Lambda and X-Ray 
+### Download module-05
+### 1.Create a Lambda project - CustomEvent
+- create a Lambda project using AWS Eclipse plugin
+- select "Custom Event"
+- see the "CustomLambda" project
+- upload function to "US-EAST-1" name as "My-Custom-Function"
+
+### implement 3 lambda functions.
+- retrieve information from images
+- translate text
+- save 
+
 
 ## V0.6 Create a docker and CI/CD for first Deployment on AWS
 
