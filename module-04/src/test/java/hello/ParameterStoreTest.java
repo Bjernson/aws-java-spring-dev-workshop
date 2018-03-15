@@ -24,12 +24,22 @@ public class ParameterStoreTest {
     public void testGetParamenterFromStore() {
 		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.defaultClient();
 		GetParameterRequest parameterRequest = new GetParameterRequest();
-		parameterRequest.withName("datasource.password").setWithDecryption(Boolean.valueOf(true));
+		parameterRequest.withName("datasource.url").setWithDecryption(Boolean.valueOf(true));
 		GetParameterResult parameterResult = client.getParameter(parameterRequest);
+		String url = parameterResult.getParameter().getValue();
+
+		parameterRequest.withName("datasource.username").setWithDecryption(Boolean.valueOf(true));
+		parameterResult = client.getParameter(parameterRequest);
+		String username = parameterResult.getParameter().getValue();	
+		
+		parameterRequest.withName("datasource.password").setWithDecryption(Boolean.valueOf(true));
+		parameterResult = client.getParameter(parameterRequest);
 		String password = parameterResult.getParameter().getValue();
 		String version = parameterResult.getParameter().getVersion().toString();
+		assertEquals(username, "sa");
 		assertEquals(password, "12345678");
-		assertEquals(version, "1");		
+		assertEquals(version, "1");	
+	
     }
 
 }

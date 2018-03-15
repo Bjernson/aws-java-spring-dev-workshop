@@ -22,68 +22,69 @@ import java.util.List;
 
 public class AWSAIServices {
 	
-	public void retrieveInformation(String bucket, String photo, Regions region)
-	{
-
     AWSCredentials credentials;
-    try {
-        credentials = new ProfileCredentialsProvider("default").getCredentials();
-    } catch(Exception e) {
-       throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
-        + "Please make sure that your credentials file is at the correct "
-        + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
+    
+    public AWSAIServices()
+    {
+	    try {
+	        credentials = new ProfileCredentialsProvider("default").getCredentials();
+	    } catch(Exception e) {
+	       throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
+	        + "Please make sure that your credentials file is at the correct "
+	        + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
+	    }
     }
+    
+	public List<Label> retrieveInformation(String bucket, String photoPath, Regions region)
+	{
+		List<Label> labels = null;
+		
+	    AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
+	  	         .standard()
+	  	         .withRegion(region)
+	  	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
+	  	         .build();
+	
+	    DetectLabelsRequest request = new DetectLabelsRequest()
+	  		  .withImage(new Image()
+	  		  .withS3Object(new S3Object()
+	  		  .withName(photoPath).withBucket(bucket)))
+	  		  .withMaxLabels(10)
+	  		  .withMinConfidence(75F);
+	
+	    try {
+	       DetectLabelsResult result = rekognitionClient.detectLabels(request);
+	       labels = result.getLabels();
 
-    AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
-  	         .standard()
-  	         .withRegion(region)
-  	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
-  	         .build();
-
-    DetectLabelsRequest request = new DetectLabelsRequest()
-  		  .withImage(new Image()
-  		  .withS3Object(new S3Object()
-  		  .withName(photo).withBucket(bucket)))
-  		  .withMaxLabels(10)
-  		  .withMinConfidence(75F);
-
-    try {
-       DetectLabelsResult result = rekognitionClient.detectLabels(request);
-       List <Label> labels = result.getLabels();
-
-       System.out.println("Detected labels for " + photo);
-       for (Label label: labels) {
-          System.out.println("#### = " + label.getName() + ": " + label.getConfidence().toString());
-       }
-    } catch(AmazonRekognitionException e) {
-       e.printStackTrace();
-    }
+	    } catch(AmazonRekognitionException e) {
+	       e.printStackTrace();
+	    }
+	    return labels;
 	}
 	
 	public String translate(String text, String sourceLangCode, String targetLangCode, Regions region)
 	{
-    AWSCredentials credentials;
-    try {
-        credentials = new ProfileCredentialsProvider("default").getCredentials();
-    } catch(Exception e) {
-       throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
-        + "Please make sure that your credentials file is at the correct "
-        + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
-    }
-    
-    AmazonTranslate translate = AmazonTranslateClientBuilder
-    					.standard()
-    		       .withRegion(region)
-    	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
-    	         .build();
-
-    TranslateTextRequest request = new TranslateTextRequest()
-            .withText(text)
-            .withSourceLanguageCode(sourceLangCode)
-            .withTargetLanguageCode(targetLangCode);
-    TranslateTextResult result  = translate.translateText(request);
-    System.out.println("### translated = " + result.getTranslatedText());
-    return result.getTranslatedText();
+	    AWSCredentials credentials;
+	    try {
+	        credentials = new ProfileCredentialsProvider("default").getCredentials();
+	    } catch(Exception e) {
+	       throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
+	        + "Please make sure that your credentials file is at the correct "
+	        + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
+	    }
+	    
+	    AmazonTranslate translate = AmazonTranslateClientBuilder
+	    					.standard()
+	    		       .withRegion(region)
+	    	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
+	    	         .build();
+	
+	    TranslateTextRequest request = new TranslateTextRequest()
+	            .withText(text)
+	            .withSourceLanguageCode(sourceLangCode)
+	            .withTargetLanguageCode(targetLangCode);
+	    TranslateTextResult result  = translate.translateText(request);
+//	    System.out.println("### translated = " + result.getTranslatedText());
+	    return result.getTranslatedText();
 	}
-
 }

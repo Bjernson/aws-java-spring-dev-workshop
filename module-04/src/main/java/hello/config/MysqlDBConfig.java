@@ -8,13 +8,15 @@ import java.util.stream.Collectors;
  
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
- 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -36,6 +38,9 @@ import hello.model.mysql.User;
 )
 public class MysqlDBConfig {
 	
+	@Autowired
+	public ConfigurableEnvironment environment;
+	
 	/**
 	 * MySQL datasource definition.
 	 * 
@@ -44,9 +49,10 @@ public class MysqlDBConfig {
 	@Bean
 	@ConfigurationProperties(prefix = "spring.mysql.datasource")
 	public DataSource mysqlDataSource() {
-		return DataSourceBuilder
-					.create()
-					.build();
+		System.out.println("##### DataSource called");
+		DataSource ds = DataSourceBuilder.create().build();
+		System.out.println("##### DataSource url = " + environment.getProperty("spring.mysql.datasource.url").toString());
+		return ds ;
 	}
  
 	/**

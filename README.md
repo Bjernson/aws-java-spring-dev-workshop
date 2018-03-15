@@ -13,7 +13,22 @@ Java SDK 8
 install MySQL and create database, user name and password (demouser/12345678)
 mysql> create database workshop; -- Create the new database
 mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates the user
-mysql> grant all on workshop.* to 'demouser'@'localhost'; -- Gives all the privileges to the new user on the newly created database
+mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
+
+2. Aurora -
+superuser : sa
+CREATE USER 'demouser'@'%' IDENTIFIED BY '12345678';
+grant all on workshop.* to 'demouser'@'%';
+#GRANT ALL PRIVILEGES ON *.* TO 'demouser'@'%'  WITH GRANT OPTION;
+#FLUSH PRIVILEGES ;
+
+CREATE TABLE `User` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 # spring-boot-dynamo-mysql-multi
+
 
 2. Download Git 
 git clone https://github.com/aws-asean-builders/workshop_java_app_spring_boot

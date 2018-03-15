@@ -47,80 +47,81 @@ public class PhotoInfoTest {
   
   private boolean ASYNC = false; //to show the differenece of Sync and Async
   
-  @Autowired
-  private AmazonDynamoDB amazonDynamoDB;
+//  @Autowired
+//  private AmazonDynamoDB amazonDynamoDB;
 
   @Autowired
   PhotoInfoRepository repository;
 
 
-  @Before
-  public void setup() throws Exception {
-	  AWSCredentials credentials;
-	  try {
-	      credentials = new ProfileCredentialsProvider("default").getCredentials();
-	  } catch(Exception e) {
-	     throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
-	      + "Please make sure that your credentials file is at the correct "
-	      + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
-	  }
-
-	  if(ASYNC) {
-	  		amazonDynamoDBAsync = AmazonDynamoDBAsyncClientBuilder.standard()
-	        .withRegion(region)
-	        .withCredentials(new AWSStaticCredentialsProvider(credentials))
-	        .build();
-		  
-			dynamoDBMapper = new DynamoDBMapper(amazonDynamoDBAsync);
-	  		  
-	  } else {
-		  amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
-	         .withRegion(region)
-	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
-	         .build();
-		  
-			dynamoDBMapper = new DynamoDBMapper(amazonDynamoDB);
-	  }
-
-
-		
-		try {
-			CreateTableRequest tableRequest = dynamoDBMapper.generateCreateTableRequest(PhotoInfo.class);
-			tableRequest.setProvisionedThroughput(new ProvisionedThroughput(1L, 1L));
-			
-			if(ASYNC) {
-	      Future<CreateTableResult> future_res = amazonDynamoDBAsync.createTableAsync(tableRequest);
-        System.out.print("\n\n####### Waiting for async callback");
-  
-//        while (!future_res.isDone() && !future_res.isCancelled()) {
-        while (!future_res.isDone()) {
-            try {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e) {
-                System.err.println("Thread.sleep() was interrupted!");
-                System.exit(0);
-            }
-            System.out.print("### .");
-        }	      
-			} else { //SYNC
-				amazonDynamoDB.createTable(tableRequest);
-			}
-			
-		} catch (ResourceInUseException e) {
-			System.out.print("\n\n####### Table already exist!");
-		}
-		
-		// delete all after creating photo table
-//		List<PhotoInfo> list =  (List<PhotoInfo>)repository.findAll();
-  }
+//  @Before
+//  public void setup() throws Exception {
+//	  AWSCredentials credentials;
+//	  try {
+//	      credentials = new ProfileCredentialsProvider("default").getCredentials();
+//	  } catch(Exception e) {
+//	     throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
+//	      + "Please make sure that your credentials file is at the correct "
+//	      + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
+//	  }
+//
+//	  if(ASYNC) {
+//	  		amazonDynamoDBAsync = AmazonDynamoDBAsyncClientBuilder.standard()
+//	        .withRegion(region)
+//	        .withCredentials(new AWSStaticCredentialsProvider(credentials))
+//	        .build();
+//		  
+//			dynamoDBMapper = new DynamoDBMapper(amazonDynamoDBAsync);
+//	  		  
+//	  } else {
+//		  amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
+//	         .withRegion(region)
+//	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
+//	         .build();
+//		  
+//			dynamoDBMapper = new DynamoDBMapper(amazonDynamoDB);
+//	  }
+//
+//
+//		
+//		try {
+//			CreateTableRequest tableRequest = dynamoDBMapper.generateCreateTableRequest(PhotoInfo.class);
+//			tableRequest.setProvisionedThroughput(new ProvisionedThroughput(1L, 1L));
+//			
+//			if(ASYNC) {
+//	      Future<CreateTableResult> future_res = amazonDynamoDBAsync.createTableAsync(tableRequest);
+//        System.out.print("\n\n####### Waiting for async callback");
+//  
+////        while (!future_res.isDone() && !future_res.isCancelled()) {
+//        while (!future_res.isDone()) {
+//            try {
+//                Thread.sleep(1000);
+//            }
+//            catch (InterruptedException e) {
+//                System.err.println("Thread.sleep() was interrupted!");
+//                System.exit(0);
+//            }
+//            System.out.print("### .");
+//        }	      
+//			} else { //SYNC
+//				amazonDynamoDB.createTable(tableRequest);
+//			}
+//			
+//		} catch (ResourceInUseException e) {
+//			System.out.print("\n\n####### Table already exist!");
+//		}
+//		
+//		// delete all after creating photo table
+////		List<PhotoInfo> list =  (List<PhotoInfo>)repository.findAll();
+//  }
 
   @Test
   public void sampleTestCase() {
-		PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
-    repository.save(p);
+	  repository.deleteAll();
+	  PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
+	  repository.save(p);
     
-//    repository.deleteAll();
+
 //    List<PhotoInfo> result = (List<PhotoInfo>) repository.findById("0e4daaec-7923-4f32-9ebe-3265641c30cb");
 //    assertTrue(result.size() > 0);
 
