@@ -1,4 +1,4 @@
-package hello.aws.lambda;
+package hello.aws.lambda.io;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package hello.aws.lambda;
+package hello.aws.lambda.io;
 
 public class CustomEventOutput {
 	public CustomEventOutput()

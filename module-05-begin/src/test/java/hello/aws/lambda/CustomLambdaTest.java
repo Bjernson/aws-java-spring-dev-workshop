@@ -12,6 +12,10 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.lambda.AWSLambdaClientBuilder;
 import com.amazonaws.services.lambda.invoke.LambdaInvokerFactory;
+
+import hello.aws.lambda.io.CustomEventInput;
+import hello.aws.lambda.io.CustomEventOutput;
+
 import java.util.List;
 
 
