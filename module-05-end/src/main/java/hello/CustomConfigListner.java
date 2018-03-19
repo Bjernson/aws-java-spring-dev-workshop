@@ -39,21 +39,19 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 		String password = parameterResult.getParameter().getValue();
 		String version = parameterResult.getParameter().getVersion().toString();
 		
-	    ConfigurableEnvironment environment = event.getEnvironment();
-	    Properties props = new Properties();
-	    props.put("spring.mysql.jpa.hibernate.ddl-auto", "update");
-	    props.put("spring.mysql.datasource.url", url);
-	    props.put("spring.mysql.datasource.username", username);
-	    props.put("spring.mysql.datasource.password", password);
-	    props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
-	    environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
-	    
-	    System.out.println("##### url = " + url);
-	    System.out.println("##### username = " + username);
-	    System.out.println("##### password = " + password);	
+    ConfigurableEnvironment environment = event.getEnvironment();
+    Properties props = new Properties();
+    props.put("spring.mysql.jpa.hibernate.ddl-auto", "update");
+    props.put("spring.mysql.datasource.url", url);
+    props.put("spring.mysql.datasource.username", username);
+    props.put("spring.mysql.datasource.password", password);
+    props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
+    environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
+    
+    System.out.println("##### url = " + url);
+    System.out.println("##### username = " + username);
+    System.out.println("##### password = " + password);	
 	    
 	 }
-	
-
 	
 }

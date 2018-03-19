@@ -1,7 +1,10 @@
 # Workshop for Java web application for AWS migration
 
 ## Preparation
-Java SDK 8
+Java SDK 8, git client
+Eclipse Oxygen 2
+AWS plugin for Eclipse 
+The installation time generally requires 10~30mins, need to prepare the environment for workshop before starting.
 
 ## 1. v0.1 Web application (Building a first web applicaiton with Spring Boot)
 - This is very simple web application using MySQL and web URL. 
@@ -189,6 +192,9 @@ Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
 - translate text
 - save 
 
+dynamodb putitemrequest : https://github.com/aws-samples/aws-dynamodb-examples/blob/master/src/main/java/com/amazonaws/codesamples/lowlevel/LowLevelItemCRUDExample.java
+
+
 
 ## V0.6 Create a docker and CI/CD for first Deployment on AWS
 
@@ -219,5 +225,5 @@ git tag --delete <tag_name>
 
 
 ## blog
-1. Configuration - parameter store conection
+1. Configuration - parameter store connection
 2, Repository - Spring data
