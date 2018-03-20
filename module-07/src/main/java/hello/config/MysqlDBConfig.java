@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import hello.model.mysql.User;
  
-
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(

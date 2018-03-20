@@ -179,7 +179,7 @@ Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
 - h
 
 
-## V0.5 Change Logics to Lambda and X-Ray 
+## V0.5 Change Logics to Lambda  
 This module requires a knowledge session for StepFunction service.
 ### Start from module-04
 ### 1.Create a Lambda project - CustomEvent
@@ -209,7 +209,20 @@ ref: https://aws.amazon.com/blogs/developer/stepfunctions-fluent-api/
 
 
 ## Module-07 Add X-Ray
+ref : https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java.html
 
+### 1. Setup X-Ray daemon for local and server
+ref : https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html
+The AWS X-Ray daemon is a software application that listens for traffic on UDP port 2000, gathers raw segment data, and relays it to the AWS X-Ray API. The daemon works in conjunction with the AWS X-Ray SDKs and must be running so that data sent by the SDKs can reach the X-Ray service. 
+
+#### 1.1 download daemon 
+#### 1.2 run daemon
+/xray_mac -o -n us-east-1 & (for example)
+#### 1.3 check the 
+
+### 2.add packages in pom.xml
+just run MySqlTest ; check errors
+it is Aspect programming, so you need to add hanlder to all client.
 
 
 ## Module-08 Create a docker and CI/CD for first Deployment on AWS

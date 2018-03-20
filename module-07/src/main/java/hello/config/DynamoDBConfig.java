@@ -51,10 +51,4 @@ public class DynamoDBConfig {
 
     }
     
-//    @Bean
-//    public AWSCredentials amazonAWSCredentials() {
-//        return new BasicAWSCredentials(
-//          amazonAWSAccessKey, amazonAWSSecretKey);
-//    }
-
 }

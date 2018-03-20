@@ -2,6 +2,7 @@ package hello;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.URL;
 import java.util.Properties;
 
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
@@ -16,15 +17,36 @@ import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterResult;
+import com.amazonaws.xray.AWSXRay;
+import com.amazonaws.xray.AWSXRayRecorderBuilder;
+import com.amazonaws.xray.handlers.TracingHandler;
+import com.amazonaws.xray.plugins.EC2Plugin;
+import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
+
+import hello.config.XRayConfig;
 
 
 public class CustomConfigListner implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
-	
+//  static {
+//  	  System.out.println("\n############# static CustomConfig Listner : init AWSXRayRecorderBuilder\n");
+//    AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard().withPlugin(new EC2Plugin());
+//
+//    URL ruleFile = WebConfig.class.getResource("/sampling-rules.json");
+//    builder.withSamplingStrategy(new LocalizedSamplingStrategy(ruleFile));
+//
+//    AWSXRay.setGlobalRecorder(builder.build());
+//    System.out.println("\n############# static CustomConfig Listner : build AWSXRayRecorderBuilder\n");
+//  }
+  
 	// DO !! overide this method with your Parameter Store, refer ParameterStoreTest.java and 
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
 		
-		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.defaultClient();
+		AWSXRay.beginSegment("Workshop : Load ParameterStore");
+		
+		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.standard()
+				.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))
+				.build();
 		GetParameterRequest parameterRequest = new GetParameterRequest();
 		parameterRequest.withName("datasource.url").setWithDecryption(Boolean.valueOf(true));
 		GetParameterResult parameterResult = client.getParameter(parameterRequest);
@@ -54,6 +76,7 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
     System.out.println("##### username = " + username);
     System.out.println("##### password = " + password);	
 	    
+    AWSXRay.endSegment();
 	 }
 	
 }

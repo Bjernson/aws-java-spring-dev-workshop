@@ -23,7 +23,6 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 	// DO !! overide this method with your Parameter Store, refer ParameterStoreTest.java and 
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-		
 		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.defaultClient();
 		GetParameterRequest parameterRequest = new GetParameterRequest();
 		parameterRequest.withName("datasource.url").setWithDecryption(Boolean.valueOf(true));
@@ -51,7 +50,7 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
     System.out.println("##### url = " + url);
     System.out.println("##### username = " + username);
     System.out.println("##### password = " + password);	
-	    
+    
 	 }
 	
 }
