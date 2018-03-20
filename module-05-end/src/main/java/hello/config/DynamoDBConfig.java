@@ -6,6 +6,8 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,10 +29,10 @@ public class DynamoDBConfig {
 
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
-        AmazonDynamoDB amazonDynamoDB = new AmazonDynamoDBClient(amazonAWSCredentials());
-//        if (!StringUtils.isEmpty(amazonDynamoDBEndpoint)) {
-//            amazonDynamoDB.setEndpoint(amazonDynamoDBEndpoint);
-//        }
+    	   
+        AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
+            .build();
+            
         return amazonDynamoDB;
     }
 
@@ -45,13 +47,6 @@ public class DynamoDBConfig {
 	  	      + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
 	  	  }
         return credentials;
-
     }
-    
-//    @Bean
-//    public AWSCredentials amazonAWSCredentials() {
-//        return new BasicAWSCredentials(
-//          amazonAWSAccessKey, amazonAWSSecretKey);
-//    }
 
 }

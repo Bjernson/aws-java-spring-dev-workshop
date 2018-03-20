@@ -76,6 +76,5 @@
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-translate</artifactId>
     </dependency>    
-        
   </dependencies>
 </project>

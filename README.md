@@ -200,11 +200,19 @@ dynamodb putitemrequest : https://github.com/aws-samples/aws-dynamodb-examples/b
 ## module-06. Create StepFunction and use a stepfucntion in your application
 This module requires a knowledge session for StepFunction service.
  
-### 1. create StepFunction using CloudFormation
+### 1. Create a StepFunction using CloudFormation
 #### 1.1 reference for StepFunction
 https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cloudformation.html
 
-## Module-07 Create a docker and CI/CD for first Deployment on AWS
+### 2. Create a service logic to call a StepFunction.
+ref: https://aws.amazon.com/blogs/developer/stepfunctions-fluent-api/
+
+
+## Module-07 Add X-Ray
+
+
+
+## Module-08 Create a docker and CI/CD for first Deployment on AWS
 
 
 ## Module-08 DevSecsOps
