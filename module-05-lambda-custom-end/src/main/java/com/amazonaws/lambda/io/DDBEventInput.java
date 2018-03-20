@@ -3,17 +3,23 @@ package com.amazonaws.lambda.io;
 import java.util.List;
 
 public class DDBEventInput {
-
 	private String id;
-  private String prefix;
-  private String photoInfo;
-  private String transInfo;
-  
-  public String getId() {
+	private String bucket;
+	private String prefix;
+	private String text;
+	private String translated;
+
+	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getBucket() {
+		return bucket;
+	}
+	public void setBucket(String bucket) {
+		this.bucket = bucket;
 	}
 	public String getPrefix() {
 		return prefix;
@@ -21,17 +27,17 @@ public class DDBEventInput {
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
-	public String getPhotoInfo() {
-		return photoInfo;
+	public String getText() {
+		return text;
 	}
-	public void setPhotoInfo(String photoInfo) {
-		this.photoInfo = photoInfo;
+	public void setText(String text) {
+		this.text = text;
 	}
-	public String getTransInfo() {
-		return transInfo;
+	public String getTranslated() {
+		return translated;
 	}
-	public void setTransInfo(String transInfo) {
-		this.transInfo = transInfo;
+	public void setTranslated(String translated) {
+		this.translated = translated;
 	}
   
 }

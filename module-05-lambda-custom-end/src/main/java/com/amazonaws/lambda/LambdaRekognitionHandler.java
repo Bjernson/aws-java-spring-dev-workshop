@@ -26,7 +26,8 @@ public class LambdaRekognitionHandler implements RequestHandler<RekoEventInput, 
 
     @Override
     public RekoEventOutput handleRequest(RekoEventInput input, Context context) {
-  			RekoEventOutput output  = new RekoEventOutput();
+    	
+    	RekoEventOutput output  = new RekoEventOutput();
   			List<Label> labels = null;
   			StringBuilder sb = new StringBuilder();
   			
@@ -47,17 +48,15 @@ public class LambdaRekognitionHandler implements RequestHandler<RekoEventInput, 
 	   			if(sb.length() > 0 ) sb.append(",").append(label.getName());
 	   			else sb.append(label.getName());
 	   		}
-	   		output.setResult("SUCCESS");
-	   		output.setMessage(sb.toString());
+	   		
+	   		output.setText(sb.toString());
 
 	    } catch(AmazonRekognitionException e) {
 	       e.printStackTrace();
-	       output.setResult("FAIL");
-		   	 output.setMessage(e.getErrorMessage());
+	       output.setError_message("FAIL" + e.getErrorMessage());
 	    }
 	    
 	    return output;
-	    		
     }
     
     private void initRekoginitionClient() {

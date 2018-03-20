@@ -118,7 +118,7 @@ public class PhotoInfoTest {
   @Test
   public void sampleTestCase() {
 	  repository.deleteAll();
-	  PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
+	  PhotoInfo p = new PhotoInfo("seon-virginia-2016", "a.jpeg", "hello", "hallo");	
 	  repository.save(p);
     
 

@@ -2,30 +2,20 @@ package com.amazonaws.lambda.io;
 
 public class TransEventOutput {
 	
-	private String result;
-	private String message;
+	private String translated;
+	private String error_message;
 
-  public TransEventOutput() {
-  }
-  
-  public TransEventOutput(String message) {
-      setMessage(message);
-  }
-  
-	public String getMessage() {
-		return message;
+	public String getTranslated() {
+		return translated;
 	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	public void setTranslated(String translated) {
+		this.translated = translated;
 	}
-
-	public String getResult() {
-		return result;
+	public String getError_message() {
+		return error_message;
 	}
-
-	public void setResult(String result) {
-		this.result = result;
+	public void setError_message(String error_message) {
+		this.error_message = error_message;
 	}
 
 }

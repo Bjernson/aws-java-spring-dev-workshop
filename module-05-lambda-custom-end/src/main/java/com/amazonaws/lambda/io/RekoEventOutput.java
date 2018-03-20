@@ -1,29 +1,19 @@
 package com.amazonaws.lambda.io;
 
 public class RekoEventOutput {
-	private String result;
-	private String message;
+	private String text;
+	private String error_message;
 
-  public RekoEventOutput() {
-  }
-  
-  public RekoEventOutput(String message) {
-      setMessage(message);
-  }
-  
-	public String getMessage() {
-		return message;
+	public String getText() {
+		return text;
 	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	public void setText(String text) {
+		this.text = text;
 	}
-
-	public String getResult() {
-		return result;
+	public String getError_message() {
+		return error_message;
 	}
-
-	public void setResult(String result) {
-		this.result = result;
+	public void setError_message(String error_message) {
+		this.error_message = error_message;
 	}
 }

@@ -52,9 +52,10 @@ public class LambdaDynamoDBHandler implements RequestHandler<DDBEventInput, DDBE
     
     Map<String, AttributeValue> item1 = new HashMap<String, AttributeValue>();
     item1.put("id", new AttributeValue().withS(UUID.randomUUID().toString()));
+    item1.put("bucket", new AttributeValue().withS(input.getPrefix()));
     item1.put("prefix", new AttributeValue().withS(input.getPrefix()));
-    item1.put("photoInfo", new AttributeValue().withS(input.getPhotoInfo()));
-    item1.put("transInfo", new AttributeValue().withS(input.getTransInfo()));
+    item1.put("text", new AttributeValue().withS(input.getText()));
+    item1.put("translated", new AttributeValue().withS(input.getTranslated()));
   	
  		PutItemRequest request = new PutItemRequest().withTableName(TABLE_NAME).withItem(item1);
  		PutItemResult output = amazonDynamoDB.putItem(request);

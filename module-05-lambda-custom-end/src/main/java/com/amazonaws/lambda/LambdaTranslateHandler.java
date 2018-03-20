@@ -36,12 +36,11 @@ public class LambdaTranslateHandler implements RequestHandler<TransEventInput, T
    
 		TranslateTextResult result  = translate.translateText(request);
 		
-		output.setResult("SUCCESS");
-		output.setMessage(result.getTranslatedText());
+		output.setTranslated(result.getTranslatedText());
 		
   } catch(Exception e) {
-  		output.setResult("FAIL");
-  	  	output.setMessage(e.getMessage());		
+
+  	  	output.setError_message(e.getMessage());		
   }
   
   return output;

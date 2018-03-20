@@ -180,27 +180,36 @@ Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
 
 
 ## V0.5 Change Logics to Lambda and X-Ray 
-### Download module-05
+This module requires a knowledge session for StepFunction service.
+### Start from module-04
 ### 1.Create a Lambda project - CustomEvent
 - create a Lambda project using AWS Eclipse plugin
 - select "Custom Event"
 - see the "CustomLambda" project
 - upload function to "US-EAST-1" name as "My-Custom-Function"
 
-### implement 3 lambda functions.
+### 2. implement 3 lambda functions.
 - retrieve information from images
 - translate text
-- save 
+- save text to DDB
 
+#### 2.1 reference for Lambda 
 dynamodb putitemrequest : https://github.com/aws-samples/aws-dynamodb-examples/blob/master/src/main/java/com/amazonaws/codesamples/lowlevel/LowLevelItemCRUDExample.java
 
 
+## module-06. Create StepFunction and use a stepfucntion in your application
+This module requires a knowledge session for StepFunction service.
+ 
+### 1. create StepFunction using CloudFormation
+#### 1.1 reference for StepFunction
+https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cloudformation.html
 
-## V0.6 Create a docker and CI/CD for first Deployment on AWS
+## Module-07 Create a docker and CI/CD for first Deployment on AWS
 
-## V0.7 DevSecsOps
 
-## V0.8 Create 
+## Module-08 DevSecsOps
+
+## Module-09 Custom Metrics and CloudWath Logs for data analytics
 
 
 ## git examples
