@@ -13,6 +13,8 @@ import hello.aws.lambda.io.DDBEventInput;
 import hello.aws.lambda.io.DDBEventOutput;
 import hello.aws.lambda.io.RekoEventInput;
 import hello.aws.lambda.io.RekoEventOutput;
+import hello.aws.lambda.io.StepEventInput;
+import hello.aws.lambda.io.StepEventOutput;
 import hello.aws.lambda.io.TransEventInput;
 import hello.aws.lambda.io.TransEventOutput;
 
@@ -23,50 +25,40 @@ public class IntegratedTransLambda {
  		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
  		 .build(MyLambdaServices.class);
 	
-//	public String RetrieveAndSave(String bucket, String photoPath, Regions region)
-//	{
-//		String result = null;
-//		try {
-//			// 1. call rekognition
-//			RekoEventInput reko_input = new RekoEventInput();
-//			
-//			reko_input.setBucket("seon-virginia-2016");
-//			reko_input.setPath("images/a.jpeg");
-//			 
-//			RekoEventOutput reko_output = myService.myRekognitionFunc(reko_input);  
-//			System.out.println("#### rekog output = " + reko_output.getText());
-//			
-//			// 2. call trans
-//			TransEventInput trans_input = new TransEventInput();
-//			
-//			String trans_origin_info = reko_output.getText();
-//			trans_input.setText(trans_origin_info);
-//			trans_input.setSourceLangCode("en");
-//			trans_input.setTargetLangCode("es");
-//			 
-//			TransEventOutput trans_output = myService.myTranslateFunc(trans_input); 
-//			String trans_target_info = trans_output.getTranslated();
-//			System.out.println("#### rekog output = " + trans_target_info);
-//			
-//			// 3. call ddb
-//			DDBEventInput ddb_input = new DDBEventInput();
-//			
-//			String prefix = bucket + "/" + photoPath;
-//			ddb_input.setPrefix("seon-virginia-2016/images/a.jpeg");
-//			ddb_input.setBucket("seon-virginia-2016");
-//			ddb_input.setPrefix("/images/a.jpeg");
-//			ddb_input.setText(trans_target_info);
-//			ddb_input.setTranslated("hallo");		
-//			 
-//			DDBEventOutput ddb_output = myService.myDynamoDBFunc(ddb_input);  
-//			
-//			result = "SUCCESS";
-//
-//		} catch(Exception e) {
-//			result = "FAIL : " + e.getMessage();
-//		}
-//		
-//		return result;
-//	}
+	public String RetrieveAndSave(String bucket, String photoPath, Regions region)
+	{
+		String result = null;
+		try {
+			// 1. call rekognition
+			StepEventInput input = new StepEventInput();
+			StepEventOutput output = new StepEventOutput();
+			
+			input.setBucket("seon-virginia-2016");
+			input.setPrefix("images/a.jpeg");
+			input.setText("");
+			input.setTranslated("");
+			input.setSourceLangCode("en");
+			input.setTargetLangCode("es");
+			 
+			output = myService.myRekognitionFunc(input);  
+			System.out.println("#### rekog output = " + output.getText());
+			
+			// 2. call trans
+			input.setText(output.getText());
+
+			output = myService.myTranslateFunc(input); 
+			System.out.println("#### rekog output = " + output.getTranslated());
+			
+			// 3. call ddb
+		  input.setTranslated(output.getTranslated());
+			output = myService.myDynamoDBFunc(input);  
+			result = "SUCCESS";
+
+		} catch(Exception e) {
+			result = "FAIL : " + e.getMessage();
+		}
+		
+		return result;
+	}
 
 }

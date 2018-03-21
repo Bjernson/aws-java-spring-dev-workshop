@@ -11,6 +11,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.xray.AWSXRay;
 
 import hello.Application;
 import hello.model.ddb.PhotoInfo;
@@ -35,7 +36,9 @@ public class IntegratedTransLambdaTest {
 	@Test
 	public void testRetrieveAndSave()
 	{
-//		String result = tr.RetrieveAndSave(bucket, photoPath, region);
-//		assertEquals(result, "SUCCESS");
+		AWSXRay.beginSegment("Workshop:logics:Lambda Test RetrieveAndSave"); 
+		String result = tr.RetrieveAndSave(bucket, photoPath, region);
+		assertEquals(result, "SUCCESS");
+		AWSXRay.endSegment();
 	}
 }

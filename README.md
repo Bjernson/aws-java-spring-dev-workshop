@@ -1,13 +1,15 @@
 # Workshop for Java web application for AWS migration
 
-## Preparation
-Java SDK 8, git client
-Eclipse Oxygen 2
-AWS plugin for Eclipse 
-The installation time generally requires 10~30mins, need to prepare the environment for workshop before starting.
+## 0. Preparation
+### 1. Install all required SDK, packages in your dev environment
+- Java SDK 8, git client
+- Eclipse Oxygen 2
+- AWS plugin for Eclipse 
 
-## 1. v0.1 Web application (Building a first web applicaiton with Spring Boot)
-- This is very simple web application using MySQL and web URL. 
+The installation time generally requires 10~30mins. Attendees should to prepare all installations for their developing environment before starting this workshop.
+
+## 1. Module-01 Web application (Building a first web applicaiton with Spring Boot)
+- This is a simple web application using Spring Boot and MySQL. 
 - create a web app using spring boot framework 
 ### Mission : check this v0.1 application and run the application to check your development environment
 #### download v0.1
