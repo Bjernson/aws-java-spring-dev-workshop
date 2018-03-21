@@ -12,17 +12,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.10.RELEASE</version>
     </parent>
-		<dependencyManagement>
-		  <dependencies>
-		    <dependency>
-		      <groupId>com.amazonaws</groupId>
-		      <artifactId>aws-java-sdk-bom</artifactId>
-		      <version>1.11.289</version>
-		      <type>pom</type>
-		      <scope>import</scope>
-		    </dependency>
-		  </dependencies>
-		</dependencyManagement>    
+  
 
     <dependencies>
         <!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
@@ -48,32 +38,12 @@
 		      <groupId>org.webjars</groupId>
 		      <artifactId>bootstrap</artifactId>
 		      <version>3.3.7-1</version>
-		    </dependency>	
-		    <!-- h2 Connector -->
-		    <dependency>
-		      <groupId>com.h2database</groupId>
-		      <artifactId>h2</artifactId>
-		      <scope>runtime</scope>
-		    </dependency>		    		     
+		    </dependency>			    		     
         <!-- Use MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        
-        <!--  AWS SDK -->
-			  <dependency>
-			    <groupId>com.amazonaws</groupId>
-			    <artifactId>aws-java-sdk-s3</artifactId>
-			  </dependency>
-			  <dependency>
-			    <groupId>com.amazonaws</groupId>
-			    <artifactId>aws-java-sdk-dynamodb</artifactId>
-			  </dependency>
-        <dependency>
-          <groupId>com.amazonaws</groupId>
-          <artifactId>aws-java-sdk-ssm</artifactId>
-        </dependency>       
+        </dependency>     
     </dependencies>
 
     <properties>

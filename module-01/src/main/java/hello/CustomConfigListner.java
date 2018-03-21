@@ -23,19 +23,4 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 	    environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
 	 }
 	
-//    @Override
-//    public void onApplicationEvent(ApplicationEvent event) {
-//        if (event instanceof ApplicationEnvironmentPreparedEvent) {
-//            for(PropertySource<?> source : ((ApplicationEnvironmentPreparedEvent) event).getEnvironment().getPropertySources()){
-//                if(source.getName().equals("applicationConfigurationProperties")){              
-//                    if (source instanceof EnumerablePropertySource) {
-//                        for(String name : ((EnumerablePropertySource) source).getPropertyNames()){
-//                            System.out.println(name+" :: "+ ((EnumerablePropertySource) source).getProperty(name));
-//                        }
-//                    }
-//                }
-//            }           
-//        }       
-//    }	
-	
 }

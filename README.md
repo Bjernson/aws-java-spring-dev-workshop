@@ -1,5 +1,7 @@
 # Workshop for Java web application for AWS migration
 
+<hr>
+
 ## 0. Preparation
 ##### 1. Install all required SDK, packages in your dev environment
 - Java SDK 8, git client
@@ -7,6 +9,8 @@
 - AWS plugin for Eclipse 
 
 The installation time generally takes 10~30mins. Attendees should to prepare all installations for their developing environment before starting this workshop.
+
+<hr>
 
 ## 1. Module-01 :  Web application - Building a first web application with Spring Boot
 - This is a simple web application using Spring Boot and MySQL
@@ -40,35 +44,66 @@ CREATE TABLE `User` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
 ```
 
-Aurora
+##### 3. Check the structure of application
+- Check application.properties and spring.factories in META-INF of resource folder. This file is for CustomConfigListner.java to change the environment configuration using Configuration Listner
+- Check package structure, boot, controller, model, repository
+- UserRepository is for the JPA 
+- Check the pom.xml, it contains Spring Boot, JPA, MySQL, Thymeleaf
 
 ```
-superuser : sa
-CREATE USER 'demouser'@'%' IDENTIFIED BY '12345678';
-grant all on workshop.* to 'demouser'@'%';
-#GRANT ALL PRIVILEGES ON *.* TO 'demouser'@'%'  WITH GRANT OPTION;
-#FLUSH PRIVILEGES ;
+       <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>    
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+			  <!-- thymeleaf-->  
+			  <dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+			  </dependency>     
+		    <dependency>
+		      <groupId>org.webjars</groupId>
+		      <artifactId>bootstrap</artifactId>
+		      <version>3.3.7-1</version>
+		    </dependency>			    		     
+        <!-- Use MySQL Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency> 
+ ```
+##### 4. Run your test codes
+Run MainControllerTest with JUnit Runner and check the console output and it's result. if you get a error messages then take a look at how to fix the problem.
+We have 2 kinds of unit test, one is mock test, the other is integration test, please check 2 files in test folder.
+
+
+##### 5. Test app using 'curl' for API
+Launch your application in your Eclipse IDE and run 'curl' command like below
+
 ```
-
-
-
-
-3. Launch App
-
-4. Test app using 'curl' for API
 curl 'localhost:8080/workshop/deleteall'
 curl 'localhost:8080/workshop/add?name=First&email=ex1@gmail.com'
 curl 'localhost:8080/workshop/all'
+```
 
-5. Check Unit Test
-run unit test, MainControllerTest.java
-
-6. Run web page localhost:8080/index.html
+##### 6. Run web page localhost:8080/index.html
 - Run CRUD for User data
 - see user list, add/update/delete user
 
+##### Appedix. create a Spring Boot project from scratch
+Please check this blog for creating a spring boot project from scratch using Maven. 
+[add later]
 
 
+<hr>
 
 ## v0.2 : First use of AWS service(Parameter Store) and it's integration
 ### 1. Mission 
