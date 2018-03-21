@@ -21,7 +21,8 @@ import org.junit.FixMethodOrder;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@FixMethodOrder(MethodSorters.NAME_ASCENDING) public class MainControllerTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
+public class MainControllerTest {
     @Autowired
     private MockMvc mvc;
     

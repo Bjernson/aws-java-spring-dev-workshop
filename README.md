@@ -221,8 +221,14 @@ The AWS X-Ray daemon is a software application that listens for traffic on UDP p
 #### 1.3 check the 
 
 ### 2.add packages in pom.xml
-just run MySqlTest ; check errors
-it is Aspect programming, so you need to add hanlder to all client.
+x-ray packages
+
+### add code
+1. configuraiton file
+2. SQL
+3. add segment to CustomConfigListner
+4. add code to Client
+5. 
 
 
 ## Module-08 Create a docker and CI/CD for first Deployment on AWS

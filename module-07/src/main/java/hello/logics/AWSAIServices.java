@@ -18,6 +18,9 @@ import com.amazonaws.services.translate.AmazonTranslateClient;
 import com.amazonaws.services.translate.AmazonTranslateClientBuilder;
 import com.amazonaws.services.translate.model.TranslateTextRequest;
 import com.amazonaws.services.translate.model.TranslateTextResult;
+import com.amazonaws.xray.AWSXRay;
+import com.amazonaws.xray.handlers.TracingHandler;
+
 import java.util.List;
 
 public class AWSAIServices {
@@ -41,8 +44,9 @@ public class AWSAIServices {
 		
 	    AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
 	  	         .standard()
-	  	         .withRegion(region)
 	  	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
+	  	         .withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))
+	  	         .withRegion(region)
 	  	         .build();
 	
 	    DetectLabelsRequest request = new DetectLabelsRequest()
@@ -77,6 +81,7 @@ public class AWSAIServices {
 	    					.standard()
 	    		       .withRegion(region)
 	    	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
+	    	         .withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))
 	    	         .build();
 	
 	    TranslateTextRequest request = new TranslateTextRequest()

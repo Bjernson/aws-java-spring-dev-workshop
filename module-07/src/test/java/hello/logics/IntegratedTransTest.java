@@ -11,6 +11,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.xray.AWSXRay;
 
 import hello.Application;
 import hello.model.ddb.PhotoInfo;
@@ -35,11 +36,13 @@ public class IntegratedTransTest {
 	@Test
 	public void testRetrieveAndSave()
 	{
+		AWSXRay.beginSegment("Workshop:logics RetrieveAndSave"); 
 		repository.deleteAll();
 		tr.RetrieveAndSave(bucket, photoPath, region);
 		String photoPrefix = bucket + "/" + photoPath;
-		List<PhotoInfo> list = (List<PhotoInfo>) repository.findByPrefix(photoPrefix);
+		List<PhotoInfo> list = (List<PhotoInfo>) repository.findAll();
 		assertTrue(list.size() > 0);
+		AWSXRay.endSegment(); 
 	}
 
 }

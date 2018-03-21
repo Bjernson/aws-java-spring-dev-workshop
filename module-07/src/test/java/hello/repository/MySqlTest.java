@@ -28,7 +28,6 @@ public class MySqlTest {
 	public void test () {
 		
 		AWSXRay.beginSegment("MySQLTest test"); 
-//		AWSXRay.endSegment();
 		
 		repository.deleteAll();
 		
@@ -36,22 +35,15 @@ public class MySqlTest {
     user1.setName("Jeff Bar");
     user1.setEmail("bar@gmail.com");
 
-//		AWSXRay.beginSegment("workshop-init:repository.save() 1"); 
     repository.save(user1);
-//    AWSXRay.endSegment();
     
     User user2 = new User();
     user2.setName("John Bell");
     user2.setEmail("bell@gmail.com");
     
-//		AWSXRay.beginSegment("workshop-init:repository.save() 2"); 
     repository.save(user2);
-//    AWSXRay.endSegment();
-
-//		AWSXRay.beginSegment("workshop-init:repository.findAll()"); 
     repository.findAll();
 
-    
 		assertEquals(repository.count(), 2);
 		
     AWSXRay.endSegment();

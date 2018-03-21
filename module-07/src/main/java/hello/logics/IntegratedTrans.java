@@ -55,8 +55,8 @@ public class IntegratedTrans {
 		System.out.println("#### translated = " + translated );
 		
 		//save info to DDB
-		PhotoInfo p = new PhotoInfo(bucket, path, source, translated);	
-	    repository.save(p);
+		PhotoInfo p = new PhotoInfo(bucket, photoPath, source, translated);	
+	  repository.save(p);
 	}
 
 }
