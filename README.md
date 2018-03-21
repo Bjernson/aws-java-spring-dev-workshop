@@ -1,7 +1,7 @@
 # Workshop for Java web application for AWS migration
 
 ## 0. Preparation
-####1. Install all required SDK, packages in your dev environment
+##### 1. Install all required SDK, packages in your dev environment
 - Java SDK 8, git client
 - Eclipse Oxygen 2
 - AWS plugin for Eclipse 
@@ -12,15 +12,15 @@ The installation time generally takes 10~30mins. Attendees should to prepare all
 - This is a simple web application using Spring Boot and MySQL
 - Check module-01 application and run this application to check the application structure and it's execution.
 
-####1. Download sourcecode 
+##### 1. Download source codes 
 ```
 git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
 ```
 
-#### 1. Configure environment.
-- Setup mysql and configure username/password
+##### 2. Configure environment.
+- Setup MySQL and configure username/password
 - install MySQL in your development environment, it depends on your dev OS, for example MacOs or Linux
-- After installtaion, create database and configure user name and password, for example (demouser/12345678)
+- After installataion, create database and configure user name and password, for example (demouser/12345678)
 
 ```
 ## create database, user and it's privilege
@@ -40,15 +40,15 @@ CREATE TABLE `User` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
 ```
 
+Aurora
 
-
-2. Aurora -
+```
 superuser : sa
 CREATE USER 'demouser'@'%' IDENTIFIED BY '12345678';
 grant all on workshop.* to 'demouser'@'%';
 #GRANT ALL PRIVILEGES ON *.* TO 'demouser'@'%'  WITH GRANT OPTION;
 #FLUSH PRIVILEGES ;
-
+```
 
 
 

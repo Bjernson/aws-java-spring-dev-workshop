@@ -29,7 +29,6 @@ public class Application {
 //		SpringApplication application = new SpringApplication(Application.class);
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("spring.datasource.username", "aa");
-//		application.setDefaultProperties(map);
+//		application.setDefaultProperties(map);≈∆
 //    }
 }
-

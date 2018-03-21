@@ -6,6 +6,7 @@
     <groupId>seon</groupId>
     <artifactId>module-01</artifactId>
     <version>0.1.0</version>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -16,7 +17,7 @@
 		    <dependency>
 		      <groupId>com.amazonaws</groupId>
 		      <artifactId>aws-java-sdk-bom</artifactId>
-		      <version>1.11.291</version>
+		      <version>1.11.289</version>
 		      <type>pom</type>
 		      <scope>import</scope>
 		    </dependency>
@@ -72,16 +73,7 @@
         <dependency>
           <groupId>com.amazonaws</groupId>
           <artifactId>aws-java-sdk-ssm</artifactId>
-        </dependency>     
-        <!-- AWS SDK rekognition -->  
-         <dependency>
-          <groupId>com.amazonaws</groupId>
-          <artifactId>aws-java-sdk-rekognition</artifactId>
-        </dependency>    
-         <dependency>
-          <groupId>com.amazonaws</groupId>
-          <artifactId>aws-java-sdk-translate</artifactId>
-        </dependency>              
+        </dependency>       
     </dependencies>
 
     <properties>
