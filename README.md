@@ -1,24 +1,46 @@
 # Workshop for Java web application for AWS migration
 
 ## 0. Preparation
-### 1. Install all required SDK, packages in your dev environment
+####1. Install all required SDK, packages in your dev environment
 - Java SDK 8, git client
 - Eclipse Oxygen 2
 - AWS plugin for Eclipse 
 
-The installation time generally requires 10~30mins. Attendees should to prepare all installations for their developing environment before starting this workshop.
+The installation time generally takes 10~30mins. Attendees should to prepare all installations for their developing environment before starting this workshop.
 
-## 1. Module-01 Web application (Building a first web applicaiton with Spring Boot)
-- This is a simple web application using Spring Boot and MySQL. 
-- create a web app using spring boot framework 
-### Mission : check this v0.1 application and run the application to check your development environment
-#### download v0.1
+## 1. Module-01 :  Web application - Building a first web application with Spring Boot
+- This is a simple web application using Spring Boot and MySQL
+- Check module-01 application and run this application to check the application structure and it's execution.
 
-1. Setup mysql and configure username/password
-install MySQL and create database, user name and password (demouser/12345678)
+####1. Download sourcecode 
+```
+git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
+```
+
+#### 1. Configure environment.
+- Setup mysql and configure username/password
+- install MySQL in your development environment, it depends on your dev OS, for example MacOs or Linux
+- After installtaion, create database and configure user name and password, for example (demouser/12345678)
+
+```
+## create database, user and it's privilege
+
 mysql> create database workshop; -- Create the new database
 mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates the user
 mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
+
+
+## crate User table
+
+CREATE TABLE `User` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
+```
+
+
 
 2. Aurora -
 superuser : sa
@@ -27,17 +49,9 @@ grant all on workshop.* to 'demouser'@'%';
 #GRANT ALL PRIVILEGES ON *.* TO 'demouser'@'%'  WITH GRANT OPTION;
 #FLUSH PRIVILEGES ;
 
-CREATE TABLE `User` (
-  `id` integer NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 # spring-boot-dynamo-mysql-multi
 
 
-2. Download Git 
-git clone https://github.com/aws-asean-builders/workshop_java_app_spring_boot
-git checkout tags/v0.1
+
 
 3. Launch App
 
@@ -222,15 +236,17 @@ The AWS X-Ray daemon is a software application that listens for traffic on UDP p
 /xray_mac -o -n us-east-1 & (for example)
 #### 1.3 check the 
 
-### 2.add packages in pom.xml
+#### 2.add packages in pom.xml
 x-ray packages
 
-### add code
+#### add code
 1. configuraiton file
 2. SQL
 3. add segment to CustomConfigListner
 4. add code to Client
-5. 
+5. check X-Ray using Unit Test.
+
+
 
 
 ## Module-08 Create a docker and CI/CD for first Deployment on AWS
