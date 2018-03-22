@@ -53,34 +53,34 @@ CREATE TABLE `User` (
 - Check the **pom.xml**, it contains Spring Boot, JPA, MySQL, Thymeleaf
 
 ```
-       <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>    
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-			  <!-- thymeleaf-->  
-			  <dependency>
-			    <groupId>org.springframework.boot</groupId>
-			    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-			  </dependency>     
-		    <dependency>
-		      <groupId>org.webjars</groupId>
-		      <artifactId>bootstrap</artifactId>
-		      <version>3.3.7-1</version>
-		    </dependency>			    		     
-        <!-- Use MySQL Connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency> 
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+  </dependency>    
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+  </dependency>
+  <!-- thymeleaf-->  
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+  </dependency>     
+  <dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>bootstrap</artifactId>
+    <version>3.3.7-1</version>
+  </dependency>			    		     
+  <!-- Use MySQL Connector -->
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+  </dependency> 
  ```
 ##### 4. Run your test codes
 Run MainControllerTest with JUnit Runner and check the console output and it's result. if you get a error messages then take a look at how to fix the problem.
@@ -116,43 +116,43 @@ Please check this blog for creating a spring boot project from scratch using Mav
 ##### 1 add packages in pom.xml
 
 ```
-    <dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>com.amazonaws</groupId>
-          <artifactId>aws-java-sdk-bom</artifactId>
-          <version>1.11.289</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
-      </dependencies>
-    </dependencyManagement>    
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.amazonaws</groupId>
+        <artifactId>aws-java-sdk-bom</artifactId>
+        <version>1.11.289</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>    
     
-    <!-- AWS SDK System Manager -->  
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-ssm</artifactId>
-    </dependency> 
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-s3</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-dynamodb</artifactId>
-    </dependency>
+  <!-- AWS SDK System Manager -->  
+  <dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-ssm</artifactId>
+  </dependency> 
+  <dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-s3</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-dynamodb</artifactId>
+  </dependency>
    
     
-    <!-- AWS SDK rekognition -->  
-		<dependency>
-		  <groupId>com.amazonaws</groupId>
-		  <artifactId>aws-java-sdk-rekognition</artifactId>
-		</dependency>  
-		<!-- AWS SDK translate -->  
-		 <dependency>
-		  <groupId>com.amazonaws</groupId>
-		  <artifactId>aws-java-sdk-translate</artifactId>
-		</dependency>            
+  <!-- AWS SDK rekognition -->  
+	<dependency>
+	  <groupId>com.amazonaws</groupId>
+	  <artifactId>aws-java-sdk-rekognition</artifactId>
+	</dependency>  
+	<!-- AWS SDK translate -->  
+	 <dependency>
+	  <groupId>com.amazonaws</groupId>
+	  <artifactId>aws-java-sdk-translate</artifactId>
+	</dependency>            
 
 ```
 ##### 2. Configure AWS CLI to allow application to get access key and secret key
@@ -275,12 +275,12 @@ reference : [derjust's Github](https://github.com/derjust/spring-data-dynamodb)
 Add it to Pom.xml
 
 ```
-    <!-- spring-data-dynamo-db -->
-    <dependency>
-        <groupId>com.github.derjust</groupId>
-        <artifactId>spring-data-dynamodb</artifactId>
-        <version>4.5.0</version>
-    </dependency> 
+  <!-- spring-data-dynamo-db -->
+  <dependency>
+      <groupId>com.github.derjust</groupId>
+      <artifactId>spring-data-dynamodb</artifactId>
+      <version>4.5.0</version>
+  </dependency> 
 		    
 ```
 
@@ -361,14 +361,14 @@ public class MysqlDBConfig {
 Change **spring.datasource** properties to **spring.mysql.datasource** in CustomConfigListner.java
 
 ```
-    ConfigurableEnvironment environment = event.getEnvironment();
-    Properties props = new Properties();
-    props.put("spring.mysql.jpa.hibernate.ddl-auto", "update");
-    props.put("spring.mysql.datasource.url", url);
-    props.put("spring.mysql.datasource.username", username);
-    props.put("spring.mysql.datasource.password", password);
-    props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
-    environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
+ConfigurableEnvironment environment = event.getEnvironment();
+Properties props = new Properties();
+props.put("spring.mysql.jpa.hibernate.ddl-auto", "update");
+props.put("spring.mysql.datasource.url", url);
+props.put("spring.mysql.datasource.username", username);
+props.put("spring.mysql.datasource.password", password);
+props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
+environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
 
 ```
 These new application properties will be used in this module.
@@ -381,19 +381,19 @@ hello.model.ddb.PhotoInfo
 Create PhotoInfoTest in hello.repository(test)
 
 ```
-  @Autowired
-  PhotoInfoRepository repository;
+@Autowired
+PhotoInfoRepository repository;
+
+@Test
+public void sampleTestCase() {
+  repository.deleteAll();
+  PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
+  repository.save(p);
   
-  @Test
-  public void sampleTestCase() {
-	  repository.deleteAll();
-	  PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
-	  repository.save(p);
-    
-    List<PhotoInfo> result2 = (List<PhotoInfo>) repository.findAll(); 
-    
-    assertTrue("Not empty", result2.size() > 0);
-  }
+  List<PhotoInfo> result2 = (List<PhotoInfo>) repository.findAll(); 
+  
+  assertTrue("Not empty", result2.size() > 0);
+}
 ```
 
 <hr>
@@ -430,28 +430,28 @@ You must implement a constructor in CustomEventOutput
 
 ```
 public class CustomEventInput {
-    private List<Integer> values;
-    public List<Integer> getValues() {
-        return values;
-    }
-    public void setValues(List<Integer> values) {
-        this.values = values;
-    }
+  private List<Integer> values;
+  public List<Integer> getValues() {
+      return values;
+  }
+  public void setValues(List<Integer> values) {
+      this.values = values;
+  }
 }
 
 public class CustomEventOutput {
 	public CustomEventOutput()  // must 
 	{}
-    private Integer value;
-    public CustomEventOutput(int value) {
-        setValue(value);
-    }
-    public Integer getValue() {
-        return value;
-    }
-    public void setValue(Integer value) {
-        this.value = value;
-    }
+  private Integer value;
+  public CustomEventOutput(int value) {
+      setValue(value);
+  }
+  public Integer getValue() {
+      return value;
+  }
+  public void setValue(Integer value) {
+      this.value = value;
+  }
     
 ```
 ##### 3. Define Lamdba Invoking service interface
@@ -467,24 +467,24 @@ public interface MyLambdaServices {
 We invoke our service using this unit test code;
 
 ```
-	@Test
-	public void callCustomLamdba()
-	{
-    
-    final MyLambdaServices myService = LambdaInvokerFactory.builder()
-    		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
-    		 .build(MyLambdaServices.class);
-    
-    CustomEventInput input = new CustomEventInput();
-    List<Integer> list = new ArrayList();
-    list.add(1);
-  		list.add(5);
-  		input.setValues(list);
+@Test
+public void callCustomLamdba()
+{
+  
+  final MyLambdaServices myService = LambdaInvokerFactory.builder()
+  		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
+  		 .build(MyLambdaServices.class);
+  
+  CustomEventInput input = new CustomEventInput();
+  List<Integer> list = new ArrayList();
+  list.add(1);
+		list.add(5);
+		input.setValues(list);
 
-    CustomEventOutput output = myService.myCustumFunc(input);  
-    assertEquals((int)output.getValue(), (int)5);
-    
-	}
+  CustomEventOutput output = myService.myCustumFunc(input);  
+  assertEquals((int)output.getValue(), (int)5);
+  
+}
 
 ```
 
@@ -542,12 +542,12 @@ Here is one Lambda function example (DynamoDB)
 We need to change **MyLambdaServices** to add 3 implemented Lambda services
 
 ```
-	@LambdaFunction(functionName="MyFunction-workshop-dynamodb")
-	DDBEventOutput myDynamoDBFunc(DDBEventInput input);	
-	@LambdaFunction(functionName="MyFunction-workshop-rekognition")
-  RekoEventOutput myRekognitionFunc(RekoEventInput input);
-	@LambdaFunction(functionName="MyFunction-workshop-translate")
-  TransEventOutput myTranslateFunc(TransEventInput input);	
+@LambdaFunction(functionName="MyFunction-workshop-dynamodb")
+DDBEventOutput myDynamoDBFunc(DDBEventInput input);	
+@LambdaFunction(functionName="MyFunction-workshop-rekognition")
+RekoEventOutput myRekognitionFunc(RekoEventInput input);
+@LambdaFunction(functionName="MyFunction-workshop-translate")
+TransEventOutput myTranslateFunc(TransEventInput input);	
 ```
 ##### 6. Upload 3 Lambda Services
 1. Upload 3 functions from a lambda-custom-project
@@ -559,21 +559,21 @@ We need to change **MyLambdaServices** to add 3 implemented Lambda services
 This is a code snippet for testing Lambda function
 
 ```
-	@Test
-	public void callRekognitionLamdba()
-	{
-		final MyLambdaServices myService = LambdaInvokerFactory.builder()
-		 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
-		 		 .build(MyLambdaServices.class);
-		 
-		RekoEventInput input = new RekoEventInput();
-		
-		input.setBucket("seon-virginia-2016");
-		input.setPath("images/a.jpeg");
-		 
-		RekoEventOutput output = myService.myRekognitionFunc(input);  
-		assertNotNull(output.getText());
-	}	
+@Test
+public void callRekognitionLamdba()
+{
+	final MyLambdaServices myService = LambdaInvokerFactory.builder()
+	 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
+	 		 .build(MyLambdaServices.class);
+	 
+	RekoEventInput input = new RekoEventInput();
+	
+	input.setBucket("seon-virginia-2016");
+	input.setPath("images/a.jpeg");
+	 
+	RekoEventOutput output = myService.myRekognitionFunc(input);  
+	assertNotNull(output.getText());
+}	
 ```
 Run a unit test 
 
@@ -660,12 +660,12 @@ Create a input file in same folder (step-input.json)
 
 ```
 {
-    "bucket":"seon-virginia-2016", 
-    "prefix":"images/a.jpeg",
-    "text" : "Hello, hello",
-    "translated" : "",
-    "sourceLangCode" :"en",
-    "targetLangCode" : "es"
+  "bucket":"seon-virginia-2016", 
+  "prefix":"images/a.jpeg",
+  "text" : "Hello, hello",
+  "translated" : "",
+  "sourceLangCode" :"en",
+  "targetLangCode" : "es"
 }
 ```
 
@@ -673,16 +673,16 @@ Create a input file in same folder (step-input.json)
 Create StepFunctionTest in *hello.aws.stepfunction*
 
 ```
-		final AWSStepFunctions stepFunctionclient = AWSStepFunctionsClientBuilder.defaultClient();
-		
-		URL inputFile = Application.class.getResource("/aws/step-input.json");
-		String input = jsonFileRead(inputFile);
-		StartExecutionRequest startExecutionRequest 
-		= new StartExecutionRequest()
-		.withInput(input)
-		.withStateMachineArn("arn:aws:states:us-east-1:5591:stateMachine:workshop-stepfunction").withSdkRequestTimeout(30000);
-		
-		StartExecutionResult executionResult = stepFunctionclient.startExecution(startExecutionRequest);
+final AWSStepFunctions stepFunctionclient = AWSStepFunctionsClientBuilder.defaultClient();
+
+URL inputFile = Application.class.getResource("/aws/step-input.json");
+String input = jsonFileRead(inputFile);
+StartExecutionRequest startExecutionRequest 
+= new StartExecutionRequest()
+.withInput(input)
+.withStateMachineArn("arn:aws:states:us-east-1:5591:stateMachine:workshop-stepfunction").withSdkRequestTimeout(30000);
+
+StartExecutionResult executionResult = stepFunctionclient.startExecution(startExecutionRequest);
 ```
 Test a code and check the result.
 
@@ -786,14 +786,14 @@ Here is a tips for CustomConfigListner.
 CustomConfigListner is called before executing XRayConfig, this means we need to embed codes CustomConfigListner for prevent from errors.
 
 ```
-	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-		
-		AWSXRay.beginSegment("Workshop : Load ParameterStore");
-		
-		....
-		
-  		AWSXRay.endSegment();
-	}		
+public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+	
+	AWSXRay.beginSegment("Workshop : Load ParameterStore");
+	
+	....
+	
+	AWSXRay.endSegment();
+}		
 		
 ```
 
@@ -806,27 +806,27 @@ Instrument SQL database queries by adding the X-Ray SDK for Java JDBC intercepto
 So, change codes in CustomConfigListner
 
 ```
-	props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
-	// for X-Ray
-	props.put("spring.mysql.datasource.jdbc-interceptors", "com.amazonaws.xray.sql.mysql.TracingInterceptor");   
-	environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
+props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
+// for X-Ray
+props.put("spring.mysql.datasource.jdbc-interceptors", "com.amazonaws.xray.sql.mysql.TracingInterceptor");   
+environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
 ```
 
 ##### Add code in Client build
 To instrument individual clients, remove the aws-sdk-instrumentor submodule from your build and add an XRayClient as a TracingHandler on your AWS SDK client using the service's client builder. 
 
 ```
-	AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
-		.standard()
-		.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))  // X-Ray
-		.withRegion(region)
-		.build();
+AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
+	.standard()
+	.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))  // X-Ray
+	.withRegion(region)
+	.build();
 
-	AmazonTranslate translate = AmazonTranslateClientBuilder
-		.standard()
-		.withRegion(region)
-		.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder())) // X-Ray
-		.build();	  	         
+AmazonTranslate translate = AmazonTranslateClientBuilder
+	.standard()
+	.withRegion(region)
+	.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder())) // X-Ray
+	.build();	  	         
 	  	         
 ```
  
@@ -851,10 +851,6 @@ public class MySqlTest {
     AWSXRay.endSegment();
 	}
 ```
-
-
-
-
 
 <hr>
 
