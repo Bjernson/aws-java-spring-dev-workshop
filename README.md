@@ -412,9 +412,12 @@ Create a Lambda project using AWS Eclipse plugin
 	1. Open AWS Explorer in your Eclipse
 	2. Right click on AWS Lambda and create a new Lambda Project "module-05-lambda-custom"
 	3. Select "Custom Event" and create a project
+
+![create a Lambda project](./images/module-05/01.png)
+
 	4. Upload function to "US-EAST-1" name as "My-Custom-Function"
 	5. Test this function in console 
-![create a Lambda project](./images/module-05/01.png)
+	
 ![create a Lambda project](./images/module-05/02.png)
 
 ##### 2. Create a Lambda Invoking Classes
