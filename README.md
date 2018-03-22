@@ -180,7 +180,8 @@ Complete the following tasks to configure application parameters for ParameterSt
 
 	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
 	2. Create parameters in ParameterStore for database URL, database username and password
-![Parameter Store](./imgs/moudle-01/paramter-store-01.png)
+
+![Parameter Store](/imgs/module-02/paramter-store-01.png)
 
 ##### 5. Check the availability of parameters in ParameterStore
 - Run ParameterStoreTest.java 
