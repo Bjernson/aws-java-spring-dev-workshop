@@ -869,7 +869,10 @@ public class MySqlTest {
 ![Select CodeCommit](./images/module-08/03.png)		
 
 	5. Select a instance type and launch the project
-	6. After creating the project, launch a Cloud9
+	6. After creating the project, launch a Cloud9 IDE
+	
+![Select CodeCommit](./images/module-08/04.png)		
+
 
 <hr>
 
