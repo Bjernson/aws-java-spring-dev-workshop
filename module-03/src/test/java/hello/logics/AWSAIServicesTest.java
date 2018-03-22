@@ -28,6 +28,5 @@ public class AWSAIServicesTest {
 		AWSAIServices ai = new AWSAIServices();
 		assertEquals(ai.translate("Hello World", "en", "es", region), "Hola Mundo");
 	}
-	
 
 }

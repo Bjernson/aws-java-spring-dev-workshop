@@ -181,7 +181,7 @@ Complete the following tasks to configure application parameters for ParameterSt
 	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
 	2. Create parameters in ParameterStore for database URL, database username and password
 
-![Parameter Store](./imgs/module-02/paramter-store-01.png)
+![Parameter Store](./images/module-02/paramter-store-01.png)
 
 
 ##### 5. Check the availability of parameters in ParameterStore
@@ -200,43 +200,65 @@ Complete the following tasks to configure application parameters for ParameterSt
 ##### 8. For next implementation
 - Please check classes in hello.logics and unit test in hello.logics
 
+<hr>
 
-## Module 3 (time duration : 40 mins)
-### Start : from V0.3-begin
-### Missions
-#### 1. Mission 1 : Check a file resizing class, pick up your images and save it to local folder
-#### 2. Mission 2 : Complete upload a file to S3 using AWS SDK
-#### 3. Mission 3 : Complete Retrieve information from picture and Translate text using Amazon Translate
-#### 4. Mission 4 : change database from Mysql to Aurora for Mysql 
-#### 5. Mission 5 : Connect AWS DynamoDB using Spring Data
-### End : V0.3-final
+## Module 3 (time duration : 30 mins)
+From this module, we are beginning to develop application using AWS services.
+We will complete the following tasks.
+- Resize a file and save it to local folder
+- Upload a file to S3 using AWS SDK
+- Retrieve information from picture and Translate text using Amazon Translate
+- Change database from Mysql to Aurora for Mysql 
+- Store a file meta data to DynamoDB
 
-### Mission 1. Download v0.3-begin
-git checkout tags/v0.3
+**Start from the module-02**
+
+#### 1. references
+Please refer the following information to complete the tasks
+ 
+[Develop S3](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/examples-s3-objects.html#upload-object)
+
+[Develop Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/get-started-exercise.html)
+
+[Develop Translate](https://docs.aws.amazon.com/translate/latest/dg/examples-java.html)
+
+#### 2. Basic structure to use AWS services
+	1. Declare a client for the services to call
+	2. Initialzie a client with various information
+
+for example
+
+```
+
+AmazonTranslate translate = AmazonTranslateClientBuilder
+							.standard()
+							.withRegion(region)   // set region
+							.withCredentials(new AWSStaticCredentialsProvider(credentials)) //set credentials
+							.build();
+
+```
+
+##### 3. Implement logics
+- Check AWSAIServicesTest and complete AWSAIServices.java, S3FileTransfer.java based on Unit Test
+- Create S3 file transferring and translate 
+
+##### 4. Implement DynamoDB 
+- Check DynamoDBTest
+- Complete the tasks to implement the DDB logics in Unit Test (not logics)
 
 
-### 3. AWS SDK 
-refer S3 : https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/examples-s3-objects.html#upload-object
-refer rekognition : https://docs.aws.amazon.com/rekognition/latest/dg/get-started-exercise.html
-refer translate :https://docs.aws.amazon.com/translate/latest/dg/examples-java.html
-refer dynamodb spring data :https://github.com/spring-data-dynamodb/spring-data-dynamodb
+<hr>
 
-### 4. [TODO] With above documentations and S3FileTransterTest, AWSAIServicesTest, please complete AWSAIServices.java, S3FileTransfer.java
+## Module-04 Using multiple repositories using Spring Data (time durations : 40 mins)
 
-### 5. Mission 5
-add dependencies in pom.xml
-    <dependency>
-        <groupId>com.amazonaws</groupId>
-        <artifactId>aws-java-sdk-dynamodb</artifactId>
-        <version>1.11.34</version>
-    </dependency>
-    <dependency>
-        <groupId>com.github.derjust</groupId>
-        <artifactId>spring-data-dynamodb</artifactId>
-        <version>5.0.2</version>
-    </dependency>
+### 1. Mission : add logics for file transferring and data retrieving from files. 
+1. if it is a picture, we will resize it to original and small size (2 size)
+2. will retrieve information from pi and mov, location information, transfer it to target language and send it to friends
 
-add dynamodb endpoint url in application.properties
+ 
+- How to create local Lambda 
+- Unit test for Lambda in Eclipse
+- h
 
 
 
@@ -249,18 +271,8 @@ Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
 - connect to S3
 - connect to DynamoDB
 
-## v0.4 Add logics for file transferring
-### 1. Mission : add logics for file transferring and data retrieving from files. 
-1. if it is a picture, we will resize it to original and small size (2 size)
-2. will retrieve information from pi and mov, location information, transfer it to target language and send it to friends
 
- 
-- How to create local Lambda 
-- Unit test for Lambda in Eclipse
-- h
-
-
-## V0.5 Change Logics to Lambda  
+## Module-05 Change Logics to Lambda (time durations : 40 mins)  
 This module requires a knowledge session for StepFunction service.
 ### Start from module-04
 ### 1.Create a Lambda project - CustomEvent

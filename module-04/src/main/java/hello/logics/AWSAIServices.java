@@ -22,19 +22,9 @@ import java.util.List;
 
 public class AWSAIServices {
 	
-    AWSCredentials credentials;
-    
-    public AWSAIServices()
-    {
-	    try {
-	        credentials = new ProfileCredentialsProvider("default").getCredentials();
-	    } catch(Exception e) {
-	       throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
-	        + "Please make sure that your credentials file is at the correct "
-	        + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
-	    }
-    }
-    
+  AWSCredentials credentials;
+  
+
 	public List<Label> retrieveInformation(String bucket, String photoPath, Regions region)
 	{
 		List<Label> labels = null;
@@ -42,7 +32,6 @@ public class AWSAIServices {
 	    AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
 	  	         .standard()
 	  	         .withRegion(region)
-	  	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
 	  	         .build();
 	
 	    DetectLabelsRequest request = new DetectLabelsRequest()
@@ -76,7 +65,6 @@ public class AWSAIServices {
 	    AmazonTranslate translate = AmazonTranslateClientBuilder
 	    					.standard()
 	    		       .withRegion(region)
-	    	         .withCredentials(new AWSStaticCredentialsProvider(credentials))
 	    	         .build();
 	
 	    TranslateTextRequest request = new TranslateTextRequest()
