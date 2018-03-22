@@ -10,7 +10,7 @@
 - AWS plugin for Eclipse 
 - AWS CLI in your development environment
 
-The installation time generally takes 10~30mins. Attendees should to prepare all installations for their developing environment before starting this workshop.
+The installation time generally takes 10~30mins. Attendees should prepare all installations for their developing environment before starting this workshop.
 
 <hr>
 
