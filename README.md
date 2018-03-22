@@ -285,6 +285,8 @@ Add it to Pom.xml
 ```
 
 ##### 2. Implement DB configuration classes
+reference : [dynamodb put item request](https://github.com/aws-samples/aws-dynamodb-examples/blob/master/src/main/java/com/amazonaws/codesamples/lowlevel/LowLevelItemCRUDExample.java)
+
 We need to create configuration class for MySQL and DynamoDB to use each repository
 Here is MysqlDBConfig example.
 
@@ -413,6 +415,7 @@ Create a Lambda project using AWS Eclipse plugin
 	4. Upload function to "US-EAST-1" name as "My-Custom-Function"
 	5. Test this function in console 
 ![create a Lambda project](./images/module-05/01.png)
+![create a Lambda project](./images/module-05/02.png)
 
 ##### 2. Create a Lambda Invoking Classes
 To invoke this function from Java code, we’ll first define POJOs representing the input and output JSON
@@ -445,7 +448,39 @@ public class CustomEventOutput {
     }
     
 ```
+##### 3. Define Lamdba Invoking service interface
+Define an interface representing our microservice, and annotate it with the name of the Lambda function to invoke when it’s called
 
+```
+public interface MyLambdaServices {
+	@LambdaFunction(functionName="MyCustomFunc")
+	CustomEventOutput myCustumFunc(CustomEventInput input);
+}
+```
+##### 4. Create Unit test code
+We invoke our service using this unit test code;
+
+```
+	@Test
+	public void callCustomLamdba()
+	{
+    
+    final MyLambdaServices myService = LambdaInvokerFactory.builder()
+    		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
+    		 .build(MyLambdaServices.class);
+    
+    CustomEventInput input = new CustomEventInput();
+    List<Integer> list = new ArrayList();
+    list.add(1);
+  		list.add(5);
+  		input.setValues(list);
+
+    CustomEventOutput output = myService.myCustumFunc(input);  
+    assertEquals((int)output.getValue(), (int)5);
+    
+	}
+
+```
 
 ### 2. implement 3 lambda functions.
 - retrieve information from images
@@ -453,8 +488,6 @@ public class CustomEventOutput {
 - save text to DDB
 
  reference for Lambda 
-dynamodb putitemrequest : https://github.com/aws-samples/aws-dynamodb-examples/blob/master/src/main/java/com/amazonaws/codesamples/lowlevel/LowLevelItemCRUDExample.java
-
 
 
 ## module-06 : Create StepFunction and use a stepfucntion in your application
