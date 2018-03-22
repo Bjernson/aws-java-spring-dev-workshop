@@ -1,5 +1,5 @@
 
-# Workshop for Java web application for AWS migration
+# Workshop for Java web application on AWS with microservce, CICD and DevSecsOps
 
 <hr>
 
