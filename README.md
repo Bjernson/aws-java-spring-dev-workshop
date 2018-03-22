@@ -183,6 +183,7 @@ Complete the following tasks to configure application parameters for ParameterSt
 
 ![Parameter Store](./imgs/module-02/paramter-store-01.png)
 
+
 ##### 5. Check the availability of parameters in ParameterStore
 - Run ParameterStoreTest.java 
 
