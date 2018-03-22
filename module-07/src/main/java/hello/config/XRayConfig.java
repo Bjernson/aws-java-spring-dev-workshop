@@ -28,13 +28,11 @@ public class XRayConfig {
 
   @Bean
   public Filter TracingFilter() {
-   	System.out.println("\n##### Webconfig.java static AWSXRay TracingFilter() ######################\n");
     return new AWSXRayServletFilter("Workshop");
   }
 
   @Bean
   public Filter SimpleCORSFilter() {
-   	System.out.println("\n##### Webconfig.java static AWSXRay TracingFilter() ######################\n");
     return new SimpleCORSFilter();
   }
 
@@ -46,7 +44,5 @@ public class XRayConfig {
     builder.withSamplingStrategy(new LocalizedSamplingStrategy(ruleFile));
 
     AWSXRay.setGlobalRecorder(builder.build());
-//    AWSXRay.beginSegment("workshop-init");
-//    AWSXRay.endSegment();
   }
 }

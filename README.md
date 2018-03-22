@@ -594,46 +594,279 @@ Crate a unit test for IntegratedTransLambda
 
 ```
 
-## module-06 : Create StepFunction and use a Stepfucntion in your application
-This module requires a knowledge session for StepFunction service.
+<hr>
+
+## module-06 : Create StepFunction and use a Stepfucntion in your application (20 mins)
+This module need a knowledge session delivery of StepFunction 
+##### Reference
+
+[Create a Step function](https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cloudformation.html)
+[Call a StepFunction] (https://aws.amazon.com/blogs/developer/stepfunctions-fluent-api/)
+
+##### 1. Change a Input/Output classes of Lambda Function
+Create a common Model class (StepEventInput, StepEventOutout)
+
+StepEventInput.java (omit getter/setter)
+
+```
+	private String id;
+	private String bucket;
+	private String prefix;
+	private String text;
+	private String translated;
+	private String sourceLangCode;
+	private String targetLangCode;
+```
+
+StepEventOutput.java (omit getter/setter)
+
+```
+	private String text;
+	private String error_message;
+```
+	
  
-### 1. Create a StepFunction using CloudFormation
-#### 1.1 reference for StepFunction
-https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cloudformation.html
+##### 2. Create a StepFunction using JSON
+Create a step-function.json in *main/resources/aws*
 
-### 2. Create a service logic to call a StepFunction.
-ref: https://aws.amazon.com/blogs/developer/stepfunctions-fluent-api/
+```
+{
+  "Comment" : "Machine learning execution with spot instance",
+  "StartAt" : "RetrieveInfoFromPhotoUsingRekognition",
+  "States"  : {
+    "RetrieveInfoFromPhotoUsingRekognition": {
+      "Type"      : "Task",
+      "Resource"  : "arn:aws:lambda:us-east-1:550622896891:function:MyFunction-workshop-rekognition",
+      "Retry" : [ {"ErrorEquals":["HandledError"], "MaxAttempts":3} ],
+      "Next"      : "TransInfoUsingTranlate"
+    }, 
+    "TransInfoUsingTranlate": {
+      "Type"      : "Task",
+      "Resource"  : "arn:aws:lambda:us-east-1:550622896891:function:MyFunction-workshop-translate",
+      "Next"      : "StoreTransDataIntoDynamoDB"
+    },
+    "StoreTransDataIntoDynamoDB": {
+      "Type"      : "Task",
+      "Resource"  : "arn:aws:lambda:us-east-1:550622896891:function:MyFunction-workshop-dynamodb",    
+      "Retry" : [ {"ErrorEquals":["HandledError"], "MaxAttempts":3} ],
+      "End": true
+  		}
+  	}
+}
 
+```
+
+Create a input file in same folder (step-input.json)
+
+```
+{
+    "bucket":"seon-virginia-2016", 
+    "prefix":"images/a.jpeg",
+    "text" : "Hello, hello",
+    "translated" : "",
+    "sourceLangCode" :"en",
+    "targetLangCode" : "es"
+}
+```
+
+##### 3. Implement a test code
+Create StepFunctionTest in *hello.aws.stepfunction*
+
+```
+		final AWSStepFunctions stepFunctionclient = AWSStepFunctionsClientBuilder.defaultClient();
+		
+		URL inputFile = Application.class.getResource("/aws/step-input.json");
+		String input = jsonFileRead(inputFile);
+		StartExecutionRequest startExecutionRequest 
+		= new StartExecutionRequest()
+		.withInput(input)
+		.withStateMachineArn("arn:aws:states:us-east-1:5591:stateMachine:workshop-stepfunction").withSdkRequestTimeout(30000);
+		
+		StartExecutionResult executionResult = stepFunctionclient.startExecution(startExecutionRequest);
+```
+Test a code and check the result.
+
+<hr>
 
 ## Module-07 Add X-Ray
-ref : https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java.html
 
-### 1. Setup X-Ray daemon for local and server
-ref : https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html
+##### reference
+
+[X-Ray SDK](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java.html)
+
+##### 1. Setup X-Ray daemon for local and server
 The AWS X-Ray daemon is a software application that listens for traffic on UDP port 2000, gathers raw segment data, and relays it to the AWS X-Ray API. The daemon works in conjunction with the AWS X-Ray SDKs and must be running so that data sent by the SDKs can reach the X-Ray service. 
+[install X-Ray daemon](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html)
 
-#### 1.1 download daemon 
-#### 1.2 run daemon
+	1 download X-Ray dsaemon 
+	2 run daemon (if it is MacOS, then command like a below)
+	
+```
 /xray_mac -o -n us-east-1 & (for example)
-#### 1.3 check the 
+```
 
-#### 2.add packages in pom.xml
-x-ray packages
+##### 2. Add packages in pom.xml
 
-#### add code
-1. configuraiton file
-2. SQL
-3. add segment to CustomConfigListner
-4. add code to Client
-5. check X-Ray using Unit Test.
+```
+	<dependencyManagement>
+	  <dependencies>
+...		
+	    <!-- xray -->
+	    <dependency>
+	      <groupId>com.amazonaws</groupId>
+	      <artifactId>aws-xray-recorder-sdk-bom</artifactId>
+	      <version>1.3.1</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency>			        	    	    
+	  </dependencies>
+	</dependencyManagement> 
+	
+    <!-- AWS SDK xray -->        
+		<dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-xray-recorder-sdk-core</artifactId>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-xray-recorder-sdk-apache-http</artifactId>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-xray-recorder-sdk-aws-sdk</artifactId>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-xray-recorder-sdk-aws-sdk-instrumentor</artifactId>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-xray-recorder-sdk-sql-postgres</artifactId>
+	  </dependency>
+	  <dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-xray-recorder-sdk-sql-mysql</artifactId>
+	  </dependency>  	
+	
+```
+
+##### Add X-Ray configuration 
+[X-Ray Java configuration](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java-configuration.html)
+The X-Ray SDK for Java provides a class named AWSXRay that provides the global recorder, a TracingHandler that you can use to instrument your code. You can configure the global recorder to customize the AWSXRayServletFilter that creates segments for incoming HTTP calls.
+
+```
+@Configuration
+public class XRayConfig {
+  private static final Logger logger = LoggerFactory.getLogger(XRayConfig.class);
+
+  @Bean
+  public Filter TracingFilter() {
+    return new AWSXRayServletFilter("Workshop");
+  }
+
+  @Bean
+  public Filter SimpleCORSFilter() {
+    return new SimpleCORSFilter();
+  }
+
+  static {
+  	 System.out.println("\n##### Webconfig.java static AWSXRay ######################\n");
+    AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard().withPlugin(new EC2Plugin());
+
+    URL ruleFile = XRayConfig.class.getResource("/sampling-rules.json");
+    builder.withSamplingStrategy(new LocalizedSamplingStrategy(ruleFile));
+
+    AWSXRay.setGlobalRecorder(builder.build());
+  }
+}
+```
+
+##### 2. Add segment to CustomConfigListner
+Here is a tips for CustomConfigListner. 
+CustomConfigListner is called before executing XRayConfig, this means we need to embed codes CustomConfigListner for prevent from errors.
+
+```
+	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+		
+		AWSXRay.beginSegment("Workshop : Load ParameterStore");
+		
+		....
+		
+  		AWSXRay.endSegment();
+	}		
+		
+```
+
+##### 3. Configure X-Ray for SQL Queries
+Instrument SQL database queries by adding the X-Ray SDK for Java JDBC interceptor to your data source configuration.
+
+- PostgreSQL – com.amazonaws.xray.sql.postgres.TracingInterceptor
+- MySQL – com.amazonaws.xray.sql.mysql.TracingInterceptor
+
+So, change codes in CustomConfigListner
+
+```
+	props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
+	// for X-Ray
+	props.put("spring.mysql.datasource.jdbc-interceptors", "com.amazonaws.xray.sql.mysql.TracingInterceptor");   
+	environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
+```
+
+##### Add code in Client build
+To instrument individual clients, remove the aws-sdk-instrumentor submodule from your build and add an XRayClient as a TracingHandler on your AWS SDK client using the service's client builder. 
+
+```
+	AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
+		.standard()
+		.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))  // X-Ray
+		.withRegion(region)
+		.build();
+
+	AmazonTranslate translate = AmazonTranslateClientBuilder
+		.standard()
+		.withRegion(region)
+		.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder())) // X-Ray
+		.build();	  	         
+	  	         
+```
+ 
+##### 5. Channge UnitTest code
+To run unit tests, we need to add X-Ray Segment to generate segment to trace, for example.
+
+```
+public class MySqlTest {
+	
+	@Autowired
+	UserRepository repository;
+  
+	@Test
+	public void test () {
+		
+		AWSXRay.beginSegment("MySQLTest test"); 
+		
+		repository.deleteAll();
+		
+		...
+		
+    AWSXRay.endSegment();
+	}
+```
 
 
 
+
+
+<hr>
 
 ## Module-08 Create a docker and CI/CD for first Deployment on AWS
 
+<hr>
 
 ## Module-08 DevSecsOps
+Secure pushing to Github to prevent from pushin codes with access/secret key
+https://github.com/awslabs/git-secrets
+
+<hr>
 
 ## Module-09 Custom Metrics and CloudWath Logs for data analytics
 
