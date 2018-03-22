@@ -415,8 +415,9 @@ Create a Lambda project using AWS Eclipse plugin
 
 ![create a Lambda project](./images/module-05/01.png)
 
-	4. Upload function to "US-EAST-1" name as "My-Custom-Function"
-	5. Test this function in console 
+	4. Before uploading a Lambda function, you need to create a Role for your Lambda Function.
+	5. Upload function to "US-EAST-1" name as "My-Custom-Function" (choose a Role created step 4)
+	6. Test this function in console 
 	
 ![create a Lambda project](./images/module-05/02.png)
 
