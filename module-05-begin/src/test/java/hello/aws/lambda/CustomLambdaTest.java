@@ -22,7 +22,6 @@ import java.util.List;
 @SpringBootTest
 public class CustomLambdaTest {
 	
-	AWSCredentials credentials;
 	@Test
 	public void callCustomLamdba()
 	{
