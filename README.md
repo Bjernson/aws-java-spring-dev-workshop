@@ -856,10 +856,25 @@ public class MySqlTest {
 
 ## Module-08 Create a docker and CI/CD for first Deployment on AWS
 
+##### 1. Create a CodeStart project
+
+	1. Select a project template (Java, Webapplication with Spring in EC2)
+![Select a Template](./images/module-08/01.png)
+	
+	2. Select CodeCommit as a code repository 
+![Select CodeCommit](./images/module-08/02.png)	
+	
+	3. Choose your key pair
+	4. Choose Cloud9 to edit your code 
+![Select CodeCommit](./images/module-08/03.png)		
+
+	5. Select a instance type and launch the project
+	6. After creating the project, launch a Cloud9
+
 <hr>
 
 ## Module-08 DevSecsOps
-Secure pushing to Github to prevent from pushin codes with access/secret key
+Secure pushing to Github to prevent from pushing codes with access/secret key
 https://github.com/awslabs/git-secrets
 
 <hr>
