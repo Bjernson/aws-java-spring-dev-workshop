@@ -202,12 +202,12 @@ Complete the following tasks to configure application parameters for ParameterSt
 
 <hr>
 
-## Module 3 (time duration : 30 mins)
+## Module 3 : Using AWS services (time duration : 30 mins)
 From this module, we are beginning to develop application using AWS services.
 We will complete the following tasks.
 - Resize a file and save it to local folder
 - Upload a file to S3 using AWS SDK
-- Retrieve information from picture and Translate text using Amazon Translate
+- Retrieve information from picture using Amazon Rekognition and Translate text using Amazon Translate
 - Change database from Mysql to Aurora for Mysql 
 - Store a file meta data to DynamoDB
 
@@ -246,51 +246,218 @@ AmazonTranslate translate = AmazonTranslateClientBuilder
 - Check DynamoDBTest
 - Complete the tasks to implement the DDB logics in Unit Test (not logics)
 
+#### 5. Change the database from local MySQL to Aurora MySQL
+
+	1. Open the Amazon RDS console : https://console.aws.amazon.com/rds/home?region=us-east-1#
+	2. Select Aurora for MySQL 5.7 Database engine 
+	3. Create a DB instance configuring databasename, username, password.
+	
+![Parameter Store](./images/module-03/01.png)
+
+	4. Wait until Aurora for MySQL launching
+	5. Change parameter values in Parameter Store in EC2 to Aurora instance
 
 <hr>
 
-## Module-04 Using multiple repositories using Spring Data (time durations : 40 mins)
+## Module-04 : Using multiple repositories using Spring Data (time durations : 30 mins)
+In this module, we will learn how to configure the multiple repositories of Aurora and DynamoDB using Spring Data.
+- Create configuration files for DynamoDB and MySQL DB. 
+- Create Model classes for each database (User for MySQL, PhotoInfo for DynamoDB)
+- Create a model, repository packages and change Model and Repository package path to distinguish it in two repositories 
+- Change application.properties
+- Test 2 repositories with Unit Test codes
 
-### 1. Mission : add logics for file transferring and data retrieving from files. 
-1. if it is a picture, we will resize it to original and small size (2 size)
-2. will retrieve information from pi and mov, location information, transfer it to target language and send it to friends
+##### 1. Add Spring Data for Database
+We arg going to use Spring Data for DynamoDB 
 
+reference : [derjust's Github](https://github.com/derjust/spring-data-dynamodb)
+
+Add it to Pom.xml
+
+```
+    <!-- spring-data-dynamo-db -->
+    <dependency>
+        <groupId>com.github.derjust</groupId>
+        <artifactId>spring-data-dynamodb</artifactId>
+        <version>4.5.0</version>
+    </dependency> 
+		    
+```
+
+##### 2. Implement DB configuration classes
+We need to create configuration class for MySQL and DynamoDB to use each repository
+Here is MysqlDBConfig example.
+
+```
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+		entityManagerFactoryRef = "mysqlEntityManager", 
+		transactionManagerRef = "mysqlTransactionManager", 
+		basePackages = "hello.repository.mysql"
+)
+public class MysqlDBConfig {
+	
+	@Autowired
+	public ConfigurableEnvironment environment;
+	
+	/**
+	 * MySQL datasource definition.
+	 * 
+	 * @return datasource.
+	 */
+	@Bean
+	@ConfigurationProperties(prefix = "spring.mysql.datasource")
+	public DataSource mysqlDataSource() {
+		System.out.println("##### DataSource called");
+		DataSource ds = DataSourceBuilder.create().build();
+		System.out.println("##### DataSource url = " + environment.getProperty("spring.mysql.datasource.url").toString());
+		return ds ;
+	}
  
-- How to create local Lambda 
-- Unit test for Lambda in Eclipse
-- h
+	/**
+	 * Entity manager definition. 
+	 *  
+	 * @param builder an EntityManagerFactoryBuilder.
+	 * @return LocalContainerEntityManagerFactoryBean.
+	 */
+	@Bean(name = "mysqlEntityManager")
+	public LocalContainerEntityManagerFactoryBean mysqlEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+		return builder
+					.dataSource(mysqlDataSource())
+					.properties(hibernateProperties())
+					.packages(User.class)
+					.persistenceUnit("mysqlPU")
+					.build();
+	}
+ 
+	/**
+	 * @param entityManagerFactory
+	 * @return
+	 */
+	@Bean(name = "mysqlTransactionManager")
+	public PlatformTransactionManager mysqlTransactionManager(@Qualifier("mysqlEntityManager") EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
+	}
+ 
+	private Map<String, Object> hibernateProperties() {
+ 
+		Resource resource = new ClassPathResource("hibernate.properties");
+		try {
+			Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+			return properties.entrySet().stream()
+											.collect(Collectors.toMap(
+														e -> e.getKey().toString(),
+														e -> e.getValue())
+													);
+		} catch (IOException e) {
+			return new HashMap<String, Object>();
+		}
+	}
 
+```
+Change **spring.datasource** properties to **spring.mysql.datasource** in CustomConfigListner.java
 
+```
+    ConfigurableEnvironment environment = event.getEnvironment();
+    Properties props = new Properties();
+    props.put("spring.mysql.jpa.hibernate.ddl-auto", "update");
+    props.put("spring.mysql.datasource.url", url);
+    props.put("spring.mysql.datasource.username", username);
+    props.put("spring.mysql.datasource.password", password);
+    props.put("spring.mysql.datasource.driver-class-name", "com.mysql.jdbc.Driver");
+    environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
 
-### Spring Cloud
-https://cloud.spring.io/spring-cloud-aws/
-Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
+```
+These new application properties will be used in this module.
 
+##### 3 Separate Model classes into different package.
+hello.model.mysql.User
+hello.model.ddb.PhotoInfo
 
-### 5. Using System Manager for configuration
-- connect to S3
-- connect to DynamoDB
+##### 4. Create a test code
+Create PhotoInfoTest in hello.repository(test)
 
+```
+  @Autowired
+  PhotoInfoRepository repository;
+  
+  @Test
+  public void sampleTestCase() {
+	  repository.deleteAll();
+	  PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
+	  repository.save(p);
+    
+    List<PhotoInfo> result2 = (List<PhotoInfo>) repository.findAll(); 
+    
+    assertTrue("Not empty", result2.size() > 0);
+  }
+```
 
-## Module-05 Change Logics to Lambda (time durations : 40 mins)  
+<hr>
+
+##  Module-05 : Change Logics to Lambda (time durations : 40 mins)  
 This module requires a knowledge session for StepFunction service.
-### Start from module-04
-### 1.Create a Lambda project - CustomEvent
-- create a Lambda project using AWS Eclipse plugin
-- select "Custom Event"
-- see the "CustomLambda" project
-- upload function to "US-EAST-1" name as "My-Custom-Function"
+Start from module-05-begin
+
+##### reference
+[Invoking AWS Lambda Functions from Java](https://aws.amazon.com/blogs/developer/invoking-aws-lambda-functions-from-java/)
+
+
+##### 1. Create a first Lambda project
+Create a Lambda project using AWS Eclipse plugin
+	
+	1. Open AWS Explorer in your Eclipse
+	2. Right click on AWS Lambda and create a new Lambda Project "module-05-lambda-custom"
+	3. Select "Custom Event" and create a project
+	4. Upload function to "US-EAST-1" name as "My-Custom-Function"
+	5. Test this function in console 
+![create a Lambda project](./images/module-05/01.png)
+
+##### 2. Create a Lambda Invoking Classes
+To invoke this function from Java code, we’ll first define POJOs representing the input and output JSON
+CustomEventInput.java and CustomEventOutput.java
+You must implement a constructor in CustomEventOutput
+
+```
+public class CustomEventInput {
+    private List<Integer> values;
+    public List<Integer> getValues() {
+        return values;
+    }
+    public void setValues(List<Integer> values) {
+        this.values = values;
+    }
+}
+
+public class CustomEventOutput {
+	public CustomEventOutput()  // must 
+	{}
+    private Integer value;
+    public CustomEventOutput(int value) {
+        setValue(value);
+    }
+    public Integer getValue() {
+        return value;
+    }
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+    
+```
+
 
 ### 2. implement 3 lambda functions.
 - retrieve information from images
 - translate text
 - save text to DDB
 
-#### 2.1 reference for Lambda 
+ reference for Lambda 
 dynamodb putitemrequest : https://github.com/aws-samples/aws-dynamodb-examples/blob/master/src/main/java/com/amazonaws/codesamples/lowlevel/LowLevelItemCRUDExample.java
 
 
-## module-06. Create StepFunction and use a stepfucntion in your application
+
+## module-06 : Create StepFunction and use a stepfucntion in your application
 This module requires a knowledge session for StepFunction service.
  
 ### 1. Create a StepFunction using CloudFormation
@@ -333,6 +500,11 @@ x-ray packages
 
 ## Module-09 Custom Metrics and CloudWath Logs for data analytics
 
+
+
+### Spring Cloud
+https://cloud.spring.io/spring-cloud-aws/
+Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
 
 ## git examples
 

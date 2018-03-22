@@ -121,16 +121,9 @@ public class PhotoInfoTest {
 	  PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
 	  repository.save(p);
     
-
-//    List<PhotoInfo> result = (List<PhotoInfo>) repository.findById("0e4daaec-7923-4f32-9ebe-3265641c30cb");
-//    assertTrue(result.size() > 0);
-
-//    List<PhotoInfo> result = (List<PhotoInfo>) repository.findByPrefix("a.jpeg");
     List<PhotoInfo> result2 = (List<PhotoInfo>) repository.findAll(); 
     
     assertTrue("Not empty", result2.size() > 0);
-//      assertTrue("Contains item with expected cost", 
-//        result.get(0).getPrefix().equals("a.jepg"));
   }
 
 }
