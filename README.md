@@ -863,7 +863,7 @@ public class MySqlTest {
 
 ## Module-08 Create a docker and CI/CD for first Deployment on AWS
 
-##### 1. Create a CodeStart project
+##### 1. Create a CodeStart project name as "workshop-java"
 
 	1. Select a project template (Java, Webapplication with Spring in EC2)
 ![Select a Template](./images/module-08/01.png)
@@ -963,18 +963,31 @@ mvn -f pom.xml package
 ##### 5. Create a new pom file for your application.
 Firstly, we will use module-04 source code for the created CI/CD.
 
-	1. create a new POM file name as "pom-workshop.xml" 
-	2. merge the pom file in module-04 into workshop-java project you fetched from CodeCommit
-	3. delete all source codes in "workshop-java" project and copy all source codes from module-04 to "workshop-java" project
-	4. run follwing commands again and check the output in target folder
+	1. rename pom.xml as pom-backup.xml
+	2. create a new POM file name as "pom.xml" 
+	3. merge the pom file in module-04 into workshop-java project you fetched from CodeCommit
+	4. delete all source codes in "workshop-java" project and copy all source codes from module-04 to "workshop-java" project
+	5. run follwing commands again and check the output in target folder
 
 ```
 mvn -f pom.xml compile
 mvn -f
 ```
-	5. if you get a compilation errors in your project, please check the Java compiler version and change compiler version in your applicaiton
+	6. run Application.java and check the result of UnitTest.
+	7. if you get a compilation errors in your project, please check the Java compiler version and change compiler version in your applicaiton
 	
-	
+##### 6. commit source codes into CodeCommit
+	1. commit source codes in "workshop-java" project into CodeCommit.
+
+```
+git add .
+git commit -m "add first module-04"
+git push 
+
+```
+![AWS CodeStar](./images/module-08/07.png)	
+
+
 <hr>
 
 
