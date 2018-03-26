@@ -5,7 +5,7 @@
 
 ## 0. Preparation
 ##### 1. Install all required SDK, packages in your dev environment
-- Java SDK 8, git client
+- Java SDK 8, Git client, Maven (3.5.3)
 - Eclipse Oxygen 2
 - AWS plugin for Eclipse 
 - AWS CLI in your development environment
@@ -104,6 +104,10 @@ curl 'localhost:8080/workshop/all'
 Please check this blog for creating a spring boot project from scratch using Maven. 
 [add later]
 
+##### run maven
+```
+mvn package && java -jar target/module-01-0.1.0.jar
+```
 
 <hr>
 
@@ -256,6 +260,9 @@ AmazonTranslate translate = AmazonTranslateClientBuilder
 
 	4. Wait until Aurora for MySQL launching
 	5. Change parameter values in Parameter Store in EC2 to Aurora instance
+
+#### 6. Test a service
+Test a IntegratedTransTest.java and Implement a IntegratedTrans.java
 
 <hr>
 
@@ -873,8 +880,103 @@ public class MySqlTest {
 	
 ![Select CodeCommit](./images/module-08/04.png)		
 
+##### 2. Open Cloud9 and configure the dev environtment
+	1. Open a Cloud9 IDE and check it's first application in folder
+![Cloud9](./images/module-08/05.png)	
 
+	2. check java --version
+	3. upgrade java version to 1.8
+	
+
+```
+sudo yum list available java\*      # check avaiable java version
+sudo yum install java-1.8.0 java-1.8.0-openjdk-devel        # install 1.8 java and javac
+sudo yum remove java-1.7.0-openjdk  # remove 1.7
+java -version											# check java version
+```
+	4. update JAVA_HOME in the environment variable in .bashrc
+
+
+```
+vi ~/.bashrc
+### add follwing content
+export JAVA_HOME=/usr/
+```
+	
+	4. Install Maven
+
+```
+$ cd /usr/local
+$ sudo wget http://www-eu.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+$ sudo tar xzf apache-maven-3.5.3-bin.tar.gz
+$ sudo ln -s apache-maven-3.5.3  maven
+
+$ sudo vi /etc/profile.d/maven.sh
+
+# add following content.
+export M2_HOME=/usr/local/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+# load the environment variables in current shell using following command.
+source /etc/profile.d/maven.sh
+
+# check the loaded environment variables  
+echo $PATH             
+```
+
+##### 3. first fetching source codes from CodeComnit
+	1. Perform tasks following the instruction in CodeCommit for the first application
+	2. Run following command
+
+	mvn -f pom.xml compile
+	mvn -f pom.xml package
+	
+	3. If you want to run this application, then copy the built application to the Tomcat webapp directory that you configured in your local machine or ec2 instance on AWS
+	
+##### 4. download this first application on your local Eclipse IDE
+	1. open CodeCommit and copy Clone URL
+	2. fetch source codes.
+	3. if you don't have a CodeCommit username and password, please refer this documentation :
+	https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html
+	4. import this project to your Eclipse IDE
+	5. Run follwing commands
+
+```
+mvn -f pom.xml compile
+mvn -f pom.xml package
+```
+		
+	6. if you got a following errors,
+	
+	7. add following content in pom.xml
+	<properties>
+		...
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	8. check the result of compilation
+	
+![Eclipse Java Compiler](./images/module-08/06.png)	
+
+
+
+##### 5. Create a new pom file for your application.
+Firstly, we will use module-04 source code for the created CI/CD.
+
+	1. create a new POM file name as "pom-workshop.xml" 
+	2. merge the pom file in module-04 into workshop-java project you fetched from CodeCommit
+	3. delete all source codes in "workshop-java" project and copy all source codes from module-04 to "workshop-java" project
+	4. run follwing commands again and check the output in target folder
+
+```
+mvn -f pom.xml compile
+mvn -f
+```
+	5. if you get a compilation errors in your project, please check the Java compiler version and change compiler version in your applicaiton
+	
+	
 <hr>
+
 
 ## Module-08 DevSecsOps
 Secure pushing to Github to prevent from pushing codes with access/secret key

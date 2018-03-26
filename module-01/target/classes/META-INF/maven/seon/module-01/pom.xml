@@ -15,35 +15,51 @@
   
 
     <dependencies>
-        <!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>    
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-			  <!-- thymeleaf-->  
-			  <dependency>
-			    <groupId>org.springframework.boot</groupId>
-			    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-			  </dependency>     
-		    <dependency>
-		      <groupId>org.webjars</groupId>
-		      <artifactId>bootstrap</artifactId>
-		      <version>3.3.7-1</version>
-		    </dependency>			    		     
-        <!-- Use MySQL Connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>     
+    		<!-- add JAX-B to prevent No Class Found : JABXExeption -->
+			<dependency>
+			    <groupId>javax.xml.bind</groupId>
+			    <artifactId>jaxb-api</artifactId>
+			    <version>2.2.11</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.sun.xml.bind</groupId>
+			    <artifactId>jaxb-core</artifactId>
+			    <version>2.2.11</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.sun.xml.bind</groupId>
+			    <artifactId>jaxb-impl</artifactId>
+			    <version>2.2.11</version>
+			</dependency>    		
+       <!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-data-jpa</artifactId>
+       </dependency>    
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-web</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-test</artifactId>
+           <scope>test</scope>
+       </dependency>
+		  <!-- thymeleaf-->  
+		  <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		  </dependency>     
+	    <dependency>
+	      <groupId>org.webjars</groupId>
+	      <artifactId>bootstrap</artifactId>
+	      <version>3.3.7-1</version>
+	    </dependency>			    		     
+       <!-- Use MySQL Connector -->
+       <dependency>
+           <groupId>mysql</groupId>
+           <artifactId>mysql-connector-java</artifactId>
+       </dependency>     
     </dependencies>
 
     <properties>
