@@ -1,8 +1,5 @@
 package hello.logics;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +31,7 @@ public class IntegratedTrans {
 		//retrieve information
 		AWSAIServices ai = new AWSAIServices();
 		List<Label> labels = ai.retrieveInformation(bucket, photoPath, region);
-		
-		assertNotNull(labels);
-		assertTrue(labels.size() > 0);
+
 		
 		System.out.println("Detected labels for " + photoPath);
 		StringBuilder words = new StringBuilder();

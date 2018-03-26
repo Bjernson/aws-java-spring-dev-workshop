@@ -1,7 +1,5 @@
 package hello;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Properties;
 
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;

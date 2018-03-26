@@ -974,7 +974,7 @@ mvn -f pom.xml compile
 mvn -f
 ```
 	6. run Application.java and check the result of UnitTest.
-	7. if you get a compilation errors in your project, please check the Java compiler version and change compiler version in your applicaiton
+	7. if you get a compilation errors in your project, please check the Java compiler version and JRE, change compiler version and JRE in your application (1.8)
 	
 ##### 6. commit source codes into CodeCommit
 	1. commit source codes in "workshop-java" project into CodeCommit.
