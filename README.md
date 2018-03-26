@@ -108,6 +108,11 @@ Please check this blog for creating a spring boot project from scratch using Mav
 ```
 mvn package && java -jar target/module-01-0.1.0.jar
 ```
+without unit test
+
+```
+mvn package -Dmaven.test.skip=true
+```
 
 <hr>
 
@@ -927,6 +932,8 @@ source /etc/profile.d/maven.sh
 # check the loaded environment variables  
 echo $PATH             
 ```
+##### 3. Update the instance of Deployment
+	1. upgrate Java to 1.8 in the instance of CodeDeploy
 
 ##### 3. first fetching source codes from CodeComnit
 	1. Perform tasks following the instruction in CodeCommit for the first application
@@ -971,14 +978,36 @@ Firstly, we will use module-04 source code for the created CI/CD.
 	2. create a new POM file name as "pom.xml" 
 	3. merge the pom file in module-04 into workshop-java project you fetched from CodeCommit
 	4. delete all source codes in "workshop-java" project and copy all source codes from module-04 to "workshop-java" project
-	5. run follwing commands again and check the output in target folder
+	5. run Application.java and check the result of UnitTest.
+	6. if you get a compilation errors in your project, please check the Java compiler version and JRE, change compiler version and JRE in your application (1.8)
+	
+##### 6. Change appspecc.xml, buildspec.xml and scripts	
+	1. Change appsecc.xml, buildspec.xml and scripts	
+appspec.xml
 
 ```
-mvn -f pom.xml compile
-mvn -f
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn package -Dmaven.test.skip=true
+      
 ```
-	6. run Application.java and check the result of UnitTest.
-	7. if you get a compilation errors in your project, please check the Java compiler version and JRE, change compiler version and JRE in your application (1.8)
+
+	2. script/start_server.sh
+
+```
+#!/bin/bash
+cd /home/ec2-user/javaapp
+java -jar ROOT.jar 
+```
+
+	3. run follwing commands again and check the output in target folder
+
+```
+mvn package
+java -jar target/ROOT.jar
+```
+
 	
 ##### 6. commit source codes into CodeCommit
 	1. commit source codes in "workshop-java" project into CodeCommit.
@@ -989,12 +1018,14 @@ git commit -m "add first module-04"
 git push 
 
 ```
+
+
 ![AWS CodeStar](./images/module-08/07.png)	
 
 
-<hr>
 
 <hr>
+
 
 ### 2. CI/CD with Lambda using SAM
 [Module-07 or Module-08 is able to contain this steps in each module]

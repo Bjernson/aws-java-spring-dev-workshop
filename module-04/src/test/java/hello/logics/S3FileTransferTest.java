@@ -36,11 +36,11 @@ public class S3FileTransferTest {
     result.forEach( (names)->System.out.println("## prefix = " + names) ); 
 	}
 	
-	@Test
-	public void testPut()
-	{
-		S3FileTransfer ft = new S3FileTransfer();
-		ft.put(bucket, "a.jpeg", new File("/Users/seonpark/Documents/Development-2018/workspace/hello/temp/a.jpeg"), region);;
-	}
+//	@Test
+//	public void testPut()
+//	{
+//		S3FileTransfer ft = new S3FileTransfer();
+//		ft.put(bucket, "a.jpeg", new File("/Users/seonpark/Documents/Development-2018/workspace/hello/temp/a.jpeg"), region);;
+//	}
 
 }
