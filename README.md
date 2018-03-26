@@ -863,6 +863,10 @@ public class MySqlTest {
 
 ## Module-08 Create a docker and CI/CD for first Deployment on AWS
 
+<hr>
+
+### 1. First CI/CD using CodeStart without Lambda
+
 ##### 1. Create a CodeStart project name as "workshop-java"
 
 	1. Select a project template (Java, Webapplication with Spring in EC2)
@@ -990,6 +994,16 @@ git push
 
 <hr>
 
+<hr>
+
+### 2. CI/CD with Lambda using SAM
+[Module-07 or Module-08 is able to contain this steps in each module]
+
+##### 1. create a jar in your Eclipse
+refer :https://docs.aws.amazon.com/lambda/latest/dg/java-create-jar-pkg-maven-no-ide.html
+
+
+<hr>
 
 ## Module-08 DevSecsOps
 Secure pushing to Github to prevent from pushing codes with access/secret key
