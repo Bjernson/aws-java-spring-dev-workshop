@@ -1021,8 +1021,22 @@ git push
 
 
 ![AWS CodeStar](./images/module-08/07.png)	
+##### 7. Change Credentials
+You will probablly get a error message in CodeDeploy.
 
+```
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'photoInfoRepository': Cannot resolve reference to bean 'amazonDynamoDB' while setting bean property 'amazonDynamoDB'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'amazonDynamoDB' defined in class path resource [hello/config/DynamoDBConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.amazonaws.services.dynamodbv2.AmazonDynamoDB]: Factory method 'amazonDynamoDB' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'amazonAWSCredentials' defined in class path resource [hello/config/DynamoDBConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.amazonaws.auth.AWSCredentials]: Factory method 'amazonAWSCredentials' threw exception; nested exception is com.amazonaws.AmazonClientException: Cannot load the credentials from the credential profiles file. Please make sure that your credentials file is at the correct location (/Users/userid/.aws/credentials), and is in a valid format.
 
+```
+This is because of a credentials, please check below documentation and fix the source code in DynamoDBConfig
+
+```
+public AmazonDynamoDB amazonDynamoDB() {
+    AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
+       .build();
+    return amazonDynamoDB;
+}
+```
 
 <hr>
 
@@ -1034,15 +1048,19 @@ git push
 refer :https://docs.aws.amazon.com/lambda/latest/dg/java-create-jar-pkg-maven-no-ide.html
 
 
+
+####
+refer : https://stelligent.com/2017/03/09/using-parameter-store-with-aws-codepipeline/
+
 <hr>
 
-## Module-08 DevSecsOps
+## Module-09 DevSecsOps
 Secure pushing to Github to prevent from pushing codes with access/secret key
 https://github.com/awslabs/git-secrets
 
 <hr>
 
-## Module-09 Custom Metrics and CloudWath Logs for data analytics
+## Module-10 Custom Metrics and CloudWath Logs for data analytics
 
 
 
