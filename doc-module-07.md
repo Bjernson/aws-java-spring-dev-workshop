@@ -265,10 +265,10 @@ public void callTranslateLamdba()
 ```
 - If you pass the unit test, then build all other Lambda projects and upload jar file to S3 bucket.
  
-##### 4. pakckage your codes to zip using a SAM file for Lamdba (optional)
+##### 4. Packaging your codes to zip using a SAM file for Lamdba (optional)
 - Refer cfn-package-sam.yaml in scripts folder
 - When you create a package for Java, all necesary files should be in your working directory, for example, complied classes and libraries. 
-- If you want a Jar file you created in Lamdba project, then skip this step and goto step 5.
+- If you want to use a Jar file you created in Lamdba project, then skip this step and goto step 5.
 
  
 - SAM for translate Lambda function
@@ -302,12 +302,36 @@ aws cloudformation package --template-file lambda-translate.yaml --output-templa
 - check serverless-output.yaml
 
 
-##### 5. deploy your codes to zip using a SAM file for Lamdba (optional)
-- generate cloudformation template for lambda and edit it
+##### 5. Deploy your codes to zip using a SAM file for Lambda (optional)
+
 - Create a SAM file for each Lamdba function. (You need to change a function name to check a creating new Lamdba function through SAM.
 - Refer : 
 https://docs.aws.amazon.com/lambda/latest/dg/serverless-deploy-wt.html
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html
+
+**translate-lambda-sam.yaml**
+
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  ServelessFunction:
+    Properties:
+      CodeUri: s3://seon-virginia-01/module-07-lamdba-translate-1.0.0.jar
+      Environment:
+        Variables:
+          S3_BUCKET: s3://seon-virginia-01
+      FunctionName: workshop-translate
+      Handler: com.amazonaws.lambda.LambdaTranslateHandler::handleRequest
+      MemorySize: 1024
+      Role: arn:aws:iam::550622896891:role/Alexa-DevOps-Role
+      Runtime: java8
+      Tags:
+        ContactTag: Me
+      Timeout: 30
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
+
+```
 
 - run command
 
@@ -320,7 +344,7 @@ Waiting for stack create/update to complete
 Successfully created/updated stack - test-translate
 ```
 
-- Check it in Cloudformatin console
+- Check the result in Cloudformatin console
 - Check a created Lambda function in console
 - Test a function (workshop-translate) using follwing input
 
@@ -333,7 +357,7 @@ Successfully created/updated stack - test-translate
 ```
 - Run a Unit test
 
-##### 6. Implements all
+##### 6. Implement all
 	1. Implement all other SAM file for Lambda function 
 	2. Deploy Lambda functions using aws cli
 	3. Run a unit test 
