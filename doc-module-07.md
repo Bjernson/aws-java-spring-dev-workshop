@@ -316,7 +316,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   ServelessFunction:
     Properties:
-      CodeUri: s3://seon-virginia-01/module-07-lamdba-translate-1.0.0.jar
+      CodeUri: s3://<your bucket>/module-07-lamdba-translate-1.0.0.jar
       Environment:
         Variables:
           S3_BUCKET: s3://seon-virginia-01
