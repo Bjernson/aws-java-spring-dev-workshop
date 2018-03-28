@@ -33,16 +33,16 @@ public class IntegratedTransTest {
 	@Autowired
 	IntegratedTrans tr;
 	
-	@Test
-	public void testRetrieveAndSave()
-	{
-		AWSXRay.beginSegment("Workshop:logics RetrieveAndSave"); 
-		repository.deleteAll();
-		tr.RetrieveAndSave(bucket, photoPath, region);
-		String photoPrefix = bucket + "/" + photoPath;
-		List<PhotoInfo> list = (List<PhotoInfo>) repository.findAll();
-		assertTrue(list.size() > 0);
-		AWSXRay.endSegment(); 
-	}
+//	@Test
+//	public void testRetrieveAndSave()
+//	{
+//		AWSXRay.beginSegment("Workshop:logics RetrieveAndSave"); 
+//		repository.deleteAll();
+//		tr.RetrieveAndSave(bucket, photoPath, region);
+//		String photoPrefix = bucket + "/" + photoPath;
+//		List<PhotoInfo> list = (List<PhotoInfo>) repository.findAll();
+//		assertTrue(list.size() > 0);
+//		AWSXRay.endSegment(); 
+//	}
 
 }

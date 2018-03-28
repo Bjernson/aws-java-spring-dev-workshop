@@ -26,15 +26,15 @@ public class MainControllerIT {
     @Autowired
     private TestRestTemplate template;
 
-    @Before
-    public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/workshop/all");
-    }
-
-    @Test
-    public void getAll() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
-        assertThat(response.getBody(), containsString("[{\\\"id\\\":1,\\\"name\\\":\\\"First\\\",\\\"email\\\":\\\"ex1@gmail.com\\\"}]\""));
-    }
+//    @Before
+//    public void setUp() throws Exception {
+//        this.base = new URL("http://localhost:" + port + "/workshop/all");
+//    }
+//
+//    @Test
+//    public void getAll() throws Exception {
+//        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+//        assertThat(response.getBody(), containsString("[{\\\"id\\\":1,\\\"name\\\":\\\"First\\\",\\\"email\\\":\\\"ex1@gmail.com\\\"}]\""));
+//    }
 
 }

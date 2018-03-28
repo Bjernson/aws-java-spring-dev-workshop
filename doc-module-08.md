@@ -176,9 +176,7 @@ public AmazonDynamoDB amazonDynamoDB() {
 ### 2. CI/CD with Lambda using SAM
 [Module-07 or Module-08 is able to contain this steps in each module]
 
-##### 1. create a jar in your Eclipse
-refer :https://docs.aws.amazon.com/lambda/latest/dg/java-create-jar-pkg-maven-no-ide.html
-
+#### 1. Add CodeBuild for Lambda project
 
 
 ####

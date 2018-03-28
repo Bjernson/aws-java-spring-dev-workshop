@@ -26,23 +26,23 @@ public class MainControllerTest {
     @Autowired
     private MockMvc mvc;
     
-    @Test
-    public void getDeleteAll() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/workshop/deleteall").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("OK")));
-    } 
-       
- 
-    
-    @Test
-    public void addGetAll() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/workshop/add?name=First&email=ex1@gmail.com").accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(content().string(equalTo("Saved")));
-        
-        mvc.perform(MockMvcRequestBuilders.get("/workshop/all").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("[{\"id\":1,\"name\":\"First\",\"email\":\"ex1@gmail.com\"}]")));
-    }
+//    @Test
+//    public void getDeleteAll() throws Exception {
+//        mvc.perform(MockMvcRequestBuilders.get("/workshop/deleteall").accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string(equalTo("OK")));
+//    } 
+//       
+// 
+//    
+//    @Test
+//    public void addGetAll() throws Exception {
+//        mvc.perform(MockMvcRequestBuilders.get("/workshop/add?name=First&email=ex1@gmail.com").accept(MediaType.APPLICATION_JSON))
+//        .andExpect(status().isOk())
+//        .andExpect(content().string(equalTo("Saved")));
+//        
+//        mvc.perform(MockMvcRequestBuilders.get("/workshop/all").accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string(containsString("[{\"id\":1,\"name\":\"First\",\"email\":\"ex1@gmail.com\"}]")));
+//    }
 }

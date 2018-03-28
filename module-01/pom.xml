@@ -15,7 +15,7 @@
   
 
     <dependencies>
-    		<!-- add JAX-B to prevent No Class Found : JABXExeption -->
+    	<!-- add JAX-B to prevent No Class Found : JABXExeption -->
 			<dependency>
 			    <groupId>javax.xml.bind</groupId>
 			    <artifactId>jaxb-api</artifactId>

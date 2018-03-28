@@ -1,14 +1,16 @@
-## Module-07 Add X-Ray
+## Module-07 Add X-Ray and Lamdba SAM
 
 ##### reference
 
 [X-Ray SDK](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java.html)
 
+### 1. Add X-Ray
+
 ##### 1. Setup X-Ray daemon for local and server
 The AWS X-Ray daemon is a software application that listens for traffic on UDP port 2000, gathers raw segment data, and relays it to the AWS X-Ray API. The daemon works in conjunction with the AWS X-Ray SDKs and must be running so that data sent by the SDKs can reach the X-Ray service. 
 [install X-Ray daemon](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html)
 
-	1 download X-Ray dsaemon 
+	1 download X-Ray daemon 
 	2 run daemon (if it is MacOS, then command like a below)
 	
 ```
@@ -161,3 +163,179 @@ public class MySqlTest {
     AWSXRay.endSegment();
 	}
 ```
+
+### 2. SAM for Lambda
+##### 1. Create a jar for Lambda in your Eclipse
+
+- You need to change Lamdba projects to create *.jar package, split previous Lambda project into 3 individual Lambda project to create **jar** file to upload into S3
+
+- Create module-08-lamdba-dynamodb, module-08-lamdba-rekognition, module-08-lamdba-translate
+- Copy each handler class and model class to com.maazonaws.lambda and com.maazonaws.lambda.io
+- Minimize Unit Test class
+- Change pom.xml to generate Jar file(not war)
+
+```
+<groupId>seon</groupId>
+<artifactId>module-07-lamdba-dynamodb</artifactId>
+<version>1.0.0</version>
+<packaging>jar</packaging>
+
+... 
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-shade-plugin</artifactId>
+      <version>2.3</version>
+      <configuration>
+        <createDependencyReducedPom>false</createDependencyReducedPom>
+      </configuration>
+      <executions>
+        <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>shade</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+
+```
+
+- Run Maven building command
+
+```
+mvn clean compile test package
+```
+
+- Check output jar file in "target" folder
+
+```
+ls -al target
+```
+##### 2. Upload Jar file to S3 bucket
+for example, if you created a Lambda for translate, then you can upload "module-07-lamdba-translate-1.0.0.jar" into S3 bucket using following AWS CLI command
+
+```
+cd target
+aws s3 cp module-07-lamdba-translate-1.0.0.jar s3://<your bucket prefix>/module-07-lamdba-translate-1.0.0.jar --region us-east-1
+```
+
+
+##### 3. Create a test Lambda for this jar file
+We create a Lambda function in module-06 and are able to update this function.
+
+- Open a Lambda console
+- Open the Lamdba function for translate
+- Specify handler as "com.amazonaws.lambda.LambdaTranslateHandler::handleRequest"
+- Specify S3 file path you uploaded in previous step.
+
+![Test Lambda](./images/module-07/01.png)	
+
+- Save a Lambda fuction
+- Run a test code
+
+```
+@Test
+public void callTranslateLamdba()
+{
+	
+	AWSXRay.beginSegment("callTranslateLamdba test"); 
+	
+	final MyLambdaServices myService = LambdaInvokerFactory.builder()
+	 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
+	 		 .build(MyLambdaServices.class);
+	 
+	StepEventInput input = new StepEventInput();
+	
+	input.setText("Hello");
+	input.setSourceLangCode("en");
+	input.setTargetLangCode("es");
+	 
+	StepEventOutput output = myService.myTranslateFunc(input);  
+	assertEquals(output.getTranslated(), "Hola.");
+	
+  
+  AWSXRay.endSegment();	 
+}	
+
+```
+- If you pass the unit test, then build all other Lambda projects and upload jar file to S3 bucket.
+ 
+##### 4. pakckage your codes to zip using a SAM file for Lamdba (optional)
+- Refer cfn-package-sam.yaml in scripts folder
+- When you create a package for Java, all necesary files should be in your working directory, for example, complied classes and libraries. 
+- If you want a Jar file you created in Lamdba project, then skip this step and goto step 5.
+
+ 
+- SAM for translate Lambda function
+
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  ServelessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.amazonaws.lambda.LambdaTranslateHandler::handleRequest
+      Runtime: java8
+      FunctionName: workshop-translate
+      Role : arn:aws:iam::550622896891:role/<your role>
+      MemorySize : 1024
+      Timeout : 30   
+      Environment:
+        Variables: 
+          S3_BUCKET: s3://seon-virginia-01
+      Tags:
+        ContactTag: Me            
+          
+
+```
+
+```
+aws cloudformation package --template-file lambda-translate.yaml --output-template-file serverless-output.yaml --s3-bucket seon-virginia-01
+```
+
+- check serverless-output.yaml
+
+
+##### 5. deploy your codes to zip using a SAM file for Lamdba (optional)
+- generate cloudformation template for lambda and edit it
+- Create a SAM file for each Lamdba function. (You need to change a function name to check a creating new Lamdba function through SAM.
+- Refer : 
+https://docs.aws.amazon.com/lambda/latest/dg/serverless-deploy-wt.html
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html
+
+- run command
+
+```
+aws cloudformation deploy --template-file <your path>/translate-lambda-sam.yaml --stack-name <YOUR STACK NAME> 
+
+
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+Successfully created/updated stack - test-translate
+```
+
+- Check it in Cloudformatin console
+- Check a created Lambda function in console
+- Test a function (workshop-translate) using follwing input
+
+```
+{
+    "text":"hello world", 
+    "sourceLangCode":"en", 
+    "targetLangCode":"es"
+}
+```
+- Run a Unit test
+
+##### 6. Implements all
+	1. Implement all other SAM file for Lambda function 
+	2. Deploy Lambda functions using aws cli
+	3. Run a unit test 
+
+

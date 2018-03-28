@@ -13,9 +13,13 @@ public interface MyLambdaServices {
 	
 	@LambdaFunction(functionName="MyFunction-workshop-dynamodb")
 	StepEventOutput myDynamoDBFunc(StepEventInput input);	
+
 	@LambdaFunction(functionName="MyFunction-workshop-rekognition")
 	StepEventOutput myRekognitionFunc(StepEventInput input);
-	@LambdaFunction(functionName="MyFunction-workshop-translate")
+
+//	@LambdaFunction(functionName="MyFunction-workshop-translate")
+	@LambdaFunction(functionName="workshop-translate")
 	StepEventOutput myTranslateFunc(StepEventInput input);	
-	
+		
 }
+

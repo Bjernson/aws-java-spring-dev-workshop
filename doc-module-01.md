@@ -92,8 +92,35 @@ Please check this blog for creating a spring boot project from scratch using Mav
 ```
 mvn package && java -jar target/module-01-0.1.0.jar
 ```
+for test
+
+```
+mvn clean comple test
+```
+
 without unit test
 
 ```
 mvn package -Dmaven.test.skip=true
 ```
+
+if you get a error related to "JABXExeption", then add following content in your pom.xml
+
+```
+<!-- add JAX-B to prevent No Class Found : JABXExeption -->
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.2.11</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-core</artifactId>
+    <version>2.2.11</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-impl</artifactId>
+    <version>2.2.11</version>
+</dependency>    		
+```			 
