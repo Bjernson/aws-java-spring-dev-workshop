@@ -18,7 +18,7 @@ public interface MyLambdaServices {
 	StepEventOutput myRekognitionFunc(StepEventInput input);
 
 //	@LambdaFunction(functionName="MyFunction-workshop-translate")
-	@LambdaFunction(functionName="workshop-translate")
+	@LambdaFunction(functionName="workshop-translate-codestar")
 	StepEventOutput myTranslateFunc(StepEventInput input);	
 		
 }

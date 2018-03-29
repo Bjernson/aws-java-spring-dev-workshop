@@ -4,7 +4,6 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 - Deploying Lambda in CI/CD
 - Create a docker for your application and deploy through CI/CD
 
-
 <hr>
 
 ### 1. First CI/CD using CodeStart without Lambda
@@ -179,11 +178,140 @@ public AmazonDynamoDB amazonDynamoDB() {
 
 
 ### 2. CI/CD with Lambda using SAM
-[Module-07 or Module-08 is able to contain this steps in each module]
+refer : https://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html
 
-#### 1. Add CodeBuild for Lambda project
+##### 1. Create CodeStar project for Lambda project
 
+	1. create a CodeStar project using tempalte
+	2. Choose Java and web service (Lambda) 
 
-####
+![project template](./images/module-08/08.png)	
+
+	3. select Eclipse for your editor
+	
+![project template](./images/module-08/09.png)
+
+	4. Import the created Codestar project into Eclipse
+![project template](./images/module-08/10.png)
+![project template](./images/module-08/11.png)
+
+##### 2. Change the codestar project	
+This template project will create API with Get/Post and 2 Lambda functions for Get/Post
+We will not create API, just will use module-07-lambda-translate, so change the codes in template project.
+
+	1. Add following content in Pom.xml 
+
+```
+ <!-- AWS SDK rekognition -->  
+   <dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-translate</artifactId>
+     <version>1.11.295</version>
+  </dependency>  
+```
+	2. change groudId and artifactId
+
+```
+<groupId>seon</groupId>
+<artifactId>module-07-lamdba-translate</artifactId>
+```
+
+	2. remove all source codes of template project and copy and paste source code from module-07-lambda-translate project.
+	
+	3. change a buildspec.yml
+
+```
+build:
+  commands:
+    - echo Build started on `date`
+    - mvn package shade:shade
+    - mv target/module-07-lamdba-translate.jar .
+    - unzip module-07-lamdba-translate.jar
+    - rm -rf target tst src buildspec.yml pom.xml module-07-lamdba-translate.jar
+    - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
+
+```
+
+	4. change template.yml
+
+```
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+- AWS::Serverless-2016-10-31
+- AWS::CodeStar
+
+Parameters:
+  ProjectId:
+    Type: String
+    Description: AWS CodeStar projectID used to associate new resources to team members
+
+Resources:
+  ServelessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.amazonaws.lambda.LambdaTranslateHandler::handleRequest
+      Runtime: java8
+      FunctionName: workshop-translate
+      Role : Alexa-DevOps-Role
+      MemorySize : 1024
+      Timeout : 30   
+      Environment:
+        Variables: 
+          S3_BUCKET: s3://seon-virginia-01
+      Tags:
+        ContactTag: workshop-translte 
+        
+ ```
+	
+##### 3. Update policy
+if you get a error message in CodeDeploy
+
+User: arn:aws:sts::<id>:assumed-role/<Role name>/AWSCloudFormation is not authorized to perform: iam:PassRole on resource: <arn for your Role to attach>
+
+This means the role you want to pass to CloudFormation is not configured in the Role that CodeStar prject is using.
+Add the following content in the role of CodeStar project
+
+```
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "arn for your Lambda function"
+            ]
+        },
+```
+
+	5. commit codes and check your project
+	6. run a test code in module-07 
+	
+```
+@Test
+public void callTranslateLamdba()
+{
+	
+	AWSXRay.beginSegment("callTranslateLamdba test"); 
+	
+	final MyLambdaServices myService = LambdaInvokerFactory.builder()
+	 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
+	 		 .build(MyLambdaServices.class);
+	 
+	StepEventInput input = new StepEventInput();
+	
+	input.setText("Hello");
+	input.setSourceLangCode("en");
+	input.setTargetLangCode("es");
+	 
+	StepEventOutput output = myService.myTranslateFunc(input);  
+	assertEquals(output.getTranslated(), "Hola.");
+	
+  
+  AWSXRay.endSegment();	 
+}	
+```
+
+			
 refer : https://stelligent.com/2017/03/09/using-parameter-store-with-aws-codepipeline/
 

@@ -173,6 +173,8 @@ public class MySqlTest {
 ```
 
 ### 2. SAM for Lambda
+In this taks, we introduce how to deploy Lambda project using SAM file and aws cloudformation.
+
 ##### 1. Create a jar for Lambda in your Eclipse
 
 - You need to change Lamdba projects to create *.jar package, split previous Lambda project into 3 individual Lambda project to create **jar** file to upload into S3
@@ -224,6 +226,16 @@ mvn clean compile test package
 ```
 ls -al target
 ```
+- packaging your Lambda project
+
+```
+mv target/module-07-lamdba-translate-1.0.0.jar .
+unzip module-07-lamdba-translate-1.0.0.jar
+rm -rf target tst src buildspec.yml pom.xml module-07-lamdba-translate-1.0.0.jar
+aws cloudformation package --template lambda-package-example.yml --s3-bucket <your bucket> --output-template template-export.yml
+
+```
+
 ##### 2. Upload Jar file to S3 bucket
 for example, if you created a Lambda for translate, then you can upload "module-07-lamdba-translate-1.0.0.jar" into S3 bucket using following AWS CLI command
 

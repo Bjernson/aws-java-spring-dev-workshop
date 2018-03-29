@@ -14,5 +14,5 @@ Resources:
         Variables: 
           S3_BUCKET: s3://seon-virginia-01
       Tags:
-        ContactTag: Me            
+        ContactTag: workshop-translte            
           
