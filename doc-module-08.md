@@ -1,4 +1,9 @@
-## Module-08 Create a docker and CI/CD for first Deployment on AWS
+## Module-08 Create a CI/CD for first Deployment on AWS and dockerization
+In this module, we introduce the fundamental concept of CodeStar and how to build a quick CI/CD pipeline with CodeStar. You will be provided with hands-on on migrating your project to CodeStar project you created and how to build docker environment for your application
+- Create a CodeStar project
+- Deploying Lambda in CI/CD
+- Create a docker for your application and deploy through CI/CD
+
 
 <hr>
 
