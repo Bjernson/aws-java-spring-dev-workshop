@@ -196,8 +196,10 @@ refer : https://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html
 ![project template](./images/module-08/11.png)
 
 ##### 2. Change the codestar project	
+
 This template project will create API with Get/Post and 2 Lambda functions for Get/Post
 We will not create API, just will use module-07-lambda-translate, so change the codes in template project.
+- Ref : module-08-lambda-codestar
 
 	1. Add following content in Pom.xml 
 
@@ -311,7 +313,87 @@ public void callTranslateLamdba()
   AWSXRay.endSegment();	 
 }	
 ```
+### 3. Upgrade a CodeStar project for multiple Lambda functions
+In this step, we will introduce how to build one CodePipleline for multiple Lamdba project. We will add a parallel action in deploy stage for deploying multiple Lambda functions.
 
-			
+This section covers the following tasks.
+- Create multiple Lambda projects
+- Create a buildspec of CodeBuild for multiple Lambda projects.
+- Create a CloudFormation stack
+- Expend a previous CodePipeline (section 2).	
+
+##### 1. Create mutiple Lambda projects 
+Create several Lambda projects as following hierarchical structure
+
+```
+- root - buildspec.yml
+       - Lambda 1 project 
+       		- pom.xml
+         	- template.yml
+       - Lambda 2 project
+           - pom.xml
+         	- template.yml
+```
+
+##### 2. Change a buildspec.xml
+
+```
+  build:
+    commands:
+      # translate
+      - echo Build translate started on `date`
+      - cd lambda-codestar-translate
+      - mvn clean compile test
+      - mvn package shade:shade
+      - mv target/lambda-codestar-translate-1.0.jar .
+      - unzip lambda-codestar-translate-1.0.jar
+      - rm -rf target tst src pom.xml lambda-codestar-translate-1.0.jar
+      - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-translate.yml
+      - cp template-translate.yml ..
+      # rekognition
+      - echo Build rekognition started on `date`
+      - cd  ../lambda-codestar-rekognition
+      - mvn clean compile test      
+      - mvn package shade:shade
+      - mv target/lambda-codestar-rekognition-1.0.jar .
+      - unzip lambda-codestar-rekognition-1.0.jar
+      - rm -rf target tst src pom.xml lambda-codestar-rekognition-1.0.jar
+      - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-rekognition.yml
+      - cp template-rekognition.yml ..
+
+```
+
+##### 3. Add a parallel action in Deploy Stage
+- Add a generate change set
+
+	1. Specify stack name, for example : **awscodestar-lambda-codestar-lambda-reko**
+	2. Specify change set name, for example : **pipeline-changeset**
+	3. Add Parameter overrides : {"ProjectId":"lambda-codestar"}
+	4. Specify input artifiact name : lambda-codestar-BuildArtifact
+
+- Add a Execute change set
+
+	1. Specify stack name, for example : **awscodestar-lambda-codestar-lambda-reko**
+	2. Specify change set name, for example : **pipeline-changeset**
+
+![project template](./images/module-08/12.png)
+
+##### 4. Change a policy of CodePipeline
+Add a new CloudFormation stack as a target resource. 
+
+```
+"Resource": [
+    "arn:aws:iam::550622896891:role/CodeStarWorker-lambda-codestar-CloudFormation",
+    "arn:aws:cloudformation:us-east-1:5506228xxxxx:stack/awscodestar-lambda-codestar-lambda/*",
+    "arn:aws:cloudformation:us-east-1:5506228xxxxx:stack/awscodestar-lambda-codestar-lambda-reko/*",
+```
+
+##### 5. Deploy a new deployment
+- Release change
+![project template](./images/module-08/13.png)
+
+- multiple project in eclipse
+http://www.avajava.com/tutorials/lessons/how-do-i-create-a-multi-module-project-in-eclipse.html
+		
 refer : https://stelligent.com/2017/03/09/using-parameter-store-with-aws-codepipeline/
 
