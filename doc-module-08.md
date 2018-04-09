@@ -1,12 +1,16 @@
 ## Module-08 Create a CI/CD for first Deployment on AWS and dockerization
 In this module, we introduce the fundamental concept of CodeStar and how to build a quick CI/CD pipeline with CodeStar. You will be provided with hands-on on migrating your project to CodeStar project you created and how to build docker environment for your application
 - Create a CodeStar project
+- Create a Cloud9 IDE environment for CI/CD
+- Configure Cloud9 and Deploy instanace environment for first deploy
+- Modify appsepc.xml and buildspec.xml 
+- Deploy your first application through a CI/CD created by CodeStar
 - Deploying Lambda in CI/CD
 - Create a docker for your application and deploy through CI/CD
 
 <hr>
 
-### 1. First CI/CD using CodeStart without Lambda
+### 1. First CI/CD using CodeStart with Java Spring application
 
 ##### 1. Create a CodeStart project name as "workshop-java"
 
@@ -30,7 +34,7 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 ![Cloud9](./images/module-08/05.png)	
 
 	2. check java --version
-	3. upgrade java version to 1.8
+	3. upgrade java version to 1.8 (for development, we need to upgrade Java version and install required pakcages)
 	
 
 ```
@@ -68,8 +72,26 @@ source /etc/profile.d/maven.sh
 # check the loaded environment variables  
 echo $PATH             
 ```
+
 ##### 3. Update the instance of Deployment
-	1. upgrate Java to 1.8 in the instance of CodeDeploy
+
+	1. check your prod instance in your console.
+	2. connect to the instance using CLI 
+
+```
+ssh -i <your_key> ec2-user@<IP>
+```
+
+	3. upgrate Java to 1.8 in the instance of CodeDeploy
+	
+	
+```
+sudo yum list available java\*      # check avaiable java version
+sudo yum install java-1.8.0 java-1.8.0-openjdk-devel        # install 1.8 java and javac
+sudo yum remove java-1.7.0-openjdk  # remove 1.7
+java -version											# check java version
+```
+
 
 ##### 3. first fetching source codes from CodeComnit
 	1. Perform tasks following the instruction in CodeCommit for the first application
@@ -175,6 +197,8 @@ public AmazonDynamoDB amazonDynamoDB() {
 ```
 
 <hr>
+
+You just completed the first deployment of your application.
 
 
 ### 2. CI/CD with Lambda using SAM
@@ -391,6 +415,10 @@ Add a new CloudFormation stack as a target resource.
 ##### 5. Deploy a new deployment
 - Release change
 ![project template](./images/module-08/13.png)
+
+
+### 4. Change a paratmeter in CodePipeline
+
 
 - multiple project in eclipse
 http://www.avajava.com/tutorials/lessons/how-do-i-create-a-multi-module-project-in-eclipse.html
