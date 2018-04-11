@@ -343,7 +343,7 @@ git push
 
 ![AWS CodeStar](./images/module-08/07.png)	
 ##### 7. Change Credentials
-You will probablly get a error message in CodeDeploy.
+You probably get a error message in CodeDeploy.
 
 ```
 Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'photoInfoRepository': Cannot resolve reference to bean 'amazonDynamoDB' while setting bean property 'amazonDynamoDB'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'amazonDynamoDB' defined in class path resource [hello/config/DynamoDBConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.amazonaws.services.dynamodbv2.AmazonDynamoDB]: Factory method 'amazonDynamoDB' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'amazonAWSCredentials' defined in class path resource [hello/config/DynamoDBConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.amazonaws.auth.AWSCredentials]: Factory method 'amazonAWSCredentials' threw exception; nested exception is com.amazonaws.AmazonClientException: Cannot load the credentials from the credential profiles file. Please make sure that your credentials file is at the correct location (/Users/userid/.aws/credentials), and is in a valid format.
@@ -358,16 +358,9 @@ public AmazonDynamoDB amazonDynamoDB() {
     return amazonDynamoDB;
 }
 ```
-##### 8. Check the application
-```
-curl '<endpoints>:8080/workshop/deleteall'
-curl '<endpoints>:8080/workshop/add?name=First&email=ex1@gmail.com'
-curl '<endpoints>:8080/workshop/all'
-```
 
-
-##### 9. Check Security Group and Role for Dev instance
-You probablly sucedded deployment but you failed to test step 8 (previous step)
+##### 8. Check Security Group and Role for Dev instance
+You probably succeeded a deployment but failed to test step 8 (previous step)
 So you need to find out what causes these problems.
 	
 	1. Need to open 8080 port in Securty Group.
@@ -389,6 +382,20 @@ So you need to find out what causes these problems.
 
 	6. Update Security Group for Aurora to access from EC2 instance
 
+
+
+##### 9. Check the application
+```
+curl '<endpoints>:8080/workshop/deleteall'
+curl '<endpoints>:8080/workshop/add?name=First&email=ex1@gmail.com'
+curl '<endpoints>:8080/workshop/all'
+```
+or in your web browser
+
+```
+<endpoints>:8080/users
+```
+![project template](./images/module-08/07-3.png)	
 
 <hr>
 
