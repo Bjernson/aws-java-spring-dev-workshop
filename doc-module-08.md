@@ -31,24 +31,41 @@ if you want to run module-04 application here without following the previous ste
 	7. Check Endpoint and Security Group
 ![Parameter Store](./images/module-03/02.png)
 	
-	8. Change Security Group configuration, if you need to change it.
-	9. Create user and it's privilege using following SQL commands(use MySQL client in your computer)
+	8. Change Security Group configuration, if you need.
+	9. Check connectivity from your local computer (if you don't have any MySQL client, please install it)
+	
+```
+mysql -h <endpoint of your instance> -u <master username> -p
+```
+	
+	10. Create user and it's privilege using following SQL commands(use MySQL client in your computer)
 
 ```
 mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates the user
 mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
 ```
 
-	7. crate User table
+	7. Create User table
 
 ```
+USER workshop;
+
 CREATE TABLE `User` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
 ```
+
+	8. Check the table created
+	
+```
+show tables;
+
+describe User;
+```	
 
 ##### 2. Create data stores for this application (DynamoDB)
 Create a table names as "PhotoInfo" with key "id"
