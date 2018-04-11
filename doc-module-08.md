@@ -29,7 +29,7 @@ if you want to run module-04 application here without following the previous ste
 	5. Create database in configuration page (for example, workshop)
 	6. Wait until completing the creation of Aurora for MySQL 
 	7. Check Endpoint and Security Group
-![Parameter Store](./images/module-03/02.png)
+![Checking Aurora](./images/module-03/02.png)
 	
 	8. Change Security Group configuration, if you need.
 	9. Check connectivity from your local computer (if you don't have any MySQL client, please install it)
@@ -60,15 +60,17 @@ CREATE TABLE `User` (
 ```
 
 	8. Check the table created
-	
+
 ```
 show tables;
 
 describe User;
-```	
+```
 
 ##### 2. Create data stores for this application (DynamoDB)
 Create a table names as "PhotoInfo" with key "id"
+![Create DynamoDB table](./images/module-03/03.png)
+
 
 ##### 3. Configure ParameterStore in System Manager 
 AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values.
