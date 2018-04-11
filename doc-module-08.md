@@ -48,7 +48,7 @@ mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to
 	7. Create User table
 
 ```
-USER workshop;
+USE workshop;
 
 CREATE TABLE `User` (
   `id` integer NOT NULL AUTO_INCREMENT,
@@ -115,22 +115,36 @@ IAM > Users > <your user name > > Security Credential Tab
 ![Select CodeCommit](./images/module-08/04.png)		
 
 ##### 2. Open Cloud9 and configure the dev environtment
-	1. Open a Cloud9 IDE and check it's first application in folder
+	1. Open a Cloud9 IDE and check it's first application in folder.
+	   If you selected a project name as "workshop-java", then there is directory for source code with same name.
+	   
 ![Cloud9](./images/module-08/05.png)	
+  
+	2. Open the application endpoints and check it's availability
+![Cloud9](./images/module-08/05-1.png)		
 
 
+##### 3. Upgrade a dev instance
+	1. Check java --version and check the location of Java 
+```
+$ java -version
+java version "1.7.0_171"
 
-	2. Check java --version
-	3. Upgrade java version to 1.8 (for development, we need to upgrade Java version and install required packages)
+$ which java
+/usr/bin/java
+
+```
+	
+	2. Upgrade java version to 1.8 (for development, we need to upgrade Java version and install required packages)
 	
 ```
 sudo yum list available java\*      # check available java version
-sudo yum install java-1.8.0 java-1.8.0-openjdk-devel        # install 1.8 java and javac
-sudo yum remove java-1.7.0-openjdk  # remove 1.7
+sudo yum -y install java-1.8.0 java-1.8.0-openjdk-devel        # install 1.8 java and javac
+sudo yum remove java-1.7.0-openjdk -y # remove 1.7
 java -version											# check java version
 ```
-	4. Update JAVA_HOME in the environment variable in .bashrc
 
+	4. Update JAVA_HOME environment variable in .bashrc
 
 ```
 vi ~/.bashrc
@@ -159,16 +173,38 @@ source /etc/profile.d/maven.sh
 echo $PATH             
 ```
 
-##### 3. Update the instance of Deployment
+##### 4. Check the result of previous step 
+	1. Run following command to check no erros (in terminals in your code)
 
-	1. check your prod instance in your console.
-	2. connect to the instance using CLI 
+```	
+	cd <your_source folder>
+
+	mvn -f pom.xml compile
+	mvn -f pom.xml package
+```
+	If you want to run this application, then copy the built application to the Tomcat webapp directory that you configured in your local machine or ec2 instance on AWS
+	
+	2. Change a index.jsp file 
+![Cloud9](./images/module-08/05-2.png)			
+
+	3. Push the source codes and the changes of CodePipeline in CodeStar dashboard
+	
+```
+git add .
+git commit -m "first change"
+git push
+```
+
+##### 3. Update the product instance with same configurations
+
+	1. Check your CodeStar instance created for deployment in EC2 console 
+	2. Connect to the instance using CLI 
 
 ```
 ssh -i <your_key> ec2-user@<IP>
 ```
 
-	3. upgrate Java to 1.8 in the instance of CodeDeploy
+	3. Upgrade Java to 1.8 in the instance of CodeDeploy
 	
 	
 ```
@@ -178,27 +214,36 @@ sudo yum remove java-1.7.0-openjdk  # remove 1.7
 java -version											# check java version
 ```
 
-
-##### 3. first fetching source codes from CodeComnit
-	1. Perform tasks following the instruction in CodeCommit for the first application
-	2. Run following command
-
-	mvn -f pom.xml compile
-	mvn -f pom.xml package
+##### 4.(Cloud9) Download module-04 application and replace it with your application in Cloud9
+	1. Delete all source codes in your project source 
 	
-	3. If you want to run this application, then copy the built application to the Tomcat webapp directory that you configured in your local machine or ec2 instance on AWS
+```
+	rm -rf src scripts target pom.xml
+```
+			
+	2. Create a directory for downloading the source codes
+```
+cd ~\environment
+mkdir workshop
+cd workshop
+git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
+cd aws-java-spring-dev-workshop/module-04
+
+cp -R appspec.yml buildspec.yml pom.xml scripts src ~/environment/<your codestart source directory>
+```
 	
-##### 4. download this first application on your local Eclipse IDE
+
+##### 4.(Eclipse IDE) download this first application on your local Eclipse IDE
 	1. open CodeCommit and copy Clone URL
 	2. fetch source codes.
 	3. if you don't have a CodeCommit username and password, please refer this documentation :
 	https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html
 	4. import this project to your Eclipse IDE
-	5. Run follwing commands
+	5. Run following commands
 
 ```
 mvn -f pom.xml compile
-mvn -f pom.xml package
+mvn -f pom.xml package -Dmaven.test.skip=true
 ```
 		
 	6. if you got a following errors,
@@ -215,19 +260,43 @@ mvn -f pom.xml package
 
 
 
-##### 5. Create a new pom file for your application.
-Firstly, we will use module-04 source code for the created CI/CD.
+##### 5. Check copied module-04 application and change pom.xl
 
-	1. rename pom.xml as pom-backup.xml
-	2. create a new POM file name as "pom.xml" 
-	3. merge the pom file in module-04 into workshop-java project you fetched from CodeCommit
-	4. delete all source codes in "workshop-java" project and copy all source codes from module-04 to "workshop-java" project
-	5. run Application.java and check the result of UnitTest.
-	6. if you get a compilation errors in your project, please check the Java compiler version and JRE, change compiler version and JRE in your application (1.8)
+We use module-04 source code for the created CI/CD.
+if you get a compilation errors in your project, please check the Java compiler version and JRE, change compiler version and JRE in your application (1.8)
+
+	1. Change Pom.xml 
+```	
+<build>
+	<finalName>ROOT</finalName>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
+
+	2. Run following commands and check the results
+
+```
+mvn -f pom.xml compile
+mvn -f pom.xml package -Dmaven.test.skip=true
+```
+
+	3. Check you created ROOT.jar in target directory
+```
+$ ls  target/ROOT.jar
+target/ROOT.jar
+```
+	
 	
 ##### 6. Change appspecc.xml, buildspec.xml and scripts	
+You can use appspec.xml and buildspec.xml in module-04. just compare it to the original project's files.
+
 	1. Change appsecc.xml, buildspec.xml and scripts	
-appspec.xml
+buildspec.xml
 
 ```
   build:
@@ -245,16 +314,17 @@ cd /home/ec2-user/javaapp
 java -jar ROOT.jar 
 ```
 
-	3. run follwing commands again and check the output in target folder
+	3. If you want to check the availability of this package then just run following commands and check the output in target folder
 
 ```
-mvn package
+mvn package -Dmaven.test.skip=true
+
 java -jar target/ROOT.jar
 ```
 
 	
 ##### 6. commit source codes into CodeCommit
-	1. commit source codes in "workshop-java" project into CodeCommit.
+	1.push the codes into CodeCommit.
 
 ```
 git add .
@@ -285,6 +355,7 @@ public AmazonDynamoDB amazonDynamoDB() {
 <hr>
 
 You just completed the first deployment of your application.
+
 
 
 ### 2. CI/CD with Lambda using SAM
