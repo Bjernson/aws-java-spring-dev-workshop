@@ -90,7 +90,7 @@ Complete the following tasks to configure application parameters for ParameterSt
 Create a role for EC2 with enough access privilege and attach it to dev/prod instance. (You can do it later, after step 1.3) 
 
 ##### 5. Create a git credentials for AWS CodeCommit
-If you don't have a git credentials, then create it in IAM console
+If you don't have a git credentials for CodeCommit, then create it in IAM console
 IAM > Users > <your user name > > Security Credential Tab
 
 ![git credentials for AWS CodeCommit](./images/module-03/05.png)
