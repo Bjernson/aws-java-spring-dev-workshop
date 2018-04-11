@@ -1,4 +1,5 @@
 ## Module-08 Create a CI/CD for first Deployment on AWS and dockerization
+
 In this module, we introduce the fundamental concept of CodeStar and how to build a quick CI/CD pipeline with CodeStar. You will be provided with hands-on on migrating your project to CodeStar project you created and how to build docker environment for your application
 - Create a CodeStar project
 - Create a Cloud9 IDE environment for CI/CD
@@ -9,6 +10,54 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 - Create a docker for your application and deploy through CI/CD
 
 <hr>
+
+### 0. Before starting this module
+if you want to run module-04 application here without following the previous steps, you should configure the parameter store, dynamodb, Aurora for MySql and role for EC2 in this step.
+
+##### 1. Configure ParameterStore in System Manager 
+AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values.
+Complete the following tasks to configure application parameters for ParameterStore (default region is us-east-1)
+
+	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
+	2. Create parameters in ParameterStore for database URL, database username and password
+
+![Parameter Store](./images/module-02/paramter-store-01.png)
+
+##### 2. Change the database from local MySQL to Aurora MySQL
+
+	1. Open the Amazon RDS console : https://console.aws.amazon.com/rds/home?region=us-east-1#
+	2. Select Aurora for MySQL 5.7 Database engine 
+	3. Create a DB instance configuring databasename, username, password.
+	
+![Parameter Store](./images/module-03/01.png)
+
+	4. Wait until Aurora for MySQL launching
+	5. Change parameter values in Parameter Store in EC2 to Aurora instance
+	6. create database, user and it's privilege
+
+```
+mysql> create database workshop; -- Create the new database
+mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates the user
+mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
+```
+
+	7. crate User table
+
+```
+CREATE TABLE `User` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
+```
+
+##### 3. create a DynamoDB table
+Create a table names as "PhotoInfo" with key "id"
+
+##### 4. create a role for EC2 
+Create a role for EC2 with enough privileages to attach it to dev/prod instance.
+
 
 ### 1. First CI/CD using CodeStart with Java Spring application
 
@@ -206,7 +255,7 @@ refer : https://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html
 
 ##### 1. Create CodeStar project for Lambda project
 
-	1. create a CodeStar project using tempalte
+	1. create a CodeStar project using template
 	2. Choose Java and web service (Lambda) 
 
 ![project template](./images/module-08/08.png)	
