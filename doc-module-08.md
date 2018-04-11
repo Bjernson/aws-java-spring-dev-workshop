@@ -14,7 +14,7 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 <hr>
 
 ### 0. Before starting this module
-if you want to run module-04 application here without following the previous steps, you should configure the parameter store, dynamodb, Aurora for MySql and role for EC2 in this step.
+If you want to run module-04 application here without completing the previous modules, you need to configure  parameter store, DynamoDB, Aurora for MySql and role for EC2 in this step.
 
 ##### 1. Create data stores for this application (Aurora MySQL)
 
