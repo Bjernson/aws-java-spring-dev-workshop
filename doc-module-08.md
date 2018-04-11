@@ -81,14 +81,16 @@ Complete the following tasks to configure application parameters for ParameterSt
 
 ![Parameter Store](./images/module-02/paramter-store-01.png)
 
-	3. Add datasource.url, datasource.username, datasource.password for your Aurora instance. specify values as you configured in previous step.
+	3. Add datasource.url, datasource.username, datasource.password for your Aurora instance. 
+	   Specify values as you configured in previous steps.
 	
+![Parameter Store](./images/module-03/04.png)
 
 ##### 4. Create a role for EC2 
 Create a role for EC2 with enough access privilege and attach it to dev/prod instance. (you can do it later, after step 1.3) 
 
 
-### 1. First CI/CD using CodeStart with Java Spring application
+### 1. First CI/CD using CodeStar with Java Spring application
 
 ##### 1. Create a CodeStart project name as "workshop-java"
 
