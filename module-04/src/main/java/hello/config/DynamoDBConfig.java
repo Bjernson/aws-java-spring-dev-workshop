@@ -7,8 +7,6 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.xray.AWSXRay;
-import com.amazonaws.xray.handlers.TracingHandler;
 
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +33,6 @@ public class DynamoDBConfig {
         return amazonDynamoDB;
         
 //        AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
-//        		.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))
 //           .build();
 //        return amazonDynamoDB;       
     }

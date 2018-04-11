@@ -209,8 +209,8 @@ ssh -i <your_key> ec2-user@<IP>
 	
 ```
 sudo yum list available java\*      # check avaiable java version
-sudo yum install java-1.8.0 java-1.8.0-openjdk-devel        # install 1.8 java and javac
-sudo yum remove java-1.7.0-openjdk  # remove 1.7
+sudo yum install java-1.8.0 java-1.8.0-openjdk-devel  -y      # install 1.8 java and javac
+sudo yum remove java-1.7.0-openjdk -y  # remove 1.7
 java -version											# check java version
 ```
 
