@@ -87,8 +87,13 @@ Complete the following tasks to configure application parameters for ParameterSt
 ![Parameter Store](./images/module-03/04.png)
 
 ##### 4. Create a role for EC2 
-Create a role for EC2 with enough access privilege and attach it to dev/prod instance. (you can do it later, after step 1.3) 
+Create a role for EC2 with enough access privilege and attach it to dev/prod instance. (You can do it later, after step 1.3) 
 
+##### 5. Create a git credentials for AWS CodeCommit
+If you don't have a git credentials, then create it in IAM console
+IAM > Users > <your user name > > Security Credential Tab
+
+![git credentials for AWS CodeCommit](./images/module-03/05.png)
 
 ### 1. First CI/CD using CodeStar with Java Spring application
 
@@ -100,7 +105,7 @@ Create a role for EC2 with enough access privilege and attach it to dev/prod ins
 	2. Select CodeCommit as a code repository 
 ![Select CodeCommit](./images/module-08/02.png)	
 	
-	3. Choose your key pair
+	3. Choose your key pair (if you don't have a key pair for default region, create it in EC2)
 	4. Choose Cloud9 to edit your code 
 ![Select CodeCommit](./images/module-08/03.png)		
 
@@ -113,17 +118,18 @@ Create a role for EC2 with enough access privilege and attach it to dev/prod ins
 	1. Open a Cloud9 IDE and check it's first application in folder
 ![Cloud9](./images/module-08/05.png)	
 
-	2. check java --version
-	3. upgrade java version to 1.8 (for development, we need to upgrade Java version and install required packages)
-	
 
+
+	2. Check java --version
+	3. Upgrade java version to 1.8 (for development, we need to upgrade Java version and install required packages)
+	
 ```
 sudo yum list available java\*      # check available java version
 sudo yum install java-1.8.0 java-1.8.0-openjdk-devel        # install 1.8 java and javac
 sudo yum remove java-1.7.0-openjdk  # remove 1.7
 java -version											# check java version
 ```
-	4. update JAVA_HOME in the environment variable in .bashrc
+	4. Update JAVA_HOME in the environment variable in .bashrc
 
 
 ```
