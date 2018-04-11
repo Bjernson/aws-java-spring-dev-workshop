@@ -19,17 +19,22 @@ if you want to run module-04 application here without following the previous ste
 ##### 1. Create data stores for this application (Aurora MySQL)
 
 	1. Open the Amazon RDS console : https://console.aws.amazon.com/rds/home?region=us-east-1#
-	2. Select Aurora for MySQL 5.7 Database engine 
+	2. Select Aurora for MySQL 5.7 Database engine and select the 
 	3. Create a DB instance configuring databasename, username, password.
+	4. Remember your master username and password to perform next step
 	
 ![Parameter Store](./images/module-03/01.png)
 
-	4. Wait until Aurora for MySQL launching
-	5. Change parameter values in Parameter Store in EC2 to Aurora instance
-	6. create database, user and it's privilege
+
+	5. Create database in configuration page (for example, workshop)
+	6. Wait until completing the creation of Aurora for MySQL 
+	7. Check Endpoint and Security Group
+![Parameter Store](./images/module-03/02.png)
+	
+	8. Change Security Group configuration, if you need to change it.
+	9. Create user and it's privilege using following SQL commands(use MySQL client in your computer)
 
 ```
-mysql> create database workshop; -- Create the new database
 mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates the user
 mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
 ```
@@ -60,8 +65,8 @@ Complete the following tasks to configure application parameters for ParameterSt
 	3. Add datasource.url, datasource.username, datasource.password for your Aurora instance. specify values as you configured in previous step.
 	
 
-##### 4. create a role for EC2 
-Create a role for EC2 with enough privileages to attach it to dev/prod instance.
+##### 4. Create a role for EC2 
+Create a role for EC2 with enough access privilege and attach it to dev/prod instance. (you can do it later, after step 1.3) 
 
 
 ### 1. First CI/CD using CodeStart with Java Spring application
@@ -88,11 +93,11 @@ Create a role for EC2 with enough privileages to attach it to dev/prod instance.
 ![Cloud9](./images/module-08/05.png)	
 
 	2. check java --version
-	3. upgrade java version to 1.8 (for development, we need to upgrade Java version and install required pakcages)
+	3. upgrade java version to 1.8 (for development, we need to upgrade Java version and install required packages)
 	
 
 ```
-sudo yum list available java\*      # check avaiable java version
+sudo yum list available java\*      # check available java version
 sudo yum install java-1.8.0 java-1.8.0-openjdk-devel        # install 1.8 java and javac
 sudo yum remove java-1.7.0-openjdk  # remove 1.7
 java -version											# check java version
