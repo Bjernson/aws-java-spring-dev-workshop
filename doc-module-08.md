@@ -9,21 +9,14 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 - Deploying Lambda in CI/CD
 - Create a docker for your application and deploy through CI/CD
 
+**Default Region : Virginia (US-EAST-1)**
+
 <hr>
 
 ### 0. Before starting this module
 if you want to run module-04 application here without following the previous steps, you should configure the parameter store, dynamodb, Aurora for MySql and role for EC2 in this step.
 
-##### 1. Configure ParameterStore in System Manager 
-AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values.
-Complete the following tasks to configure application parameters for ParameterStore (default region is us-east-1)
-
-	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
-	2. Create parameters in ParameterStore for database URL, database username and password
-
-![Parameter Store](./images/module-02/paramter-store-01.png)
-
-##### 2. Change the database from local MySQL to Aurora MySQL
+##### 1. Create data stores for this application (Aurora MySQL)
 
 	1. Open the Amazon RDS console : https://console.aws.amazon.com/rds/home?region=us-east-1#
 	2. Select Aurora for MySQL 5.7 Database engine 
@@ -52,8 +45,20 @@ CREATE TABLE `User` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
 ```
 
-##### 3. create a DynamoDB table
+##### 2. Create data stores for this application (DynamoDB)
 Create a table names as "PhotoInfo" with key "id"
+
+##### 3. Configure ParameterStore in System Manager 
+AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values.
+Complete the following tasks to configure application parameters for ParameterStore (default region is us-east-1)
+
+	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
+	2. Create parameters in ParameterStore for database URL, database username and password
+
+![Parameter Store](./images/module-02/paramter-store-01.png)
+
+	3. Add datasource.url, datasource.username, datasource.password for your Aurora instance. specify values as you configured in previous step.
+	
 
 ##### 4. create a role for EC2 
 Create a role for EC2 with enough privileages to attach it to dev/prod instance.
