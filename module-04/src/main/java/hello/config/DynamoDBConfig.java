@@ -29,12 +29,12 @@ public class DynamoDBConfig {
 
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
-        AmazonDynamoDB amazonDynamoDB = new AmazonDynamoDBClient(amazonAWSCredentials());
-        return amazonDynamoDB;
+//        AmazonDynamoDB amazonDynamoDB = new AmazonDynamoDBClient(amazonAWSCredentials());
+//        return amazonDynamoDB;
         
-//        AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
-//           .build();
-//        return amazonDynamoDB;       
+        AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
+           .build();
+        return amazonDynamoDB;       
     }
 
     @Bean

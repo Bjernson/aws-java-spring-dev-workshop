@@ -306,12 +306,14 @@ buildspec.xml
       
 ```
 
-	2. script/start_server.sh
+	2. script/start_server.sh 
+	   it is very important to return the success code as a result of script file for CodeDeploy
 
 ```
 #!/bin/bash
 cd /home/ec2-user/javaapp
-java -jar ROOT.jar 
+java -jar ROOT.jar &
+echo $? # return success code
 ```
 
 	3. If you want to check the availability of this package then just run following commands and check the output in target folder
@@ -320,10 +322,15 @@ java -jar ROOT.jar
 mvn package -Dmaven.test.skip=true
 
 java -jar target/ROOT.jar
+
+curl 'localhost:8080/workshop/deleteall'
+curl 'localhost:8080/workshop/add?name=First&email=ex1@gmail.com'
+curl 'localhost:8080/workshop/all'
+
 ```
 
 	
-##### 6. commit source codes into CodeCommit
+##### 7. commit source codes into CodeCommit
 	1.push the codes into CodeCommit.
 
 ```
@@ -342,7 +349,7 @@ You will probablly get a error message in CodeDeploy.
 Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'photoInfoRepository': Cannot resolve reference to bean 'amazonDynamoDB' while setting bean property 'amazonDynamoDB'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'amazonDynamoDB' defined in class path resource [hello/config/DynamoDBConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.amazonaws.services.dynamodbv2.AmazonDynamoDB]: Factory method 'amazonDynamoDB' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'amazonAWSCredentials' defined in class path resource [hello/config/DynamoDBConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.amazonaws.auth.AWSCredentials]: Factory method 'amazonAWSCredentials' threw exception; nested exception is com.amazonaws.AmazonClientException: Cannot load the credentials from the credential profiles file. Please make sure that your credentials file is at the correct location (/Users/userid/.aws/credentials), and is in a valid format.
 
 ```
-This is because of a credentials, please check below documentation and fix the source code in DynamoDBConfig
+This is because of a credentials, fix the source code in DynamoDBConfig
 
 ```
 public AmazonDynamoDB amazonDynamoDB() {
@@ -351,11 +358,41 @@ public AmazonDynamoDB amazonDynamoDB() {
     return amazonDynamoDB;
 }
 ```
+##### 8. Check the application
+```
+curl '<endpoints>:8080/workshop/deleteall'
+curl '<endpoints>:8080/workshop/add?name=First&email=ex1@gmail.com'
+curl '<endpoints>:8080/workshop/all'
+```
+
+
+##### 9. Check Security Group and Role for Dev instance
+You probablly sucedded deployment but you failed to test step 8 (previous step)
+So you need to find out what causes these problems.
+	
+	1. Need to open 8080 port in Securty Group.
+	2. Login to deploy instance and run following commands
+```
+ 	java -jar javaapp/Root.jar
+ 	
+ 	You can see the following error messages
+ 	 	
+  ....is not authorized to perform: ssm:GetParameter on resource: arn:
+```
+	3. This means you need to update the role to have enough privileges for deployment EC2 instance. (Parameter Store, DyanamoDB)
+	4. Open IAM and edit the role attached to development EC2 instance.
+	
+![project template](./images/module-08/07-1.png)	
+![project template](./images/module-08/07-2.png)			
+
+	5. Run again your application and repeat 4 to get a enough privilege
+
+	6. Update Security Group for Aurora to access from EC2 instance
+
 
 <hr>
 
 You just completed the first deployment of your application.
-
 
 
 ### 2. CI/CD with Lambda using SAM
