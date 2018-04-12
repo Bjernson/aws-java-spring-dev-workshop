@@ -10,7 +10,7 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 - Create a docker for your application and deploy through CI/CD
 
 **Default Region : Virginia (US-EAST-1)**
-
+Contributor : Jean Koay (AWS SA)
 <hr>
 
 ### 0. Before starting this module
@@ -27,12 +27,38 @@ If you want to run module-04 application here without completing the previous mo
 
 
 	5. Create database in configuration page (for example, workshop)
+	
+Name your Aurora database as TSA-Workshop, and keep the rest of the values as default.
+- Select db instances of your choice (e.g. db.t2.micro)
+- Keep the default multi-AZ
+- Cluster name: TSA-Workshop-Cluster
+- Database name: workshop
+- Make sure that the database is publicly accessible.
+- Keep everything else as default and then launch the Aurora database.
+- At your left panel, click on the 'instances' menu. You should see that RDS is creating two database instances for you (one reader and writer role respectively).
+	
 	6. Wait until completing the creation of Aurora for MySQL 
+Endpoint looks like this - "tsa-workshop.ctdltt3xxxx.us-east-1.rds.amazonaws.com"
+	
 	7. Check Endpoint and Security Group
 ![Checking Aurora](./images/module-03/02.png)
 	
 	8. Change Security Group configuration, if you need.
+Copy the security group of your rds - e.g. sg-6ec31b27, go to EC2 look up for the security group. Under Inbound rules, check whether it allows access from your computer.
+ 
+Here is where you can download free mysql workbench:
+https://dev.mysql.com/downloads/workbench/
+	
+	
 	9. Check connectivity from your local computer (if you don't have any MySQL client, please install it)
+If you're using macosx, you may key in the following command to access your db instance.
+ 
+Otherwise, if you are using MySQL workbench, click on the ( + ) sign to add new db connection. Name your db connection and then paste the rds endpoint under the hostname: e.g. tsa.ctdltt3njgue.us-east-1.rds.amazonaws.com
+ 
+Put in your username & password - same as the info you keyed in during the RDS creation.
+ 
+click 'Test Connection'
+
 	
 ```
 mysql -h <endpoint of your instance> -u <master username> -p
@@ -45,7 +71,7 @@ mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates t
 mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
 ```
 
-	7. Create User table 
+	11. Create User table 
 
 ```
 USE workshop;
@@ -59,7 +85,7 @@ CREATE TABLE `User` (
 
 ```
 
-	8. Check the table created
+	12. Check the table created
 
 ```
 show tables;
@@ -67,12 +93,15 @@ show tables;
 describe User;
 ```
 
-	9. You can use GUI tool for MySQL (for example, DBVisualizer)
+	13. You can use GUI tool for MySQL (for example, DBVisualizer)
 	
 ![Checking Aurora](./images/module-03/02-1.png)	
 
+
+
 ##### 2. Create data stores for this application (DynamoDB)
 Create a table names as "PhotoInfo" with key "id"
+
 ![Create DynamoDB table](./images/module-03/03.png)
 
 
