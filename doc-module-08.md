@@ -10,6 +10,7 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 - Create a docker for your application and deploy through CI/CD
 
 **Default Region : Virginia (US-EAST-1)**
+
 Contributor : Jean Koay (AWS SA)
 <hr>
 
