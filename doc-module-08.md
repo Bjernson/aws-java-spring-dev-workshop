@@ -45,7 +45,7 @@ mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates t
 mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
 ```
 
-	7. Create User table
+	7. Create User table 
 
 ```
 USE workshop;
@@ -66,6 +66,10 @@ show tables;
 
 describe User;
 ```
+
+	9. You can use GUI tool for MySQL (for example, DBVisualizer)
+	
+![Checking Aurora](./images/module-03/02-1.png)	
 
 ##### 2. Create data stores for this application (DynamoDB)
 Create a table names as "PhotoInfo" with key "id"
@@ -204,11 +208,10 @@ git push
 ssh -i <your_key> ec2-user@<IP>
 ```
 
-	3. Upgrade Java to 1.8 in the instance of CodeDeploy
-	
+	3. Upgrade Java to 1.8 in the instance of CodeDeploy	
 	
 ```
-sudo yum list available java\*      # check avaiable java version
+sudo yum list available java\*      # check available java version
 sudo yum install java-1.8.0 java-1.8.0-openjdk-devel  -y      # install 1.8 java and javac
 sudo yum remove java-1.7.0-openjdk -y  # remove 1.7
 java -version											# check java version
