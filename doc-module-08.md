@@ -68,7 +68,7 @@ mysql -h <endpoint of your instance> -u <master username> -p
 	10. Create user and it's privilege using following SQL commands(use MySQL client in your computer)
 
 ```
-mysql> create user 'demouser'@'localhost' identified by '12345678'; -- Creates the user
+mysql> create user 'demouser'@'%' identified by '12345678'; -- Creates the user
 mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
 ```
 

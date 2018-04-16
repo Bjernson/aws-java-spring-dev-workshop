@@ -327,6 +327,7 @@ aws cloudformation package --template-file lambda-translate.yaml --output-templa
 - Create a SAM file for each Lamdba function. (You need to change a function name to check a creating new Lamdba function through SAM.
 - Refer : 
 https://docs.aws.amazon.com/lambda/latest/dg/serverless-deploy-wt.html
+
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html
 
 **translate-lambda-sam.yaml**
