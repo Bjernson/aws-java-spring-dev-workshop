@@ -123,19 +123,6 @@ source /etc/profile.d/maven.sh
 echo $PATH             
 ```
 
-##### 4. Check the result of previous step 
-	1. Run following command to check no erros (in terminals in your code)
-
-```	
-	cd <your_source folder>
-
-	mvn -f pom.xml compile
-	mvn -f pom.xml package
-	
-	### you can skip the test
-	mvn -f pom.xml package -Dmaven.test.skip=true
-```
-
 
 ##### 3. install nodejs
 https://tecadmin.net/install-latest-nodejs-and-npm-on-centos/
@@ -156,7 +143,7 @@ node -v
 
 ##### 1. launch your instance 
 
-	1. Search "aws-java-spring-dev-workshop-c9-rehel-image" 
+	1. Search "aws-java-spring-dev-workshop-rehel-dev-1.0" 
 
 ![ec2 isnstance](./images/module-01/01.png)
 
@@ -177,18 +164,30 @@ node -v
 	
 	4. Copy public SSH key 
 	5.	 Paste it to ~/.ssh/authorized_keys
-```	
+	
+```
 ls -al ~/.ssh/authorized_keys 
 -rw-------. 1 ec2-user ec2-user 1157 Apr 24 13:16 /home/ec2-user/.ssh/authorized_keys	
-```	
 
+```
 	6. Create environment
 	7. Open IDE
 	
+![ec2 isnstance](./images/module-01/05.png)
 
+##### 3. Download source codes and run module-01
 
+```
+	cd ~/environment
+	git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
+	cd aws-java-spring-dev-workshop/module-01
 
-![ec2 isnstance](./images/module-01/05.png)	
+	mvn -f pom.xml compile
+	mvn -f pom.xml package
+	
+	### you can skip the test
+	mvn -f pom.xml package -Dmaven.test.skip=true
+```
 
 <hr>
 
@@ -199,10 +198,11 @@ ls -al ~/.ssh/authorized_keys
 git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
 ```
 
-##### 2. Configure environment.
-- Setup MySQL and configure username/password
-- install MySQL in your development environment, it depends on your dev OS, for example MacOs or Linux
-- After installataion, create database and configure user name and password, for example (demouser/12345678)
+##### 2. Configure environment (you can skip if you are using CLoud9)
+- Setup MySQL in your local machine
+- Configure username/password
+- Install MySQL in your development environment, it depends on your dev OS, for example MacOs or Linux
+- After installation, create database and configure user name and password, for example (demouser/12345678)
 
 ```
 ## create database, user and it's privilege
