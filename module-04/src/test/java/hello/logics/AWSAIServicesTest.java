@@ -22,16 +22,7 @@ public class AWSAIServicesTest {
 	@Test
 	public void testRetrieveInfoFromPhoto()
 	{
-		AWSAIServices ai = new AWSAIServices();
-		List<Label> labels = ai.retrieveInformation(bucket, photoPath, region);
-		
-		assertNotNull(labels);
-		assertTrue(labels.size() > 0);
-		
-		System.out.println("Detected labels for " + photoPath);
-		for (Label label: labels) {
-		System.out.println("#### = " + label.getName() + ": " + label.getConfidence().toString());
-		}
+		sudo gem install cocoapods
 
 	}
 	

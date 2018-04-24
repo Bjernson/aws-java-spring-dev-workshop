@@ -2,6 +2,85 @@
 - This is a simple web application using Spring Boot and MySQL
 - Check module-01 application and run this application to check the application structure and it's execution.
 
+### 0. Create your Cloud9 IDE environment
+
+#### 1. install MySQL (you can skip this step)
+	1. Launch your EC2 instance in Virginia(us-east-1) or Singapore region (ap-southeast-1)
+	2. install all required packages
+
+	3. install MySql
+
+refer : https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-centos-7
+
+```
+	wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+	md5sum mysql57-community-release-el7-9.noarch.rpm
+		
+	sudo rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+	
+	# msql 5.6
+	rpm -ivh http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
+	sudo rpm -ivh mysql-community-release-el6-5.noarch.rpm
+
+	sudo yum install mysql-server
+
+	#start server
+	sudo service mysqld start
+	
+	# grep a temp password
+	sudo grep 'temporary password' /var/log/mysqld.log
+	
+	#set root password
+	mysql_secure_installation
+	
+	# connet as root user with temp password
+	mysql -uroot -p
+	
+	ALTER USER 'root'@'localhost' IDENTIFIED BY 'Work@123!';
+	
+	# create a database
+	
+	create database workshop;
+```
+	
+	5. Create user and it's privilege using following SQL commands(use MySQL client in your computer)
+
+```
+mysql> create user 'demouser'@'%' identified by 'Shop@1234'; -- Creates the user
+mysql> create user 'demouser'@'localhost' identified by 'Shop@1234'
+mysql> grant all on workshop.* to 'demouser'@'%'; -- Gives all the privileges to the new user on the newly created 
+mysql>  grant all on workshop.* to 'demouser'@'localhost'
+
+CREATE USER 'demouser'@'%' identified by '12345678';
+GRANT ALL ON *.* TO 'demouser'@'%' IDENTIFIED BY '12345678';
+FLUSH PRIVILEGES;
+
+```
+
+	6. Create User table 
+
+```
+USE workshop;
+
+CREATE TABLE `User` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+```
+
+	7. Check the table created
+
+```
+show tables;
+
+describe User;
+```
+
+### 1. Run your first Java application
+
 ##### 1. Download source codes 
 ```
 git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
