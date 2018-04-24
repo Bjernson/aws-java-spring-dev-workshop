@@ -22,7 +22,6 @@ public class AWSAIServicesTest {
 	@Test
 	public void testRetrieveInfoFromPhoto()
 	{
-		sudo gem install cocoapods
 
 	}
 	
