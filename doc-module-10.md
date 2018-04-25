@@ -12,7 +12,6 @@ cd ~/environment
 git clone https://github.com/awsdocs/aws-doc-sdk-examples.git
 
 ```
-	
 	2. Configure your credentials
 
 ```
@@ -79,5 +78,27 @@ List<Message> messages = sqs.receiveMessage(receiveMessageRequest).getMessages()
 https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html
 	
 	
-	
+##### 2. log analysis
+Sample data : NASA web logs
 
+	1. Download this file and upload to S3 bucket : http://indeedeng.github.io/imhotep/files/nasa_19950630.22-19950728.12.tsv.gz
+
+	2. Create your own bucket and upload above file
+	3. Modify ProcesssAnalytics.java to download the file
+ 	
+
+##### 3. Using Lambda for data ayantics
+- If you done have a Role for Lambda execution, then need to create a Role have a enough privilege.
+
+Module-10-serverless-01 
+
+(in your Eclipse IDE, you can upload Lamdba to AWS)
+
+	1. configure a event trigger as S3 
+	- Specify S3 bucket name
+	- Specify event type as PUT
+
+![ec2 isnstance](./images/module-10/02.png)
+
+	2. upload test file to the S3 bucket
+	
