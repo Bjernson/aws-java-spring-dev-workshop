@@ -28,6 +28,9 @@
 ## [Configuration your development environment](./doc-module-00.md)
 
 <hr>
+
+## Workshop modules
+
 <hr>
 
 ## [Module-01 workshop documentation](./doc-module-01.md)
