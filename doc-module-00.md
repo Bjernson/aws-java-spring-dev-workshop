@@ -7,7 +7,7 @@
 ### 1. Eclipse IDE (recommendation)
 
 #### 1.1 Install all required SDK, packages in your dev environment
-###### Mandatory
+** Mandatory **
 - Java SDK 8
 - Git client, 
 - Maven (3.5.3)
@@ -17,7 +17,7 @@
 - AWS CLI in your development environment : https://docs.aws.amazon.com/cli/latest/userguide/installing.html
 - Create on EC2 Role and Lambda Role with admin access privilege.
 
-###### Optional
+**Optional**
 - Install TM Terminal, Eclipse plugin (http://download.eclipse.org/releases/neon)
 - Install YAML editor, Eclipse plugin
 - Install MySQL (Please see below appendix)
@@ -96,12 +96,30 @@ ls -al ~/.ssh/authorized_keys
 
 <hr>
 
+### 3. Create a Role for EC2 and Lambda
+You will need a Role for EC2 and Lambda later for completing this workshop. The creating of 2 kind Role is required.
+- A role for EC2 instance
+- A role for Lambda
 
-### 3. Detail Configuration ( for reference )
+	1. Open IAM
+	2. Select Role and click create
+![creaet a role](./images/module-00/01.png) 
+
+	3. Select type of trusted entity as EC2 (if you want to create a role for Lambda then select "Lambda" instead of "EC2")
+
+![creaet a role](./images/module-00/02.png) 
+
+	4. Select a Administrator access policy. You can restrict a privelige for this role with selecting a differnt role.
+	
+![creaet a role](./images/module-00/03.png) 
+
+
+### 4. Detail Configuration ( for reference )
 - This instruction only covers Linux (Redhat or CentOS) installation. you need to find a way to set up according to your environment
 
 
-#### 3.1 Install all SDK and packages
+
+#### 4.1 Install all SDK and packages
 
 ##### 1. Install Java SDK
 	1. Check java --version and check the location of Java 
@@ -167,7 +185,7 @@ node -v
 
 ```
 
-### 3.2 MySQL installation
+### 4.2 MySQL installation
 - MySQL 5.6 is recommended.
 
 	1. install MySql
