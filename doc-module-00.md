@@ -113,6 +113,7 @@ You will need a Role for EC2 and Lambda later for completing this workshop. The 
 	
 ![creaet a role](./images/module-00/03.png) 
 
+<hr>
 
 ### 4. Detail Configuration ( for reference )
 - This instruction only covers Linux (Redhat or CentOS) installation. you need to find a way to set up according to your environment
