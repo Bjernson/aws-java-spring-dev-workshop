@@ -1,4 +1,4 @@
-## 1. Configuring Dev Environment : (time duration : 30 ~ 40 mins)
+## Configuring Dev Environment : (time duration : 30 ~ 40 mins)
 - This module is for configuring your dev environment
 - We will show the two kind of dev environment, one is Eclipse, the other is Cloud9.
 - Eclipse IDE is recommended as your dev IDE for studying this workshop
