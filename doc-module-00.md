@@ -97,7 +97,7 @@ ls -al ~/.ssh/authorized_keys
 <hr>
 
 
-### 3 Detail Configuration (referencing only)
+### 3. Detail Configuration ( for reference )
 - This instruction only covers Linux (Redhat or CentOS) installation. you need to find a way to set up according to your environment
 
 
