@@ -15,7 +15,7 @@
 - AWS plugin for Eclipse  : https://docs.aws.amazon.com/toolkit-for-eclipse/v1/user-guide/setup-install.html
 
 - AWS CLI in your development environment : https://docs.aws.amazon.com/cli/latest/userguide/installing.html
-- Create on EC2 Role and Lambda Role with admin access privilege.
+- Create on EC2 Role and Lambda Role with admin access privilege. (See section 3.)
 
 **Optional**
 - Install TM Terminal, Eclipse plugin (http://download.eclipse.org/releases/neon)
