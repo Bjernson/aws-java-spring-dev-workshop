@@ -45,7 +45,7 @@ Before starting, you need to configure **your EC2 role** for Cloud9 environment 
 
 ##### 1. launch your instance 
 
-	1. Search "aws-java-spring-dev-workshop-rehel-dev-1.0" 
+**Use "aws-java-spring-dev-workshop-rehel-dev-1.0"**
 
 ![ec2 isnstance](./images/module-01/01.png)
 
