@@ -17,13 +17,17 @@
 - Sometimes, there are bugs in unit test intentionally to help you to understand the logics of application codes, it requires you should complete the code without errors.
 
 
-## 0. Preparation
-**IMPORTANT !!! **
+<hr>
 
-**Please set up or check your dev environment for more efficient studying for this workshop befoer starting (mandatory)**
+## Preparation
 
-## [Module-00 Configuration your Dev environment](./doc-module-00.md)
+**IMPORTANT (Mandatory)**
 
+**Please set up or check your dev environment for more efficient studying for this workshop before starting**
+
+## [Configuration your development environment](./doc-module-00.md)
+
+<hr>
 <hr>
 
 ## [Module-01 workshop documentation](./doc-module-01.md)
