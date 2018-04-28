@@ -1,24 +1,10 @@
 
-# Workshop for implementing/migrating Java web application on AWS with microservce, CICD and DevSecsOps
+# Workshop for implementing/migrating Java web application on AWS with microservice, CICD and DevSecsOps
 
 <hr>
 
-## 0. Preparation
-##### 1. Install all required SDK, packages in your dev environment
-###### Mandatory
-- Java SDK 8, Git client, 
-- Maven (3.5.3)
-- Eclipse Oxygen 3
-- AWS plugin for Eclipse 
-- AWS CLI in your development environment
+## 1. How to study this workshop
 
-###### Optional
-- Install TM Terminal, Eclipse plugin (http://download.eclipse.org/releases/neon)
-- Install YAML editor, Eclipse plugin
-
-The installation time generally takes 10 ~ 30mins. Attendees should prepare all installations for their developing environment before starting this workshop.
-
-##### 2. How to study this workshop
 - Every module of this workshop covers one important topic, for example, how to integrate Paramter Store with your application, how to migrate application logics to Lambda and so forth.
 
 
@@ -29,6 +15,14 @@ The installation time generally takes 10 ~ 30mins. Attendees should prepare all 
 
 
 - Sometimes, there are bugs in unit test intentionally to help you to understand the logics of application codes, it requires you should complete the code without errors.
+
+
+## 0. Preparation
+**IMPORTANT !!! **
+
+**Please set up or check your dev environment for more efficient studying for this workshop befoer starting (mandatory)**
+
+## [Module-00 Configuration your Dev environment](./doc-module-00.md)
 
 <hr>
 

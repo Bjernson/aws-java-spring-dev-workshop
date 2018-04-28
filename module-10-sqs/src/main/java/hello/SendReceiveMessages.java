@@ -28,24 +28,24 @@ public class SendReceiveMessages
         }
 
         String queueUrl = sqs.getQueueUrl(QUEUE_NAME).getQueueUrl();
-
-        SendMessageRequest send_msg_request = new SendMessageRequest()
-                .withQueueUrl(queueUrl)
-                .withMessageBody("hello world")
-                .withDelaySeconds(5);
-        sqs.sendMessage(send_msg_request);
-
-
-        // Send multiple messages to the queue
-        SendMessageBatchRequest send_batch_request = new SendMessageBatchRequest()
-                .withQueueUrl(queueUrl)
-                .withEntries(
-                        new SendMessageBatchRequestEntry(
-                                "msg_1", "Hello from message 1"),
-                        new SendMessageBatchRequestEntry(
-                                "msg_2", "Hello from message 2")
-                                .withDelaySeconds(10));
-        sqs.sendMessageBatch(send_batch_request);
+//
+//        SendMessageRequest send_msg_request = new SendMessageRequest()
+//                .withQueueUrl(queueUrl)
+//                .withMessageBody("hello world")
+//                .withDelaySeconds(5);
+//        sqs.sendMessage(send_msg_request);
+//
+//
+//        // Send multiple messages to the queue
+//        SendMessageBatchRequest send_batch_request = new SendMessageBatchRequest()
+//                .withQueueUrl(queueUrl)
+//                .withEntries(
+//                        new SendMessageBatchRequestEntry(
+//                                "msg_1", "Hello from message 1"),
+//                        new SendMessageBatchRequestEntry(
+//                                "msg_2", "Hello from message 2")
+//                                .withDelaySeconds(10));
+//        sqs.sendMessageBatch(send_batch_request);
 
 
         // receive messages from the queue
