@@ -25,7 +25,7 @@
 
 **Please set up or check your dev environment for more efficient studying for this workshop before starting**
 
-## [Configuration your development environment](./doc-module-00.md)
+## [Configuring your development environment](./doc-module-00.md)
 
 <hr>
 
