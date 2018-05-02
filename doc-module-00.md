@@ -1,12 +1,18 @@
-## Configuring Dev Environment : (time duration : 30 ~ 40 mins)
+## Configuring Dev Environment : (Time duration : 30 ~ 40 mins)
 - This module is for configuring your dev environment
 - We will show the two kind of dev environment, one is Eclipse, the other is Cloud9.
 - Eclipse IDE is recommended as your dev IDE for studying this workshop
 
 
-### 1. Eclipse IDE (recommendation)
+### 1. Eclipse IDE  (recommendation)
 
-#### 1.1 Install all required SDK, packages in your dev environment
+- We recommend 2 approaches for your dev environment
+- One is Eclipse IDE in your local computer (see 1.1)
+- The other is Eclipse IDE in remote EC2 instances you can connect it with VNC client (see 1.2)
+
+#### 1.1 Configure Development environment in your local computer 
+
+##### 1. Install all required SDK, packages in your dev environment
 ** Mandatory **
 - Java SDK 8
 - Git client, 
@@ -18,13 +24,12 @@
 - Create on EC2 Role and Lambda Role with admin access privilege. (See section 3.)
 
 **Optional**
-- Install TM Terminal, Eclipse plugin (http://download.eclipse.org/releases/neon)
 - Install YAML editor, Eclipse plugin
 - Install MySQL (Please see below appendix)
 
 **The installation generally takes 10 ~ 30mins. Attendees should prepare all installations for their developing environment before starting this workshop.**
 
-#### 1.2 Check your configuration
+##### 2 Check your configuration
 
 Run following commands and check each package is available
 
@@ -35,7 +40,50 @@ aws
 mvn
 ```
 
+
+#### 1.2 Configure remote dev environment
+
+##### 1. launch your instance 
+
+**Use "java-workshop-redhat-dev"**
+
+![ec2 instance](./images/module-00/04.png)
+
+	2. Select "Red Hat Enterprise Linux 7.5 (HVM), SSD Volume Type" in Singapore Region	
+	3. Specify launch setup 
+	   Enable public IP
+	   Create a new IAM role  -> You need to change a role to have a privilege to access AWS services later
+	4. Configure Security Group
+			Add ports : 80, 8080, 5905
+![ec2 instance](./images/module-00/05.png)	
+	
+	5. Wait for launching	
+	
+##### 2. Install VNC viewer
+
+- Download : https://www.realvnc.com/en/connect/download/viewer
+- You can download Mac/Windows VNC viewer from above link 	
+
+	1. Open your VNC viewer
+	2. In text pane, Specify connection information; <IP ADDR>:5095  or <DNS>:5095
+
+![ec2 instance](./images/module-00/06.png)	
+
+	3 Specify password "12345678"
+	
+![ec2 instance](./images/module-00/07.png)
+	
+	4. Launch Eclipse from the folder "~/eclipse" or "/home/ec2-user/eclipse
+	
+![ec2 instance](./images/module-00/08.png)		
+
+	5. Check your workspace "~/eclipse-workspace" or "/home/ec2-user/eclipse-workspace"
+	
+![ec2 instance](./images/module-00/09.png)			 
+
 <hr>
+
+
 
 ### 2. Using Cloud9 (alternative) 
 
@@ -47,7 +95,7 @@ Before starting, you need to configure **your EC2 role** for Cloud9 environment 
 
 **Use "aws-java-spring-dev-workshop-rehel-dev-1.0"**
 
-![ec2 isnstance](./images/module-01/01.png)
+![ec2 instance](./images/module-01/01.png)
 
 	2. Select "Red Hat Enterprise Linux 7.5 (HVM), SSD Volume Type" in Singapore Region	
 	3. Specify launch setup 
@@ -252,3 +300,16 @@ describe User;
 ```
 
 
+### 5. VNC configuration
+
+refer: 
+
+https://linuxconfig.org/install-gnome-gui-on-rhel-7-linux-server
+
+https://www.itzgeek.com/how-tos/linux/centos-how-tos/configure-vnc-server-on-centos-7-rhel-7.html
+
+#for restirat vnc
+remove lock
+
+# rm -f /tmp/.X?-lock
+# rm -f /tmp/.X11-unix/X4

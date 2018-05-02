@@ -21,7 +21,7 @@ If you want to run module-04 application here without completing the previous mo
 
 	1. Open the Amazon RDS console : https://console.aws.amazon.com/rds/home?region=us-east-1#
 	2. Select Aurora for MySQL 5.7 Database engine and select the 
-	3. Create a DB instance configuring databasename, username, password.
+	3. Create a DB instance configuring database name, username, password.
 	4. Remember your master username and password to perform next step
 	
 ![Parameter Store](./images/module-03/01.png)
