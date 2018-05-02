@@ -10,7 +10,7 @@
 - One is Eclipse IDE in your local computer (see 1.1)
 - The other is Eclipse IDE in remote EC2 instances you can connect it with VNC client (see 1.2)
 
-#### 1.1 Configure Development environment in your local computer 
+#### 1.1 Configure a development environment in your local computer 
 
 ##### 1. Install all required SDK, packages in your dev environment
 ** Mandatory **
@@ -24,7 +24,7 @@
 - Create on EC2 Role and Lambda Role with admin access privilege. (See section 3.)
 
 **Optional**
-- Install YAML editor, Eclipse plugin
+- Install YAML editor, Eclipse plug in
 - Install MySQL (Please see below appendix)
 
 **The installation generally takes 10 ~ 30mins. Attendees should prepare all installations for their developing environment before starting this workshop.**
@@ -41,7 +41,9 @@ mvn
 ```
 
 
-#### 1.2 Configure remote dev environment
+#### 1.2 Configure a remote dev environment
+
+- If you have some troubles to configure your local environment, then just use remote dev instance and connect it with VNC viewer, following below steps.
 
 ##### 1. launch your instance 
 
@@ -70,6 +72,7 @@ mvn
 ![ec2 instance](./images/module-00/06.png)	
 
 	3 Specify password "12345678"
+- Password is **12345678**	
 	
 ![ec2 instance](./images/module-00/07.png)
 	
