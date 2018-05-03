@@ -115,7 +115,7 @@ public class ProcessAnalytics
           System.out.println(String.format(
               "Error getting object %s from bucket %s. Make sure they exist and"
               + " your bucket is in the same region as this function.", prefix, bucket));
-          throw e;
+
       }
     }
     

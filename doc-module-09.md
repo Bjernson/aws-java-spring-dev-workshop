@@ -53,7 +53,7 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 
 	1. run docker as a daemon
 ```
-	docker run -d -p 80:8080 --name=test-1 hello-world --build-arg JAR_FILE="./target/<YOUR_ARTIFACT_FILE>"
+	docker run -d -p 80:8080 --name=test-1 hello-world 
 	
 	docker build -t hello-world . --build-arg JAR_FILE="<YOUR_ARTIFACT_FILE>"
 	
@@ -69,8 +69,12 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 	3. Remove all container
 
 ```
+#stop all running docker
 	docker stop $(docker ps -a -q)
-	docker rm $(docker ps -a -q)
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
 ```
 
 #### 1.2 Create a ECR repository
@@ -149,7 +153,11 @@ If you are using macOS, use HTTPS to connect to an AWS CodeCommit repository. Af
 
 refer : https://docs.aws.amazon.com/codebuild/latest/userguide/sample-docker.html
 	
-##### 1. Change create-builder.json
+- There is 2 builder json file. create-dock-builder.json and create-java-builder.json	
+- create-java-builder.json is a file for creating CodeBuild for compiling and packaging Java source code to JAR output file.
+- create-dock-builder.json is a file for creating CodeBuild for creating docker images 
+	
+##### 1. Change Builder files
 
 	1. Change the values accoriding to your environments
 	2. CodeCommit URL, region-ID, account-ID,Amazon-ECR-repo-name and role-name ARN
@@ -194,27 +202,23 @@ refer : https://docs.aws.amazon.com/codebuild/latest/userguide/sample-docker.htm
 
 ##### 3. Create a builder project
 
-Use create-builder.json 
+	1. Create a Java builder
 
 ```
 aws codebuild create-project --cli-input-json file://create-java-builder.json
-
-aws codebuild create-project --cli-input-json file://create-dock-builder.json
-
-
-aws ecr get-login --no-include-email --region ap-southeast-1 | sh
-      
-docker build -t java-workshop:latest . --build-arg JAR_FILE="gs-spring-boot-docker-0.1.0.jar"
-docker tag java-workshop:latest 550622896891.dkr.ecr.ap-southeast-1.amazonaws.com/java-workshop:latest
-docker push 550622896891.dkr.ecr.ap-southeast-1.amazonaws.com/java-workshop:latest 
-
 ```
+
+	2. Create a docker builder
+	
+```	
+aws codebuild create-project --cli-input-json file://create-dock-builder.json
+```
+
+
 
 ##### 4. Commit a source to new CodeCommit repository
 
-	1. Change directory to <YOUR WORKSPACE>
-	2. Clone your codecommit repo
-
+	1. Clone CodeCommit repo in your local directory
 
 ```
 cd <your workspace>
@@ -227,9 +231,16 @@ cp -R <YOUR PROJECT>/* .
 
 
 ```
-
+	2. Commit source code
+	
+```
+	git add .
+	git commit -m "first"
+	git push
+```
 
 ##### 5. Start Build
+- Run each CodeBuild, first, java builder then run docker builder
 
 	1. In your Codebuild Console, click a Start Build Button
 
@@ -242,14 +253,51 @@ cp -R <YOUR PROJECT>/* .
 
 ##### 6. Check Your Roles for CoudeBuild
 
-Check your build result and if your role dosen' have enough privilege then add more access privilege on access policy.
+Check your build result and if your role dosn't have enough privilege then add more access privilege on access policy.
 
 	1. Give a full CloudWatch Write privilege
 	2. Give a full ECR privilege
 
 
-
 <hr>
+
+##### 7. Check pushed image in your local machine
+
+	1. You can describle the iamges withing a repository with following command.
+
+```
+aws ecr describe-images --repository-name java-workshop
+
+```
+
+	2. Pull the image using the docker pull
+
+```
+docker pull <aws_account_id>.dkr.ecr.<your_region>.amazonaws.com/java-workshop:latest
+
+docker pull 550622896891.dkr.ecr.ap-southeast-1.amazonaws.com/java-workshop:latest
+
+docker images 
+
+docker run -d -p 80:8080 --name=hello-world <IMAGE_ID>
+
+docker run -d -p 80:8080 --name=hello-world 6f9c0d0b1c56
+
+docker ps
+```
+
+#### 1.5 Create CICD for docker
+
+
+
+
+##### 4. check CodePipeline exceution
+
+```
+aws codepipeline get-pipeline-execution --pipeline-name CICD-docker --pipeline-execution-id cc0cb5e5-d001-44bc-9e27-3233f1a98323
+```
+
+
 
 
 ### Reference : Change a paratmeter in CodePipeline

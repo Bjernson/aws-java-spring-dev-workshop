@@ -1,8 +1,8 @@
 {
-  "name": "sample-docker-project",
+  "name": "java-docker-builder",
   "source": {
-    "type": "CODECOMMIT",
-    "location": "<YOUR code commit URL>"
+    "type": "S3",
+    "location": "arn:aws:s3:::<YOUR BUCKET NAME>/output.zip"
   },
   "artifacts": {
     "type": "NO_ARTIFACTS"
@@ -14,15 +14,15 @@
     "environmentVariables": [
       {
         "name": "AWS_DEFAULT_REGION",
-        "value": "region-ID"
+        "value": "ap-southeast-1"
       },
       {
         "name": "AWS_ACCOUNT_ID",
-        "value": "account-ID"
+        "value": "<account id>" 
       },
       {
         "name": "IMAGE_REPO_NAME",
-        "value": "Amazon-ECR-repo-name"
+        "value": "java-workshop"
       },
       {
         "name": "IMAGE_TAG",
@@ -30,5 +30,5 @@
       }
     ]
   },
-  "serviceRole": "arn:aws:iam::account-ID:role/role-name"
+  "serviceRole": "arn:aws:iam::<account id>:role/service-role/<your code build role name>"
 }
