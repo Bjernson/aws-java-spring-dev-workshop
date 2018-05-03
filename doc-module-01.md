@@ -23,7 +23,7 @@ git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
 	1. Change working directory to module-01
 	
 ```
-mvn clean comple test
+mvn clean compile test
 ```	
 	2. Package 
 

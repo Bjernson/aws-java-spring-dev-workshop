@@ -29,48 +29,51 @@
 
 <hr>
 
-## Workshop modules
+## Workshop Lab Guide for each module
 
 <hr>
 
-## [Module-01 workshop documentation](./doc-module-01.md)
+## [Module-01 workshop (First Spring Boot application)](./doc-module-01.md)
 
 <hr>
 
-## [Module-02 workshop documentation](./doc-module-02.md)
+## [Module-02 workshop (Parameter Store)](./doc-module-02.md)
 
 <hr>
 
-## [Module-03 workshop documentation](./doc-module-03.md)
+## [Module-03 workshop (Using AWS Services with SDK)](./doc-module-03.md)
 
 <hr>
 
-## [Module-04 workshop documentation](./doc-module-04.md)
+## [Module-04 workshop (Multiple Repositories)](./doc-module-04.md)
 
 <hr>
 
-## [Module-05 workshop documentation](./doc-module-05.md)
+## [Module-05 workshop (Move logics to Lambda)](./doc-module-05.md)
 
 <hr>
 
-## [Module-06 workshop documentation](./doc-module-06.md)
+## [Module-06 workshop (StepFunctions)](./doc-module-06.md)
 
 <hr>
 
-## [Module-07 workshop documentation](./doc-module-07.md)
+## [Module-07 workshop (X-Ray for Cloud tracing)](./doc-module-07.md)
 
 <hr>
 
 
-## [Module-08 workshop documentation](./doc-module-08.md)
+## [Module-08-1 workshop (CI/CD starting from Cloud9 and SAM for Lambda)](./doc-module-08-1.md)
+
+
+## [Module-08-2 workshop (Dockerization and CI/CD for ECS) ](./doc-module-08-2.md)
 
 <hr>
 
-## [Module-09 workshop documentation](./doc-module-09.md)
+## [Module-09 workshop (DevSecsOps)](./doc-module-09.md)
 
 <hr>
 
-## [Module-10 workshop documentation](./doc-module-10.md)
+## [Module-10 workshop (Analytics)](./doc-module-10.md)
 
 <hr>
 

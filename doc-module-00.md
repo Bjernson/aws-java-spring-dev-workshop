@@ -47,7 +47,7 @@ mvn
 
 ##### 1. launch your instance 
 
-**Use "java-workshop-redhat-dev"**
+**Use "java-workshop-redhat-dev-v2"**
 
 ![ec2 instance](./images/module-00/04.png)
 

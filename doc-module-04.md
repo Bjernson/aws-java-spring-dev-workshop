@@ -8,7 +8,7 @@ In this module, we will learn how to configure the multiple repositories of Auro
 - Test 2 repositories with Unit Test codes
 
 ##### 1. Add Spring Data for Database
-We arg going to use Spring Data for DynamoDB 
+We are going to use Spring Data for DynamoDB 
 
 reference : [derjust's Github](https://github.com/derjust/spring-data-dynamodb)
 
