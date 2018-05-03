@@ -24,18 +24,19 @@ git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
 	
 ```
 mvn clean compile test
-```	
-	2. Package 
-
 ```
-mvn package 
-```
-	
-	3. If you don't want to run unit test then,
 
+	2. Packaging without unit testing(recommended)
 
 ```
 mvn package -Dmaven.test.skip=true
+
+```
+	
+	3. If you want to run unit test then during packaging
+
+```
+mvn package
 ```
 
 ##### 2. Run your application 
@@ -53,20 +54,31 @@ We have 2 kinds of unit test, one is mock test, the other is integration test, p
 Launch your application in your Eclipse IDE and run 'curl' command like below
 
 ```
-curl 'localhost:8080/workshop/all'
 
-curl 'localhost:8080/workshop/add?name=First&email=ex1@gmail.com'
+# test user
+curl 'localhost:8080/workshop/users/all'
 
-curl 'localhost:8080/workshop/deleteall'
+curl 'localhost:8080/workshop/users/add?name=First&email=ex1@gmail.com'
 
-curl 'localhost:8080/workshop/all'
+curl 'localhost:8080/workshop/users/deleteall'
+
+curl 'localhost:8080/workshop/users/all'
+
+# test image
+curl 'localhost:8080/workshop/images/all'
+
+curl 'localhost:8080/workshop/images/add?userid=1&bucket=seon-singapore&prefix=/output&filename=test.PNG'
+
+curl 'localhost:8080/workshop/images/deleteall'
+
+curl 'localhost:8080/workshop/images/all'
 
 ```
 
-##### 2. Run web page localhost:8080/index.html
+##### 2. Check web page
+- localhost:8080/index.html
 - Run CRUD for User data
 - see user list, add/update/delete user
-
 
 
 ### 2. Check your database
@@ -80,6 +92,7 @@ http://localhost:8080/h2
 You can create a new user, new database in this console page
 
 ![H2 database](./images/module-01/06.png)
+
 
 ### 3. Take a look at application structure
 
@@ -120,15 +133,9 @@ You can create a new user, new database in this console page
   </dependency> 
  ```
 
+##### 2. Prevent "JABXExeption" errors
 
-### 4. Appedix. create a Spring Boot project from scratch
-Please check this blog for creating a spring boot project from scratch using Maven. 
-[add later]
-
-
-```
-
-if you get a error related to "JABXExeption", then add following content in your pom.xml
+- If you get a error related to "JABXExeption", then add following content in your pom.xml
 
 ```
 <!-- add JAX-B to prevent No Class Found : JABXExeption -->
@@ -147,4 +154,10 @@ if you get a error related to "JABXExeption", then add following content in your
     <artifactId>jaxb-impl</artifactId>
     <version>2.2.11</version>
 </dependency>    		
-```			 
+```
+
+### 4. Appedix. create a Spring Boot project from scratch
+Please check this blog for creating a spring boot project from scratch using Maven. 
+[add later]
+
+	 

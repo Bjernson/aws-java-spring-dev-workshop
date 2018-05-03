@@ -4,7 +4,7 @@ In this module, we introduce the fundamental concept of CodeStar and how to buil
 - Create a docker for your application and deploy through CI/CD
 - Create a CodeBuilder for Java compilation and Dockerization
 - Push docker image to ECR
-- Getting a docker from ECR and check it's availablity on local mahcine
+- Getting a docker from ECR and check it's availability on local machine
 - Complete a CICD for dockerization and deployment to ECS
 
 
@@ -288,7 +288,7 @@ docker ps
 
 #### 1.5 Create CICD for docker
 
-
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cd-pipeline.html
 
 
 ##### 4. check CodePipeline exceution

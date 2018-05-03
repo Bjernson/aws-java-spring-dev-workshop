@@ -1,5 +1,7 @@
 ## module-06 : Create StepFunction and use a Stepfucntion in your application (20 mins)
-This module need a knowledge session delivery of StepFunction 
+- Create a Stepfunction 
+- Integrate Lambda Functions with a StepFunction
+
 ##### Reference
 
 [Create a Step function](https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cloudformation.html)

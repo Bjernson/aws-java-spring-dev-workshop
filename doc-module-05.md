@@ -1,6 +1,6 @@
 ##  Module-05 : Change Logics to Lambda (time durations : 40 mins)  
-This module requires a knowledge session for StepFunction service.
-Start from module-05-begin
+- Create a Lambda project using AWS plugin for Eclipse
+- Create a 3 Lambda project to replace the application logics
 
 ##### reference
 [Invoking AWS Lambda Functions from Java](https://aws.amazon.com/blogs/developer/invoking-aws-lambda-functions-from-java/)
