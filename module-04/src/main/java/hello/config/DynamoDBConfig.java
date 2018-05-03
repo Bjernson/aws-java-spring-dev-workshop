@@ -29,18 +29,4 @@ public class DynamoDBConfig {
         return amazonDynamoDB;
     }
 
-    // @Bean
-    // public AWSCredentials amazonAWSCredentials() {
-  	 // 	AWSCredentials credentials;
-	  	//   try {
-	  	//       credentials = new ProfileCredentialsProvider("default").getCredentials();
-	  	//   } catch(Exception e) {
-	  	//      throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
-	  	//       + "Please make sure that your credentials file is at the correct "
-	  	//       + "location (/Users/userid/.aws/credentials), and is in a valid format.", e);
-	  	//   }
-    //     return credentials;
-
-    // }
-    
 }

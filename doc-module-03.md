@@ -1,5 +1,5 @@
 
-## Module 3 : Using AWS services (time duration : 30 mins)
+## Module 3 : Using AWS services (time duration : 50 mins)
 From this module, we are beginning to develop application using AWS services.
 We will complete the following tasks.
 - Change database from Mysql to Aurora for Mysql 

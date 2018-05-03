@@ -11,17 +11,18 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = "PhotoInfo")
 public class PhotoInfo {
     private String id;
-    private String prefix;
-    private String photoInfo;
-    private String transInfo;
+    
+		private String img_id;
+    private String locale;
+    private String imgInfo;
     
     public PhotoInfo() {
     }
     
-    public PhotoInfo(String prefix, String photoInfo, String transInfo) {
-        this.prefix = prefix;
-        this.photoInfo = photoInfo;
-        this.transInfo = transInfo;
+    public PhotoInfo(String img_id, String locale, String imgInfo) {
+        this.img_id = img_id;
+        this.locale = locale;
+        this.imgInfo = imgInfo;
     }
  
     @DynamoDBHashKey
@@ -31,35 +32,36 @@ public class PhotoInfo {
     }
  
     @DynamoDBAttribute
-    public String getPrefix() {
-        return prefix;
-    }
+    public String getImg_id() {
+ 			return img_id;
+ 		}
  
     @DynamoDBAttribute
-    public String getPhotoInfo() {
-        return photoInfo;
-    }
+ 		public String getLocale() {
+ 			return locale;
+ 		}
     
     @DynamoDBAttribute
-    public String getTransInfo() {
-        return transInfo;
-    }
+		public String getImgInfo() {
+ 			return imgInfo;
+ 		}
     
-		public void setId(String id) {
-			this.id = id;
-		}
+ 		public void setId(String id) {
+ 			this.id = id;
+ 		}
+    
+ 		public void setImg_id(String img_id) {
+ 			this.img_id = img_id;
+ 		}
 
-		public void setPrefix(String prefix) {
-			this.prefix = prefix;
-		}
-		
-		public void setPhotoInfo(String photoInfo) {
-			this.photoInfo = photoInfo;
-		}
+ 		public void setLocale(String locale) {
+ 			this.locale = locale;
+ 		}
 
-		public void setTransInfo(String transInfo) {
-			this.transInfo = transInfo;
-		}
+ 		public void setImgInfo(String imgInfo) {
+ 			this.imgInfo = imgInfo;
+ 		}
+
 		
 	  @Override
 	  public boolean equals(Object o) {
