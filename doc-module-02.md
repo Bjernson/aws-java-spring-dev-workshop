@@ -26,9 +26,9 @@ Complete the following tasks to configure application parameters for ParameterSt
 
 	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
 	2. Create parameters in ParameterStore for database URL, database username and password
-	3. Specify database.url as "jdbc:h2:file:~/WorkshopDB"
-	4. Specify database.username as "sa"
-	5. Specify database.password as ""
+	3. Specify datasource.url as "jdbc:h2:file:~/WorkshopDB"
+	4. Specify datasource.username as "sa"
+	5. Specify datasource.password as ""
 
 ![Parameter Store](./images/module-02/paramter-store-01.png)
 
