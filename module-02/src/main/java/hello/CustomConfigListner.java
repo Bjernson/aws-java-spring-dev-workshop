@@ -15,10 +15,11 @@ import com.amazonaws.services.simplesystemsmanagement.model.GetParameterResult;
 
 public class CustomConfigListner implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 	
-	
 	// DO !! overide this method with your Parameter Store, refer ParameterStoreTest.java and 
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+		
+    
 		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.defaultClient();
 		GetParameterRequest parameterRequest = new GetParameterRequest();
 		parameterRequest.withName("datasource.url").setWithDecryption(Boolean.valueOf(true));

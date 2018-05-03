@@ -1,11 +1,12 @@
 ## Module-02 : First use of AWS service(Parameter Store) and it's integration (time duration : 40 mins)
 - This module introduce you to how to configure CustomListner for retrieving environment parameters from Parameter Store in AWS System Manager. 
 - There are many environment paramenters in Spring Data applications, for example, database connection URL, database user name, password or AWS access key and secret key, and there are described in application.properties, generally. the more secured way to retrieve these information is required. 
-- Create a parameters in ParameterStore on AWS
-
 - Start from moudle-01 and complete the codes with below information.
 - module-02 is a starting points to use AWS services with AWS Java SDK.
- 
+
+- Create a parameters in ParameterStore on AWS
+- Create a Aurora database and create user and user table
+
  
 **Start from Module-01**
  
@@ -28,7 +29,7 @@ Complete the following tasks to configure application parameters for ParameterSt
 	2. Create parameters in ParameterStore for database URL, database username and password
 	3. Specify datasource.url as "jdbc:h2:file:~/WorkshopDB"
 	4. Specify datasource.username as "sa"
-	5. Specify datasource.password as ""
+	5. Specify datasource.password as "12345678"
 
 ![Parameter Store](./images/module-02/paramter-store-01.png)
 
@@ -123,12 +124,6 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 
 ```
 
-	2. Create **src/main/resources/META-INF/spring.factories** and specify below information
-
-```
-org.springframework.context.ApplicationListener=hello.CustomConfigListner
-```
-	
 
 ##### 3. Check the availability of parameters in ParameterStore
 	1. Create ParameterStoreTest.java in ser/test/java
@@ -180,7 +175,7 @@ public class ParameterStoreTest {
 ```
 mvn package -Dmaven.test.skip=true
 
-mvn package && java -jar target/module-02-0.1.0.jar
+java -jar target/module-02-0.1.0.jar
 
 ```
 	  

@@ -17,10 +17,13 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 	// DO !! overide this method with your Parameter Store, refer ParameterStoreTest.java and 
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-	    ConfigurableEnvironment environment = event.getEnvironment();
-	    Properties props = new Properties();
-	    props.put("spring.datasource.password", "12345678");
-	    environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
+//	    ConfigurableEnvironment environment = event.getEnvironment();
+//	    Properties props = new Properties();
+//	    System.out.println("########### 1 spring.datasource.password = " + props.get("spring.datasource.password"));
+//	    props.put("spring.datasource.password", "12345678");
+//	    environment.getPropertySources().addFirst(new PropertiesPropertySource("myProps", props));
+//	    System.out.println("########### 2 spring.datasource.password = " + props.get("spring.datasource.password"));
+	    
 	 }
 	
 }
