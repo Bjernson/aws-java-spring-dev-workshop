@@ -42,7 +42,7 @@ mvn package
 ##### 2. Run your application 
 	
 ```
-mvn package && java -jar target/module-01-0.1.0.jar
+java -jar target/module-01-0.1.0.jar
 ```
 
 #### 1.3  Test your application
