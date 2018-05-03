@@ -61,19 +61,19 @@
 
 <hr>
 
-
-## [Module-08-1 workshop (CI/CD starting from Cloud9 and SAM for Lambda)](./doc-module-08-1.md)
-
-
-## [Module-08-2 workshop (Dockerization and CI/CD for ECS) ](./doc-module-08-2.md)
+## [Module-08 workshop (CI/CD starting from Cloud9 and SAM for Lambda)](./doc-module-08.md)
 
 <hr>
 
-## [Module-09 workshop (DevSecsOps)](./doc-module-09.md)
+## [Module-09 workshop (Dockerization and CI/CD for ECS) ](./doc-module-09.md)
 
 <hr>
 
-## [Module-10 workshop (Analytics)](./doc-module-10.md)
+## [Module-10 workshop (DevSecsOps)](./doc-module-10.md)
+
+<hr>
+
+## [Module-11 workshop (Analytics)](./doc-module-11.md)
 
 <hr>
 

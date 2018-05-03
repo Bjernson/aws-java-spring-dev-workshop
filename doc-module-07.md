@@ -1,7 +1,7 @@
 ## Module-07 Add X-Ray and Lamdba SAM
 In this module, we introduce you to the fundamental concept of X-Ray and features available to create and test your application. In addtion, you will be provided with hands-on on installing necessary tools and create your first application using X-Ray.
 - Configure X-Ray daemon environment
-- Create a Configuration for X-Ray in your applicaiton
+- Create a Configuration for X-Ray in your application
 - Configure X-Ray for SQL Queries
 - Add code into AWS client for X-Ray
 - Change Unit test code
