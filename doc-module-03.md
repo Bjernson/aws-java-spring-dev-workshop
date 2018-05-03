@@ -84,8 +84,6 @@ Complete the following tasks to configure application parameters for ParameterSt
 		datasource.username = demouser
 		datasource.password = 12345678
 	
-![Parameter Store](./images/module-03/01.png)	
-
 ![Parameter Store](./images/module-02/paramter-store-01.png)
 
 	3. Add datasource.url, datasource.username, datasource.password for your Aurora instance. 
