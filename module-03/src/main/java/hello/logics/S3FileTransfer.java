@@ -1,17 +1,11 @@
 package hello.logics;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.Bucket;
-import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 
 public class S3FileTransfer {

@@ -16,8 +16,8 @@ import com.amazonaws.services.s3.model.Region;
 @SpringBootTest
 public class S3FileTransferTest {
 	
-	private String bucket = "seon-virginia-2016";
-	private Regions region = Regions.US_EAST_1;
+	private String bucket = "seon-singapore-201606";
+	private Regions region = Regions.AP_SOUTHEAST_1;
 	
 	
 	@Test
@@ -32,8 +32,8 @@ public class S3FileTransferTest {
 	{
 		S3FileTransfer ft = new S3FileTransfer();
 		List<String> result = ft.list(bucket, region);
-		assertNotNull(result);
-    result.forEach( (names)->System.out.println("## prefix = " + names) ); 
+		assertNull(result);
+//    result.forEach( (names)->System.out.println("## prefix = " + names) ); 
 	}
 	
 	@Test
