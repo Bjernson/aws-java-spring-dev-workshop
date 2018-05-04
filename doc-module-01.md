@@ -29,7 +29,7 @@ mvn clean compile test
 	2. Packaging without unit testing(recommended)
 
 ```
-mvn package -Dmaven.test.skip=true
+mvn compile package -Dmaven.test.skip=true
 
 ```
 	
@@ -45,7 +45,42 @@ mvn package
 java -jar target/module-01-0.1.0.jar
 ```
 
-#### 1.3  Test your application
+#### 1.3 Change H2 password
+- Currently we are using H2 database. If you want to change this database to MySQL in local then, please see application.properties
+
+	1. Connect H2 console (http://localhost:8080/h2)
+	2. Specify JDBC URL "jdbc:h2:file:~/WorkshopDB"
+	3. User Name : sa
+	4. Password :  <none>
+
+![H2 database](./images/module-01/06.png)
+
+5. Change password to "12345678"
+
+```
+ALTER USER sa SET PASSWORD '12345678';
+```
+![H2 database](./images/module-01/07.png)
+
+
+#### 1.4 Change application.properties
+
+1. Specify password value
+
+``` 
+spring.datasource.password=12345678
+```
+2. Re-launch application
+
+```
+mvn compile package -Dmaven.test.skip=true
+
+java -jar target/module-01-0.1.0.jar
+
+```
+
+
+#### 1.5  Test your application
 Run MainControllerTest with JUnit Runner and check the console output and it's result. if you get a error messages then take a look at how to fix the problem.
 We have 2 kinds of unit test, one is mock test, the other is integration test, please check 2 files in test folder.
 
@@ -81,17 +116,6 @@ curl 'localhost:8080/workshop/images/all'
 - see user list, add/update/delete user
 
 
-### 2. Check your database
-- Currently we are using H2 database. If you want to change this database to MySQL in local then, please see application.properties
-
-##### 1. Open the following link
-After launching 
-
-http://localhost:8080/h2
-
-You can create a new user, new database in this console page
-
-![H2 database](./images/module-01/06.png)
 
 
 ### 3. Take a look at application structure
