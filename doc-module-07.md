@@ -8,7 +8,7 @@ In this module, we introduce you to the fundamental concept of X-Ray and feature
 - Create a SAM file for a Lambda
 - Deploy a Lambda function using SAM
 
-### reference
+### Reference
 
 [X-Ray SDK](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-java.html)
 

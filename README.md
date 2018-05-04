@@ -57,7 +57,7 @@
 
 <hr>
 
-## [Module-07 workshop (X-Ray for Cloud tracing)](./doc-module-07.md)
+## [Module-07 workshop (X-Ray and Lamdba SAM)](./doc-module-07.md)
 
 <hr>
 
