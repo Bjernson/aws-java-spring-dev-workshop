@@ -4,10 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.rekognition.model.Label;
 
 import hello.model.ddb.PhotoInfo;
@@ -31,6 +29,7 @@ public class IntegratedTrans {
 		//retrieve information
 		AWSAIServices ai = new AWSAIServices();
 		List<Label> labels = ai.retrieveInformation(bucket, photoPath, region);
+
 		
 		System.out.println("Detected labels for " + photoPath);
 		StringBuilder words = new StringBuilder();
@@ -49,8 +48,9 @@ public class IntegratedTrans {
 		System.out.println("#### translated = " + translated );
 		
 		//save info to DDB
-		PhotoInfo p = new PhotoInfo(bucket, photoPath, source, translated);	
-	  repository.save(p);
+		PhotoInfo p = new PhotoInfo(path, source, translated);	
+	    repository.save(p);
+	    
 	}
 
 }

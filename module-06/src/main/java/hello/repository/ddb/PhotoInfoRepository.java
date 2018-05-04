@@ -12,8 +12,8 @@ public interface PhotoInfoRepository extends PagingAndSortingRepository<PhotoInf
 
  	@EnableScan
 	List<PhotoInfo> findById(String id);
-	@EnableScan 
-	List<PhotoInfo> findByPrefix(String prefix);	
+//	@EnableScan 
+//	List<PhotoInfo> findByImg_id(String img_id);	
   @EnableScan 
 	List<PhotoInfo> findAll();
 	@EnableScan 
