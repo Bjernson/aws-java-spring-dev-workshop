@@ -34,7 +34,7 @@ The AWS X-Ray daemon is a software application that listens for traffic on UDP p
 	<dependencyManagement>
 	  <dependencies>
 ...		
-	    <!-- xray -->
+	    <!-- X-Ray -->
 	    <dependency>
 	      <groupId>com.amazonaws</groupId>
 	      <artifactId>aws-xray-recorder-sdk-bom</artifactId>

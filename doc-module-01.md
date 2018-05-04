@@ -23,27 +23,29 @@ git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
 	1. Change working directory to module-01
 	
 ```
-mvn clean compile test
+cd <work_space>/module-01
 ```
 
-	2. Packaging without unit testing(recommended)
+	2. Compile and package without unit testing(recommended)
 
 ```
 mvn compile package -Dmaven.test.skip=true
 
 ```
+
+	3. if you want to run unit test (optional, skip it)
+
+```	
+mvn clean compile test
+```
 	
-	3. If you want to run unit test then during packaging
-
-```
-mvn package
-```
-
 ##### 2. Run your application 
 	
 ```
 java -jar target/module-01-0.1.0.jar
 ```
+
+
 
 #### 1.3 Change H2 password
 - Currently we are using H2 database. If you want to change this database to MySQL in local then, please see application.properties
