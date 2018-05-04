@@ -30,7 +30,6 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
-import com.amazonaws.xray.AWSXRay;
 
 import hello.Application;
 import hello.config.DynamoDBConfig;
@@ -118,16 +117,13 @@ public class PhotoInfoTest {
 
   @Test
   public void sampleTestCase() {
-  	
-  		AWSXRay.beginSegment("Workshop:test sampleTestCase"); 
 	  repository.deleteAll();
-	  PhotoInfo p = new PhotoInfo("seon-virginia-2016", "a.jpeg", "hello", "hallo");	
+	  PhotoInfo p = new PhotoInfo("a.jpeg", "hello", "hallo");	
 	  repository.save(p);
-
+    
     List<PhotoInfo> result2 = (List<PhotoInfo>) repository.findAll(); 
     
     assertTrue("Not empty", result2.size() > 0);
-    AWSXRay.endSegment();
   }
 
 }
