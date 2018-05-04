@@ -7,7 +7,11 @@
 [Create a Step function](https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-lambda-state-machine-cloudformation.html)
 [Call a StepFunction] (https://aws.amazon.com/blogs/developer/stepfunctions-fluent-api/)
 
-##### 1. Change a Input/Output classes of Lambda Function
+### 1. Create a StepFunction
+
+### 1.1 Change event class of Lambda for StepFunction 
+
+
 Create a common Model class (StepEventInput, StepEventOutout)
 
 StepEventInput.java (omit getter/setter)
@@ -30,8 +34,9 @@ StepEventOutput.java (omit getter/setter)
 ```
 	
  
-##### 2. Create a StepFunction using JSON
-Create a step-function.json in *main/resources/aws*
+#### 1.2 Create a StepFunction using JSON
+
+##### 1. Create a step-function.json in *main/resources/aws*
 
 ```
 {
@@ -60,7 +65,7 @@ Create a step-function.json in *main/resources/aws*
 
 ```
 
-Create a input file in same folder (step-input.json)
+##### 2. Create a input file in same folder (step-input.json)
 
 ```
 {
@@ -73,8 +78,9 @@ Create a input file in same folder (step-input.json)
 }
 ```
 
-##### 3. Implement a test code
-Create StepFunctionTest in *hello.aws.stepfunction*
+#### 1.3 Implement a test code
+
+##### 1. Create StepFunctionTest in *hello.aws.stepfunction*
 
 ```
 final AWSStepFunctions stepFunctionclient = AWSStepFunctionsClientBuilder.defaultClient();
