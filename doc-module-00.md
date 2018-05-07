@@ -23,6 +23,10 @@
 - AWS CLI in your development environment : https://docs.aws.amazon.com/cli/latest/userguide/installing.html
 - Create on EC2 Role and Lambda Role with admin access privilege. (See section 3.)
 
+** for module-10 ***
+- Ruby
+- nodejs
+
 **Optional**
 - Install YAML editor, Eclipse plug in
 - Install MySQL (Please see below appendix)

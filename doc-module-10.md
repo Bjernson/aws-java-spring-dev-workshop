@@ -10,7 +10,7 @@
 - In this module, we will covers a fundamental knowledge and tools for DevSecOps and how to implement in Java project.
 
 
-### 1. Applying Git-Secret
+### 1. Checking source codes : Applying Git-Secret 
 
 Refer : ** https://github.com/awslabs/git-secrets **
 
@@ -108,24 +108,191 @@ git secrets --scan ./text.txt
 - You can add this step in your build phase
 
 
-### 2. Use aws-security-benchmark
+### 2. Checking vulnerabilities of source codes
+- It is very crucial step for finding security vulnerabilities in Java programs
 
-- Benchmark scripts mapped against trusted security frameworks.
-- It requires Python 2.7 or 3.4
+#### 2.1 Add FindSecBugs
+- A security specific plugin for FingBugs that significantly improves FindBug's ability to find security vulnerabilities in Java programs
 
-#### 2.1 Install aws-security-benchmark
+- Refer : https://github.com/find-sec-bugs/find-sec-bugs/wiki/Maven-configuration
 
-1. Download 
+	1. Add plugin in pom.xml
 
 ```
-git clone https://github.com/awslabs/aws-security-benchmark.git
-```
-2. 
+<plugin>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-maven-plugin</artifactId>
+      <version>3.1.1</version>
+      <configuration>
+          <effort>Max</effort>
+          <threshold>Low</threshold>
+          <failOnError>true</failOnError>
+          <includeFilterFile>${session.executionRootDirectory}/spotbugs-security-include.xml</includeFilterFile>
+          <excludeFilterFile>${session.executionRootDirectory}/spotbugs-security-exclude.xml</excludeFilterFile>
+          <plugins>
+              <plugin>
+                  <groupId>com.h3xstream.findsecbugs</groupId>
+                  <artifactId>findsecbugs-plugin</artifactId>
+                  <version>LATEST</version> <!-- Auto-update to the latest stable -->
+              </plugin>
+          </plugins>
+      </configuration>
+  </plugin>
 
+
+```
+
+	2. Specify the filter file limiting the research to security category only.
+
+**/spotbugs-security-include.xml**
+
+```
+<FindBugsFilter>
+    <Match>
+        <Bug category="SECURITY"/>
+    </Match>
+</FindBugsFilter>
+
+```
+
+**/spotbugs-security-exclude.xml**
+
+```
+<FindBugsFilter>
+</FindBugsFilter>
+
+```
+
+	3. Doing a scan
+
+```
+mvn compile
+mvn findbugs:findbugs
+```
+
+	4. Analyzing the result
+
+**XML report**
+
+A XML report is generated at target/findbugsXml.xml
+
+**GUI**
+
+```
+mvn findbugs:gui
+```
+
+![BugSec](./images/module-10/01.png)  
+
+
+
+#### 2.3. Another tools
+
+Visualcodegrepp : https://sourceforge.net/projects/visualcodegrepp/
+SearchDiggy :https://www.bishopfox.com/resources/tools/google-hacking-diggity/attack-tools/
+Xanitizer : https://www.rigs-it.com/xanitizer/
+
+
+### 3. Checking vulnerabilities of Infrastructure
+
+#### 3.1 Before creating Infrastructure : CFn_nag 
+
+
+Refer : 
+https://github.com/stelligent/Cfn_nag
+https://stelligent.com/2018/03/23/validating-aws-cloudformation-templates-with-cfn_nag-and-mu/
+
+- You need Ruby to run Cfn_nag
+
+	1. Install cfn-nag
+
+```
+gem install cfn-nag
+```
+
+	2. Run gfn_nag
+```
+cfn_nag_scan --input-path VPC_2Subnet_2AZ-GameServer_v1.4.template
+```
+
+	3. Check the results
+
+```
+ WARN W26
+|
+| Resources: ["ElasticLoadBalancer"]
+|
+| Elastic Load Balancer should have access logging enabled
+------------------------------------------------------------
+| FAIL F4
+|
+| Resources: ["CodeDeployRolePolicies", "InstanceRolePolicies"]
+|
+| IAM policy should not allow * action
+
+```
+	4. Run another
+	
+```
+cfn_nag_scan --input-path lambda-package-example.yaml 
+
+```
+
+
+#### 3.2 After creating Infrastructure : CloudSploit
+
+Ref : CloudSploit (https://github.com/cloudsploit)
+
+- Capturing things in your account like open security groups, misconfigured VPCs, and more
+- You requires node.js
+
+1. Download and install  ColdSploit scan
+
+```
+git clone https://github.com/cloudsploit/scans.git
+cd scans
+npm install
+```
+
+2. Set up environment variables
+
+```
+export AWS_ACCESS_KEY_ID=AKIAIxxxxxxxxxxxxxxx
+export AWS_SECRET_ACCESS_KEY=vJ8CNtxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+3. Run Cloudsploit
+
+```
+node index.js
+```
+
+4. Check HIPPA compliance
+
+```
+node index.js --compliance=hipaa
+```
+
+### 4. AWS Config custom rule
+
+- Refer :
+https://github.com/awslabs/aws-config-rules
+
+	
 ### Post-Works
 - Try to build your own DevSecOps CI/CD, choose following tasks.
 
+1. CodeBuid 
+- Add git-secret
+- Add FindSecBugs
+- Add Cfn-nag for CloudFormation template (if it is)
+ 
+2. Add AWS Config custom rules
 
+3. After Deployment
+- Add CloudSploit after deployment 
+
+4. 
 
 ### Reference
 - DevSecOps blog : 
@@ -133,6 +300,10 @@ git clone https://github.com/awslabs/aws-security-benchmark.git
 	https://aws.amazon.com/blogs/devops/implementing-devsecops-using-aws-codepipeline/
 	https://aws.amazon.com/blogs/developer/devops-meets-security-security-testing-your-aws-application-part-i-unit-testing/	
 	
+- 	FindBugs - Find Bugs (including a few security flaws) in Java programs
+- FindSecBugs - A security specific plugin for FingBugs that significantly improves FindBug's ability to find security vulnerabilities in Java programs
+- Google CodeSearchDiggity - Uses Google Code Search to identifies vulnerabilities in open source code projects. The tool comes with over 130 default searches that identify SQL injection, cross-site scripting (XSS), insecure remote and local file includes, hard-coded passwords, and much more.
+
 - git-secrets - Prevents you from committing passwords and other sensitive information to a Git repository.
 - aws-security-benchmark - Benchmark scripts mapped against trusted security frameworks.
 - aws-config-rules - [Node, Python, Java] Repository of sample custom rules for AWS Config
