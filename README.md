@@ -8,11 +8,12 @@
 - Every module of this workshop covers one important topic, for example, how to integrate Paramter Store with your application, how to migrate application logics to Lambda and so forth.
 
 
-- You will complete the application's features following the instruction of each module document but this document dose not promise to provide all kind of information to complete the application features for each module's objective. You need to search the documentation and figure out how to implement the codes required by module's goal.
+- You will complete the application's features following the instruction of module documentation but this document dose not promise to provide all kind of information to complete the application features for each module's objective. You need to search the documentation and figure out how to implement the codes required by module's goal.
 
 
 - You can start from the source code of previous module except module-01, and fill the application out with proper source codes to meet the objective of each module.
 
+- The code of each module provides the result codes if you complete all instruction of each module. For example, module-02 code show the exemplary result of module-02 handson, if you complete it properly.
 
 - Sometimes, there are bugs in unit test intentionally to help you to understand the logics of application codes, it requires you should complete the code without errors.
 
