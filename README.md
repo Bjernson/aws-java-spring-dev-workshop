@@ -73,7 +73,7 @@
 
 <hr>
 
-## [Module-11 workshop (Analytics)](./doc-module-11.md)
+## [Module-11 workshop (Batch & Analytics)](./doc-module-11.md)
 
 <hr>
 

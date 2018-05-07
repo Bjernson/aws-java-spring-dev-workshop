@@ -9,7 +9,7 @@
 
 ##### 1. Download source codes 
 - Eclipse user : in your workspace directory
-- Cloud9 user : in your environemt directory
+- Cloud9 user : in your environment directory
 
 ```
 git clone https://github.com/aws-asean-builders/aws-java-spring-dev-workshop
@@ -44,8 +44,6 @@ mvn clean compile test
 ```
 java -jar target/module-01-0.1.0.jar
 ```
-
-
 
 #### 1.3 Change H2 password
 - Currently we are using H2 database. If you want to change this database to MySQL in local then, please see application.properties

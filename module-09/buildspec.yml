@@ -13,4 +13,5 @@ artifacts:
     - 'target/module-09.jar'
     - 'Dockerfile'
     - 'buildspec.yml'
+    - 'imagedefinition.json'   
   discard-paths: yes
