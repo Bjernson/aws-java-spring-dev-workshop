@@ -149,7 +149,7 @@ If you are using macOS, use HTTPS to connect to an AWS CodeCommit repository. Af
 
 
 
-#### 1.4 Create a build project
+### 2 Create a builder project for project and a docker image
 
 refer : https://docs.aws.amazon.com/codebuild/latest/userguide/sample-docker.html
 	
@@ -157,7 +157,7 @@ refer : https://docs.aws.amazon.com/codebuild/latest/userguide/sample-docker.htm
 - create-java-builder.json is a file for creating CodeBuild for compiling and packaging Java source code to JAR output file.
 - create-dock-builder.json is a file for creating CodeBuild for creating docker images 
 	
-##### 1. Change Builder files
+#### 2.1. Change Builder files
 
 	1. Change the values accoriding to your environments
 	2. CodeCommit URL, region-ID, account-ID,Amazon-ECR-repo-name and role-name ARN
@@ -200,7 +200,7 @@ refer : https://docs.aws.amazon.com/codebuild/latest/userguide/sample-docker.htm
 
 ```
 
-##### 3. Create a builder project
+#### 2.2. Create a builder project
 
 	1. Create a Java builder
 
@@ -216,7 +216,7 @@ aws codebuild create-project --cli-input-json file://create-dock-builder.json
 
 
 
-##### 4. Commit a source to new CodeCommit repository
+#### 2.3. Commit a source to new CodeCommit repository
 
 	1. Clone CodeCommit repo in your local directory
 
@@ -239,7 +239,7 @@ cp -R <YOUR PROJECT>/* .
 	git push
 ```
 
-##### 5. Start Build
+#### 2.4. Start Build
 - Run each CodeBuild, first, java builder then run docker builder
 
 	1. In your Codebuild Console, click a Start Build Button
@@ -251,7 +251,7 @@ cp -R <YOUR PROJECT>/* .
 ![project template](./images/module-08/15.png)
 		
 
-##### 6. Check Your Roles for CoudeBuild
+#### 2.5. Check Your Roles for CoudeBuild
 
 Check your build result and if your role dosn't have enough privilege then add more access privilege on access policy.
 
@@ -261,7 +261,7 @@ Check your build result and if your role dosn't have enough privilege then add m
 
 <hr>
 
-##### 7. Check pushed image in your local machine
+#### 2.6. Check pushed image in your local machine
 
 	1. You can describle the iamges withing a repository with following command.
 
@@ -286,28 +286,134 @@ docker run -d -p 80:8080 --name=hello-world 6f9c0d0b1c56
 docker ps
 ```
 
-#### 1.5 Create CICD for docker
+### 3 Create CICD for docker
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cd-pipeline.html
 
+#### 3.1 Create ECS cluster
 
-##### 4. check CodePipeline exceution
+	1. Create a cluster
+![key chain](./images/module-09/07.png) 	
+
+
+	2. Select linux cluster
+
+ ![key chain](./images/module-09/08.png) 
+ 
+ 
+	3. Specify Cluster configuration
+
+- Cluster Name 				: Java-cluster
+- EC2 instance type 		: m4.xlarge
+- Number of instances 	: 1
+- Security Group 			: Create a new security Group
+- Role									: Select a EC2 instance role to support your Task (need to create a new role)
+
+
+ ![key chain](./images/module-09/09.png) 
+ 
+#### 3.2 Create Task definition
+
+	1. Specify information
+
+- Task Definition Name : java-workshop
+- Network Mode : Bridge
+- Task memory (MiB) : 512
+- Task CPU (unit) : 200
+
+![ECS](./images/module-09/13.png) 
+
+	2. Specify container information
+	
+- **Container name** : **java-container**
+- **Image** : <YOUR ECR image ARN> (for example, <account-id>.dkr.ecr.ap-southeast-1.amazonaws.com/java-workshop	)
+- Memory Limits (MiB) : 128
+- Port mapping : 80 : 8080
+
+![ECS](./images/module-09/14.png) 
+
+ 
+#### 3.3 Create Service definition
+
+
+	1. Configure service
+	
+- Task Definition 					: select a task you created in task definition
+- Cluster 									: select the cluster (Java-cluster)
+- Service name 						: java-service
+- Number of tasks 					: 1
+- Minimum healthy percent 	: 50
+- Maximum percent 					: 200	
+
+- Placement Templates : AZ Balanced spread
+
+![ECS](./images/module-09/10.png) 
+
+	2. Configure network
+- None load balancer
+
+![ECS](./images/module-09/11.png)
+ 
+  
+	3.	Cofigure autoscaling
+- None
+
+![ECS](./images/module-09/12.png)
+ 
+ 	
+
+#### 3.4 Add imagedefinition.json in your root directory of source codes
+
+- name is the container name you defined in task definition 
 
 ```
-aws codepipeline get-pipeline-execution --pipeline-name CICD-docker --pipeline-execution-id cc0cb5e5-d001-44bc-9e27-3233f1a98323
+[
+    {
+        "name": "java-container",
+        "imageUri": "550622896891.dkr.ecr.ap-southeast-1.amazonaws.com/java-workshop"
+    }
+]
+
 ```
 
+### 4. Complete a CI/CD
+
+#### 4.1 Add deploy stage
+
+	1. Add deploy stage in your CI/CD
+- Action category: Deploy
+- Action name : Specify your service name 
+- Deployment provide : Amazon ECS
+- Cluster name : Java-cluster (Specify your cluster name you created)
+- Service name : java-service (Select service name you created )
+- Image filename : imagedefinition.json (The file name you added in previous step)
+- Input artifacts : Specify the artifact name of previous stage
+
+![ECS](./images/module-09/15.png)
 
 
+#### 4.2 Deploy your application
 
-### Reference : Change a paratmeter in CodePipeline
+	1. change code and deploy it
+	
+![ECS](./images/module-09/16.png)	
 
 
-- multiple project in eclipse
+### Reference : Change a parameter in CodePipeline
+
+
+- ultiple project in eclipse
 http://www.avajava.com/tutorials/lessons/how-do-i-create-a-multi-module-project-in-eclipse.html
 		
 refer : https://stelligent.com/2017/03/09/using-parameter-store-with-aws-codepipeline/
 
+
+
+- check CodePipeline exceution
+
+```
+aws codepipeline get-pipeline-execution --pipeline-name CICD-docker --pipeline-execution-id cc0cb5e5-d001-44bc-9e27-3233f1a98323
+```
 
 <hr>
 
