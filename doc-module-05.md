@@ -121,7 +121,7 @@ unzip module-05-lamdba-translate-sam-1.0.0.jar
 
 rm -rf *.json module-05-lamdba-translate-sam-1.0.0.jar
 
-cp ../lambda-package-example.yaml 
+cp ../lambda-package-example.yaml .
 ```
 
 - If you want change a function name then edit lambda-package-example.yaml
