@@ -111,9 +111,9 @@ Complete the following tasks to configure application parameters for ParameterSt
 	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
 	2. Change values in ParameterStore for database URL, database username and password
 
-- 1. datasource.url = jdbc:mysql://<your_db_endpoint>/workshop?&useSSL=false
-- 2. datasource.username = demouser
--	3.	 datasource.password = 12345678
+1. datasource.url = jdbc:mysql://<your_db_endpoint>/workshop?&useSSL=false
+2. datasource.username = demouser
+3.	 datasource.password = 12345678
 	
 ![Parameter Store](./images/module-02/paramter-store-01.png)
 

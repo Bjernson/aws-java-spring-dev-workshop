@@ -46,11 +46,11 @@ java -jar target/module-02-0.1.0.jar
 Complete the following tasks to configure application parameters for ParameterStore (select your region, for example, us-east-1, ap-southeast-1 and so forth)
 
 
-- 1. Open the System Manager Cosole and go to Parameter Store
-- 2. Create parameters in ParameterStore for database URL, database username and password in your region
-- 3. Specify **datasource.url** as **jdbc:h2:file:~/WorkshopDB**
-- 4. Specify **datasource.username** as **sa**
--	5. Specify **datasource.password** as **12345678**
+1. Open the System Manager Cosole and go to Parameter Store
+2. Create parameters in ParameterStore for database URL, database username and password in your region
+3. Specify **datasource.url** as **jdbc:h2:file:~/WorkshopDB**
+4. Specify **datasource.username** as **sa**
+5. Specify **datasource.password** as **12345678**
 
 ![Parameter Store](./images/module-02/01.png)
 
