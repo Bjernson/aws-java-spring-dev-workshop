@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.amazonaws.regions.Regions;
 import hello.logics.IntegratedTrans;
+import hello.logics.IntegratedTransLambda;
 
 @Controller
 @RequestMapping(path="/workshop")
 public class LogicsController {
 	
+//	@Autowired 
+//	private IntegratedTrans trans;
 	@Autowired 
-	private IntegratedTrans trans;
+	private IntegratedTransLambda trans;
 	
 	//add to test a integrate logics
 	@GetMapping(path = "/trans/integrated")
@@ -24,7 +27,7 @@ public class LogicsController {
   		, @RequestParam String prefix, @RequestParam String region) {
 			Regions _region = Regions.fromName(region);
   			trans.RetrieveAndSave(bucket, prefix, _region);
-      return "Transferred.";
+      return "\nTransferred.\n";
   } 
   
   

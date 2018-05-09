@@ -10,6 +10,12 @@ In this module, we will cover how to create Lambda project using AWS plugin and 
 
 ## If you start from module-05 (from completed source code)
 
+### 0. If you don't have a DynamoDB table then, create it (You can skip it, if you already have the table)
+
+### 0.1. Create DynamoDB table in your region
+	1. Create a "PhotoInfo" table
+	2. Specify "id" as a primary partition key
+
 ### 1. Run application
 
 ```
@@ -27,7 +33,7 @@ java -jar target/module-05-0.1.0.jar
 
 ### 2.2 Curl
 - bucket=your bucket name
-- prefix= your file prexix (for exmple, images/a.jpg)
+- prefix= your file prefix (for exmple, images/a.jpg)
 - region = your region
 
 ```

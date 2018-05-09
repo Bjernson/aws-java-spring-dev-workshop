@@ -24,8 +24,11 @@ public class IntegratedTransLambda {
 			StepEventInput input = new StepEventInput();
 			StepEventOutput output = new StepEventOutput();
 			
-			input.setBucket("seon-virginia-2016");
-			input.setPrefix("images/a.jpeg");
+//			input.setBucket("seon-virginia-2016");
+//			input.setPrefix("images/a.jpeg");
+			input.setBucket(bucket);
+			input.setPrefix(photoPath);
+			
 			input.setText("");
 			input.setTranslated("");
 			input.setSourceLangCode("en");
@@ -38,7 +41,7 @@ public class IntegratedTransLambda {
 			input.setText(output.getText());
 
 			output = myService.myTranslateFunc(input); 
-			System.out.println("#### rekog output = " + output.getTranslated());
+			System.out.println("#### trans output = " + output.getTranslated());
 			
 			// 3. call ddb
 		  input.setTranslated(output.getTranslated());
