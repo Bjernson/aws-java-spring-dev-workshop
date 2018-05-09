@@ -70,14 +70,17 @@ Name your Aurora database as TSA-Workshop, and keep the rest of the values as de
 - At your left panel, click on the 'instances' menu. You should see that RDS is creating two database instances for you (one reader and writer role respectively).
 	
 	6. Wait until completing the creation of Aurora for MySQL 
+
 Endpoint looks like this - "tsa-workshop.ctdltt3xxxx.us-east-1.rds.amazonaws.com"
 	
 	7. Check Endpoint and Security Group
+	
 ![Checking Aurora](./images/module-03/02.png)
 	
 	8. Change Security Group configuration, if you need.
 	9. Check connectivity from your local computer (if you don't have any MySQL client, please install it)
-	
+
+
 ```
 brew install mysql
 
