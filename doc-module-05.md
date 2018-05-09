@@ -8,6 +8,70 @@ In this module, we will cover how to create Lambda project using AWS plugin and 
 ##### reference
 [Invoking AWS Lambda Functions from Java](https://aws.amazon.com/blogs/developer/invoking-aws-lambda-functions-from-java/)
 
+## If you start from module-05 (completed source code)
+
+### 1. Run application
+
+```
+mvn compile package -Dmaven.test.skip=true
+
+java -jar target/module-05-0.1.0.jar
+
+```
+
+### 2. Run unit Test and Curl
+
+### 2.1 Run LambdaServiceTest.java in **hello.aws.lambda in src/testjava**
+
+![unit test](./images/module-05/04.png)
+
+### 2.2 Curl
+bucket=your bucket name
+prefix= your file prexix (for exmple, images/a.jpg)
+region = your region
+
+```
+curl 'localhost:8080/workshop/trans/integrated?bucket=<your_bucket>&prefix=<prefix>&region=<region>'
+```
+
+
+- You definitely got error above 2.1 and 2.2, it is because you don't have Lambda functions
+- You need to create this following step 2
+
+### 3. Upload 3 Lambda Services
+
+- Upload 3 lambda functions using module-05-lambda-dymanodb, module-05-lambda-rekognition, module-05-lambda-translate
+
+module-07-lambda-dymanodb : MyFunction-workshop-dynamodb
+module-07-lambda-rekognition :MyFunction-workshop-rekognition
+module-07-lambda-translate : MyFunction-workshop-translate
+
+
+#### 3.1. Upload 3 translate 
+
+	1. Right Click and select Upload Lamdba
+
+![unit test](./images/module-05/05.png)
+
+
+	2. Specify a name as "MyFunction-workshop-translate"
+
+![unit test](./images/module-05/06.png)
+
+	3. Specify Role, and S3 bucket.
+**If you don't have a role for Lambda then, create it first**
+
+
+#### 3.2 Repeat above step for MyFunction-workshop-dynamodb and MyFunction-workshop-rekognition
+
+
+#### 3.3 Rerun 2.1 and 2.2
+
+
+<hr>
+
+## if you start from previous module (not completed source code)
+<hr>
 
 ### 1. Create a first Lambda project
 

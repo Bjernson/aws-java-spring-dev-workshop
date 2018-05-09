@@ -8,6 +8,8 @@ import hello.aws.lambda.io.DDBEventInput;
 import hello.aws.lambda.io.DDBEventOutput;
 import hello.aws.lambda.io.RekoEventInput;
 import hello.aws.lambda.io.RekoEventOutput;
+import hello.aws.lambda.io.StepEventInput;
+import hello.aws.lambda.io.StepEventOutput;
 import hello.aws.lambda.io.TransEventInput;
 import hello.aws.lambda.io.TransEventOutput;
 
@@ -15,11 +17,20 @@ public interface MyLambdaServices {
 	@LambdaFunction(functionName="MyCustomFunc")
 	CustomEventOutput myCustumFunc(CustomEventInput input);
 	
+//	@LambdaFunction(functionName="MyFunction-workshop-dynamodb")
+//	DDBEventOutput myDynamoDBFunc(DDBEventInput input);	
+//	@LambdaFunction(functionName="MyFunction-workshop-rekognition")
+//  RekoEventOutput myRekognitionFunc(RekoEventInput input);
+//	@LambdaFunction(functionName="MyFunction-workshop-translate")
+//  TransEventOutput myTranslateFunc(TransEventInput input);	
+	
 	@LambdaFunction(functionName="MyFunction-workshop-dynamodb")
-	DDBEventOutput myDynamoDBFunc(DDBEventInput input);	
+	StepEventOutput myDynamoDBFunc(StepEventInput input);	
+
 	@LambdaFunction(functionName="MyFunction-workshop-rekognition")
-  RekoEventOutput myRekognitionFunc(RekoEventInput input);
+	StepEventOutput myRekognitionFunc(StepEventInput input);
+
 	@LambdaFunction(functionName="MyFunction-workshop-translate")
-  TransEventOutput myTranslateFunc(TransEventInput input);	
+	StepEventOutput myTranslateFunc(StepEventInput input);
 	
 }

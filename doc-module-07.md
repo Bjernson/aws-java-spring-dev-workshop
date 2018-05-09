@@ -182,11 +182,12 @@ public class MySqlTest {
 ### 2. SAM for Lambda
 In this tasl, we introduce how to deploy Lambda project using SAM file and aws cloudformation.
 
+
 #### 2.1. Create a jar for Lambda in your Eclipse
 
 - You need to change Lamdba projects to create *.jar package, split previous Lambda project into 3 individual Lambda project to create **jar** file to upload into S3
 
-	1. Create module-08-lamdba-dynamodb, module-08-lamdba-rekognition, module-08-lamdba-translate
+	1. Create module-07-lamdba-dynamodb, module-07-lamdba-rekognition, module-07-lamdba-translate
 	2. Copy each handler class and model class to com.maazonaws.lambda and com.maazonaws.lambda.io
 	3. Minimize Unit Test class
 

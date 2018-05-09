@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>seon</groupId>
-  <artifactId>module-07-lamdba-rekognition</artifactId>
+  <artifactId>module-05-lamdba-dynamodb</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
   
@@ -58,11 +58,10 @@
       <artifactId>aws-lambda-java-core</artifactId>
       <version>1.1.0</version>
     </dependency>
-    <!-- AWS SDK rekognition -->  
-     <dependency>
+    <dependency>
       <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-rekognition</artifactId>
-    </dependency>  
+      <artifactId>aws-java-sdk-dynamodb</artifactId>
+    </dependency> 
   </dependencies>
 
 

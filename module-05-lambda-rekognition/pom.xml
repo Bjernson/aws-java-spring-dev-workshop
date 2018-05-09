@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>seon</groupId>
-  <artifactId>module-07-lamdba-translate</artifactId>
+  <artifactId>module-05-lamdba-rekognition</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
   
@@ -61,7 +61,7 @@
     <!-- AWS SDK rekognition -->  
      <dependency>
       <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-translate</artifactId>
+      <artifactId>aws-java-sdk-rekognition</artifactId>
     </dependency>  
   </dependencies>
 
