@@ -8,7 +8,7 @@ In this module, we will cover how to create Lambda project using AWS plugin and 
 ##### reference
 [Invoking AWS Lambda Functions from Java](https://aws.amazon.com/blogs/developer/invoking-aws-lambda-functions-from-java/)
 
-## If you start from module-05 (completed source code)
+## If you start from module-05 (from completed source code)
 
 ### 1. Run application
 
@@ -26,16 +26,16 @@ java -jar target/module-05-0.1.0.jar
 ![unit test](./images/module-05/04.png)
 
 ### 2.2 Curl
-bucket=your bucket name
-prefix= your file prexix (for exmple, images/a.jpg)
-region = your region
+- bucket=your bucket name
+- prefix= your file prexix (for exmple, images/a.jpg)
+- region = your region
 
 ```
 curl 'localhost:8080/workshop/trans/integrated?bucket=<your_bucket>&prefix=<prefix>&region=<region>'
 ```
 
 
-- You definitely got error above 2.1 and 2.2, it is because you don't have Lambda functions
+- **You definitely got error above 2.1 and 2.2, it is because you don't have Lambda functions**
 - You need to create this following step 2
 
 ### 3. Upload 3 Lambda Services
