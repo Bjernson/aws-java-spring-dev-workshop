@@ -68,7 +68,7 @@ Name your Aurora database as TSA-Workshop, and keep the rest of the values as de
 - Make sure that the database is publicly accessible.
 - Keep everything else as default and then launch the Aurora database.
 - At your left panel, click on the 'instances' menu. You should see that RDS is creating two database instances for you (one reader and writer role respectively).
-	
+
 	6. Wait until completing the creation of Aurora for MySQL 
 
 Endpoint looks like this - "tsa-workshop.ctdltt3xxxx.us-east-1.rds.amazonaws.com"
