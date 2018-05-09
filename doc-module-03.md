@@ -41,10 +41,9 @@ java -jar target/module-03-0.1.0.jar
 - **You definitely got error above, it is because you don't have Parameter Stores**
 - You need to create this following step 4
 
-- 1. Create a Aurora MySQL instance 
-- 2. Set up MySQL : creating table, user
-- 3. Change parameters in parameter values
-
+1. Create a Aurora MySQL instance 
+2. Set up MySQL : creating table, user
+3. Change parameters in parameter values
 
 
 ### 2. Change database to Aurora for MySql 
