@@ -6,15 +6,45 @@ We will complete the following tasks.
 - Resize a file and save it to local folder
 - Upload a file to S3 using AWS SDK
 - Retrieve information from picture using Amazon Rekognition and Translate text using Amazon Translate
-- Store a file meta data to DynamoDB
 
-**Start from the module-02**
 
-### 1. references
+### References
 Please refer the following information to complete the tasks
 [Develop S3](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/examples-s3-objects.html#upload-object)
 [Develop Rekognition](https://docs.aws.amazon.com/rekognition/latest/dg/get-started-exercise.html)
 [Develop Translate](https://docs.aws.amazon.com/translate/latest/dg/examples-java.html)
+
+
+## If you start from module-03 (from completed source code)
+
+### 1. Run application and test
+
+
+	1. Run your applcation
+
+```
+cd module-03
+
+mvn compile package -Dmaven.test.skip=true
+
+java -jar target/module-03-0.1.0.jar
+
+```
+
+	2. Run Unit Test
+	
+- Run **AWSAWServicesTest** in **hello.logics** of src/test/java
+
+![Unit test](./images/module-03/06.png)
+
+
+- **You definitely got error above, it is because you don't have Parameter Stores**
+- You need to create this following step 4
+
+- 1. Create a Aurora MySQL instance 
+- 2. Set up MySQL : creating table, user
+- 3. Change parameters in parameter values
+
 
 
 ### 2. Change database to Aurora for MySql 
@@ -80,9 +110,10 @@ Complete the following tasks to configure application parameters for ParameterSt
 
 	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
 	2. Change values in ParameterStore for database URL, database username and password
-		datasource.url = jdbc:mysql://<your_db_endpoint>/workshop?&useSSL=false
-		datasource.username = demouser
-		datasource.password = 12345678
+
+- 1. datasource.url = jdbc:mysql://<your_db_endpoint>/workshop?&useSSL=false
+- 2. datasource.username = demouser
+-	3.	 datasource.password = 12345678
 	
 ![Parameter Store](./images/module-02/paramter-store-01.png)
 
@@ -103,6 +134,13 @@ show tables;
 select * from User;
 
 ```
+
+<hr>
+<hr>
+<hr>
+
+## If you start from previous module-02 (not completed source code), then you need to change your source code 
+<hr>
 
 ### 3. Implement logics
 

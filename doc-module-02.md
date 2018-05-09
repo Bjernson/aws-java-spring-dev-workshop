@@ -5,35 +5,67 @@
 - module-02 is a starting points to use AWS services with AWS Java SDK.
 
 - Create a parameters in ParameterStore on AWS
-- Create a Aurora database and create user and user table
+
 
  
-**Start from Module-01**
+## If you start from module-02 (from completed source code)
+
+### 0. Run application
+
+```
+cd module-02
+
+mvn compile package -Dmaven.test.skip=true
+
+java -jar target/module-02-0.1.0.jar
+
+```
+
+ 
+- **You definitely got error above, it is because you don't have Parameter Stores**
+- You need to create this following step 2
+
+- 1. Configure Your Parameter Store
+- 2. Check your EC2 roles (If you have errors after creating parameters in Parameter Store, then check it)
  
 ### 1. Configure Dev environment
 
 
-##### 1. Configure AWS CLI to allow application to get access key and secret key
+#### 1.1. Configure AWS CLI to allow application to get access key and secret key 
+**If you configured AWS CLI configuraiton before, then skip this 1.1 
 
 ```
 > aws configure
 > AWS Access Key ID [None]: [your key]
 > AWS Secret Access Key [None]: [your key]
+> AWS region : [your region]
 ```
 
-##### 2. Configure ParameterStore in System Manager 
+#### 1.2. Configure ParameterStore in System Manager 
 - AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values.
-Complete the following tasks to configure application parameters for ParameterStore (select your region, for example, us-east-1 or ap-southeast-1)
+Complete the following tasks to configure application parameters for ParameterStore (select your region, for example, us-east-1, ap-southeast-1 and so forth)
 
-	1. Open the System Manager Cosole and go to Parameter Store
-	2. Create parameters in ParameterStore for database URL, database username and password
-	3. Specify datasource.url as "jdbc:h2:file:~/WorkshopDB"
-	4. Specify datasource.username as "sa"
-	5. Specify datasource.password as "12345678"
+
+- 1. Open the System Manager Cosole and go to Parameter Store
+- 2. Create parameters in ParameterStore for database URL, database username and password in your region
+- 3. Specify **datasource.url** as **jdbc:h2:file:~/WorkshopDB**
+- 4. Specify **datasource.username** as **sa**
+-	5. Specify **datasource.password** as **12345678**
 
 ![Parameter Store](./images/module-02/01.png)
 
-#### 3. check 
+#### 1.3. Rerun and check it
+
+- Check your EC2 role, if you have errors after creating parameters in Parameter Store.
+
+
+
+<hr>
+<hr>
+<hr>
+
+## If you start from previous module-01 (not completed source code), then you need to change your source code 
+<hr>
 
 ### 2. Externalize Configuration using ParameterStores
 
@@ -44,7 +76,7 @@ https://stackoverflow.com/questions/29072628/how-to-override-spring-boot-applica
 https://stackoverflow.com/questions/33072452/log-configurationproperties-in-springboot-prior-to-startup)
 	
 	
-##### 1. Add packages in pom.xml
+#### 2.1. Add packages in pom.xml
 
 ```
   <dependencyManagement>
@@ -68,7 +100,8 @@ https://stackoverflow.com/questions/33072452/log-configurationproperties-in-spri
 ```
 
 
-##### 2. Configuration properties and Java class
+
+#### 2.2. Configuration properties and Java class
 
 	1. Create CustomConfigListner.java in hello package
 
@@ -126,7 +159,7 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 ```
 
 
-##### 3. Check the availability of parameters in ParameterStore
+#### 2.3. Check availability of parameters in Parameter Store
 	1. Create ParameterStoreTest.java in ser/test/java
 	2. Add below codes
 	
@@ -180,18 +213,6 @@ java -jar target/module-02-0.1.0.jar
 
 ```
 
-
-### 4. Expose Application Metrics and Information
-
-	1. Add actuator dependency in pom.xml
-
-```
-			<dependency> 
-				<groupId>org.springframework.boot</groupId> 
-				<artifactId>spring-boot-starter-actuator</artifactId>
-    	</dependency>	
-```
-	  
 
 	2. Run application and check a below ULR
 	

@@ -9,10 +9,58 @@ In this module, we will learn how to configure the multiple repositories of Auro
 - Test 2 repositories with Unit Test codes
 
 
-### 1. Create DynamoDB table
+## If you start from module-04 (from completed source code)
+
+### 1. Run application and test
+
+
+#### 1.1  Run your applcation
+
+```
+cd module-04
+
+mvn compile package -Dmaven.test.skip=true
+
+java -jar target/module-04 -0.1.0.jar
+
+```
+
+#### 1.2 Curl
+- bucket=your bucket name
+- prefix= your file prefix (for exmple, images/a.jpg)
+- region = your region
+
+```
+curl 'localhost:8080/workshop/trans/integrated?bucket=<your_bucket>&prefix=<prefix>&region=<region>'
+```
+
+
+#### 1.3 Run Unit Test
+	
+- Run **PhotoInfoTest** in **hello.repository** of src/test/java
+
+![Unit test](./images/module-04/01.png)
+
+- **You definitely got error above, it is because you don't have Parameter Stores**
+- You need to create this following steps
+
+- 1. Create a DynamoDB table
+
+
+
+### 1.3. Create DynamoDB table
 	1. Create a "PhotoInfo" table
 	2. Specify "id" as a primary partition key
-	
+
+![Unit test](./images/module-04/02.png)
+
+<hr>
+<hr>
+<hr>
+
+## If you start from previous module-02 (not completed source code), then you need to change your source code 
+<hr>
+
 ### 2. Update source codes
 
 #### 2.1. Add Spring Data for Database

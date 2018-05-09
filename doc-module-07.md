@@ -252,7 +252,15 @@ unzip module-07-lamdba-translate-1.0.0.jar
 
 rm *jar
 
+aws cloudformation package --template lambda-package-example.yaml --s3-bucket <your bucket> --output-template template-export.yml
+
+
+aws cloudformation deploy --template-file translate-lambda-sam.yaml --stack-name <YOUR STACK NAME> 
 ```
+
+
+
+
 mv target/module-07-lamdba-translate-1.0.0.jar .
 unzip module-07-lamdba-translate-1.0.0.jar
 rm -rf target tst src buildspec.yml pom.xml module-07-lamdba-translate-1.0.0.jar
