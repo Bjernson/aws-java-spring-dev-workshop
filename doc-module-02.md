@@ -25,8 +25,8 @@ java -jar target/module-02-0.1.0.jar
 - **You definitely got error above, it is because you don't have Parameter Stores**
 - You need to create this following step 2
 
-- 1. Configure Your Parameter Store
-- 2. Check your EC2 roles (If you have errors after creating parameters in Parameter Store, then check it)
+1. Configure Your Parameter Store
+2. Check your EC2 roles (If you have errors after creating parameters in Parameter Store, then check it)
  
 ### 1. Configure Dev environment
 
