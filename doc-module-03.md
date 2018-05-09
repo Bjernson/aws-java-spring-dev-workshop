@@ -20,7 +20,7 @@ Please refer the following information to complete the tasks
 ### 1. Run application and test
 
 
-	1. Run your applcation
+	1. Run your application
 
 ```
 cd module-03
