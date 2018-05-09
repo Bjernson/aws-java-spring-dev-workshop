@@ -69,8 +69,10 @@ module-07-lambda-translate : MyFunction-workshop-translate
 
 
 <hr>
+<hr>
+<hr>
 
-## if you start from previous module (not completed source code)
+## If you start from previous module (not completed source code)
 <hr>
 
 ### 1. Create a first Lambda project
