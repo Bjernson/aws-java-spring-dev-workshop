@@ -1,72 +1,88 @@
 package hello.logics;
 
-import static org.junit.Assert.assertEquals;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.lambda.AWSLambdaClientBuilder;
-import com.amazonaws.services.lambda.invoke.LambdaInvokerFactory;
+import com.amazonaws.services.stepfunctions.AWSStepFunctions;
+import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
+import com.amazonaws.services.stepfunctions.model.StartExecutionRequest;
+import com.amazonaws.services.stepfunctions.model.StartExecutionResult;
 
-import hello.aws.lambda.MyLambdaServices;
-import hello.aws.lambda.io.DDBEventInput;
-import hello.aws.lambda.io.DDBEventOutput;
-import hello.aws.lambda.io.RekoEventInput;
-import hello.aws.lambda.io.RekoEventOutput;
-import hello.aws.lambda.io.TransEventInput;
-import hello.aws.lambda.io.TransEventOutput;
+import hello.Application;
 
 
 @Service
 public class IntegratedTransLambda {
-	final MyLambdaServices myService = LambdaInvokerFactory.builder()
- 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
- 		 .build(MyLambdaServices.class);
 	
 	public String RetrieveAndSave(String bucket, String photoPath, Regions region)
 	{
 		String result = null;
 		try {
-			// 1. call rekognition
-			RekoEventInput reko_input = new RekoEventInput();
+		
+			final AWSStepFunctions stepFunctionclient = AWSStepFunctionsClientBuilder.defaultClient();
 			
-			reko_input.setBucket("seon-virginia-2016");
-			reko_input.setPath("images/a.jpeg");
-			 
-			RekoEventOutput reko_output = myService.myRekognitionFunc(reko_input);  
-			System.out.println("#### rekog output = " + reko_output.getText());
+//			URL inputFile = Application.class.getResource("/aws/step-input.json");
+//			String input = jsonFileRead(inputFile);
 			
-			// 2. call trans
-			TransEventInput trans_input = new TransEventInput();
-			
-			String trans_origin_info = reko_output.getText();
-			trans_input.setText(trans_origin_info);
-			trans_input.setSourceLangCode("en");
-			trans_input.setTargetLangCode("es");
-			 
-			TransEventOutput trans_output = myService.myTranslateFunc(trans_input); 
-			String trans_target_info = trans_output.getTranslated();
-			System.out.println("#### rekog output = " + trans_target_info);
-			
-			// 3. call ddb
-			DDBEventInput ddb_input = new DDBEventInput();
-			
-			String prefix = bucket + "/" + photoPath;
-			ddb_input.setPrefix("seon-virginia-2016/images/a.jpeg");
-			ddb_input.setBucket("seon-virginia-2016");
-			ddb_input.setPrefix("/images/a.jpeg");
-			ddb_input.setText(trans_target_info);
-			ddb_input.setTranslated("hallo");		
-			 
-			DDBEventOutput ddb_output = myService.myDynamoDBFunc(ddb_input);  
-			
-			result = "SUCCESS";
+			StringBuilder input = new StringBuilder();
+			input.append("{ ")
+					.append("  \"bucket\": \"")
+					.append(bucket)
+					.append("\",  ")
+					.append("  \"prefix\": \"")
+					.append(photoPath)
+					.append("\",  ")
+					.append("  \"text\" : \"Hello, hello\",  ")	
+					.append("  \"translated\" : \"\",  ")	
+					.append("  \"sourceLangCode\" : \"en\",  ")	
+					.append("  \"targetLangCode\" : \"es\"  ")
+					.append(" } ");
 
+			StartExecutionRequest startExecutionRequest 
+			= new StartExecutionRequest()
+			.withInput(input.toString())
+			.withStateMachineArn("arn:aws:states:us-east-1:550622896891:stateMachine:workshop-stepfunction").withSdkRequestTimeout(30000);
+			
+			StartExecutionResult executionResult = stepFunctionclient.startExecution(startExecutionRequest);
+			
+			
 		} catch(Exception e) {
 			result = "FAIL : " + e.getMessage();
 		}
 		
 		return result;
 	}
+	
+//	public String jsonFileRead(URL input)
+//	{
+//		BufferedReader br = null;
+//		FileReader fr = null;
+//		StringBuffer sb = new StringBuffer();
+//		
+//		try {
+//	    br = new BufferedReader(new InputStreamReader(input.openStream()));
+//	    String line;
+//			while ((line = br.readLine()) != null) {
+//				sb.append(line);
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			System.out.println(e.getMessage());
+//		} finally {
+//			try {
+//				if (br != null)br.close();
+//				if (fr != null)fr.close();
+//			} catch (IOException ex) {
+//				ex.printStackTrace();
+//			}
+//		}
+//		return sb.toString();
+//	}
 
 }
