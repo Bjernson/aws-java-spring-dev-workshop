@@ -44,11 +44,8 @@ curl 'localhost:8080/workshop/trans/integrated?bucket=<your_bucket>&prefix=<pref
 - **You definitely got error above, it is because you don't have Parameter Stores**
 - You need to create this following steps
 
-- 1. Create a DynamoDB table
 
-
-
-### 1.3. Create DynamoDB table
+### 1.4. Create DynamoDB table
 	1. Create a "PhotoInfo" table
 	2. Specify "id" as a primary partition key
 
