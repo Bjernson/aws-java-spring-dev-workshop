@@ -117,7 +117,8 @@ public class CustomLambdaTest {
 		input.setTargetLangCode("es");
 		 
 		StepEventOutput output = myService.myTranslateFunc(input);  
-		assertEquals(output.getTranslated(), "Hola.");
+		System.out.println("");
+		assertEquals(output.getTranslated().trim(), "Hola");
 		
     
     AWSXRay.endSegment();	 

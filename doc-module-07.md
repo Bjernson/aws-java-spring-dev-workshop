@@ -243,7 +243,7 @@ ls -al target
 mv target/module-07-lamdba-translate-1.0.0.jar .
 unzip module-07-lamdba-translate-1.0.0.jar
 rm -rf target tst src buildspec.yml pom.xml module-07-lamdba-translate-1.0.0.jar
-aws cloudformation package --template lambda-package-example.yml --s3-bucket <your bucket> --output-template template-export.yml
+aws cloudformation package --template lambda-package-example.yaml --s3-bucket <your bucket> --output-template template-export.yml
 
 ```
 

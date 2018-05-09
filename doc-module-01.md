@@ -32,12 +32,6 @@ cd <work_space>/module-01
 mvn compile package -Dmaven.test.skip=true
 
 ```
-
-	3. if you want to run unit test (optional, skip it)
-
-```	
-mvn clean compile test
-```
 	
 ##### 2. Run your application 
 	
@@ -64,6 +58,8 @@ ALTER USER sa SET PASSWORD '12345678';
 
 
 #### 1.4 Change application.properties
+
+Please see application.properties in **moudle-01/src/main/resources**
 
 1. Specify password value
 
@@ -180,7 +176,14 @@ curl 'localhost:8080/workshop/images/all'
 </dependency>    		
 ```
 
-### 4. Appedix. create a Spring Boot project from scratch
+
+### 4. Appedix. 
+If you have errors like this "jaxb-core-2.2.11.jar; ZipFile invalid LOC header ", when you try to mvn compilation or packaging, 
+then 
+**Remove your maven repository <your_home>/.m2/repository** 
+and rebuild your project
+
+create a Spring Boot project from scratch
 Please check this blog for creating a spring boot project from scratch using Maven. 
 [add later]
 

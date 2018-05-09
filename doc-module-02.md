@@ -25,16 +25,17 @@
 - AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, and license codes as parameter values.
 Complete the following tasks to configure application parameters for ParameterStore (select your region, for example, us-east-1 or ap-southeast-1)
 
-	1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
+	1. Open the System Manager Cosole and go to Parameter Store
 	2. Create parameters in ParameterStore for database URL, database username and password
 	3. Specify datasource.url as "jdbc:h2:file:~/WorkshopDB"
 	4. Specify datasource.username as "sa"
 	5. Specify datasource.password as "12345678"
 
-![Parameter Store](./images/module-02/paramter-store-01.png)
+![Parameter Store](./images/module-02/01.png)
 
+#### 3. check 
 
-### 2. Change source code
+### 2. Externalize Configuration using ParameterStores
 
 Reference :
 
@@ -178,6 +179,33 @@ mvn package -Dmaven.test.skip=true
 java -jar target/module-02-0.1.0.jar
 
 ```
+
+
+### 4. Expose Application Metrics and Information
+
+	1. Add actuator dependency in pom.xml
+
+```
+			<dependency> 
+				<groupId>org.springframework.boot</groupId> 
+				<artifactId>spring-boot-starter-actuator</artifactId>
+    	</dependency>	
+```
 	  
 
+	2. Run application and check a below ULR
+	
+```
+http://localhost:8080/beans 
 
+http://localhost:8080/env
+
+http://localhost:8080/health 
+
+http://localhost:8080/metrics 
+
+http://localhost:8080/trace
+
+http://localhost:8080/mappings	
+	
+```

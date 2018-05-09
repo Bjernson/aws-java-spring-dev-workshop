@@ -67,21 +67,21 @@ public class CustomLambdaTest {
 		assertEquals(output.getResult(), "SUCCESS");
 	}
 	
-	@Test
-	public void callRekognitionLamdba()
-	{
-		final MyLambdaServices myService = LambdaInvokerFactory.builder()
-		 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
-		 		 .build(MyLambdaServices.class);
-		 
-		RekoEventInput input = new RekoEventInput();
-		
-		input.setBucket("seon-virginia-2016");
-		input.setPath("images/a.jpeg");
-		 
-		RekoEventOutput output = myService.myRekognitionFunc(input);  
-		assertNotNull(output.getText());
-	}	
+//	@Test
+//	public void callRekognitionLamdba()
+//	{
+//		final MyLambdaServices myService = LambdaInvokerFactory.builder()
+//		 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
+//		 		 .build(MyLambdaServices.class);
+//		 
+//		RekoEventInput input = new RekoEventInput();
+//		
+//		input.setBucket("seon-virginia-2016");
+//		input.setPath("images/a.jpeg");
+//		 
+//		RekoEventOutput output = myService.myRekognitionFunc(input);  
+//		assertNotNull(output.getText());
+//	}	
 	
 	@Test
 	public void callTranslateLamdba()
@@ -92,11 +92,12 @@ public class CustomLambdaTest {
 		 
 		TransEventInput input = new TransEventInput();
 		
-		input.setText("hello, world");
+		input.setText("world");
 		input.setSourceLangCode("en");
 		input.setTargetLangCode("es");
 		 
 		TransEventOutput output = myService.myTranslateFunc(input);  
-		assertEquals(output.getTranslated(), "Hallo, mundjo");
+		
+		assertEquals(output.getTranslated(), "mundjo");
 	}		
 }
