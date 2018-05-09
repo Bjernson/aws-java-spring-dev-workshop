@@ -75,6 +75,113 @@ module-07-lambda-translate : MyFunction-workshop-translate
 
 
 <hr>
+
+
+### 2. SAM for Lambda
+In this Test, we introduce how to deploy Lambda project using SAM file and aws cloudformation.
+
+We will have 3 steps to complete this section
+- 1. Crate Jar file using **"module-05-lambda-translate-sam"**
+- 2. Packaging and upload file to S3 and get a delploy input file using **"aws cloudformation package"**
+- 3. Deploy and create Lambda using **"aws cloudformation delply"**
+
+
+#### 2.1. Create a jar for Lambda 
+
+
+	1.Run Maven building command
+
+```
+cd module-05-lambda-translate-sam
+
+mvn clean compile package -Dmaven.test.skip=true
+
+```
+
+	2.Check output jar file in "target" folder
+
+```
+ls -al target
+```
+
+#### 2.2 Packaging your Lambda project
+
+- When you create a package for Java, all necesary files should be in your working directory, for example, complied classes and libraries. 
+
+	1. Prepare packaging
+
+```
+mkdir temp
+
+cd temp
+
+mv ../target/module-05-lamdba-translate-sam-1.0.0.jar .
+
+unzip module-05-lamdba-translate-sam-1.0.0.jar
+
+rm -rf *.json module-05-lamdba-translate-sam-1.0.0.jar
+
+cp ../lambda-package-example.yaml 
+```
+
+- If you want change a function name then edit lambda-package-example.yaml
+- FunctionName: **"CHANGE NAME AS YOU WANT"**   
+- Role : **"your lamdba role"**
+- S3_BUCKET: **"your bucket"**   
+
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  ServelessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.amazonaws.lambda.LambdaTranslateHandler::handleRequest
+      Runtime: java8
+      FunctionName: workshop-translate    
+      Role : arn:aws:iam::550622896891:role/Alexa-DevOps-Role
+      MemorySize : 1024
+      Timeout : 30   
+      Environment:
+        Variables: 
+          S3_BUCKET: s3://seon-virginia-01
+      Tags:
+        ContactTag: workshop-translte  
+```
+
+2. packaging
+
+```
+aws cloudformation package --template lambda-package-example.yaml --s3-bucket <your bucket> --output-
+template template-export.yml
+
+```
+
+#### 2.3 Deploy Lambda using **"aws cloudformatin deploy"**
+
+```
+aws cloudformation deploy --template-file ./template-export.yml --stack-name <your stack name>
+
+```
+
+#### 2.4 Check a creation result and test the function 
+
+1. Test a function in your console using following input
+
+```
+{
+    "bucket":"seon-virginia-2016", 
+    "prefix":"images/a.jpeg",
+    "text" : "Hello, hello",
+    "translated" : "",
+    "sourceLangCode" :"en",
+    "targetLangCode" : "es"
+}
+
+```
+
+
+<hr>
 <hr>
 <hr>
 

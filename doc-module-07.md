@@ -179,6 +179,9 @@ public class MySqlTest {
 	}
 ```
 
+<hr>
+<hr>
+
 ### 2. SAM for Lambda
 In this tasl, we introduce how to deploy Lambda project using SAM file and aws cloudformation.
 
@@ -240,6 +243,15 @@ ls -al target
 #### 2.2 Packaging your Lambda project
 
 ##### 1. Use "aws cloudformation package" command
+```
+mkdir temp
+cd temp
+mv ../target/module-07-lamdba-translate-1.0.0.jar .
+
+unzip module-07-lamdba-translate-1.0.0.jar
+
+rm *jar
+
 ```
 mv target/module-07-lamdba-translate-1.0.0.jar .
 unzip module-07-lamdba-translate-1.0.0.jar
