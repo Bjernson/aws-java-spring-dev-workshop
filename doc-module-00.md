@@ -52,6 +52,7 @@ mvn
 ##### 1. launch your instance 
 
 **Use "java-workshop-rehel-dev-v2"** in ap-southeast-1, ap-northeast-2
+**Select instance type **"m5.large"**
 
 ![ec2 instance](./images/module-00/04.png)
 
