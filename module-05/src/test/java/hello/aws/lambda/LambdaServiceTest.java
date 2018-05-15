@@ -75,7 +75,6 @@ public class LambdaServiceTest {
 	public void callTranslateLamdba()
 	{
 		
-		
 		final MyLambdaServices myService = LambdaInvokerFactory.builder()
 		 		 .lambdaClient(AWSLambdaClientBuilder.defaultClient())
 		 		 .build(MyLambdaServices.class);

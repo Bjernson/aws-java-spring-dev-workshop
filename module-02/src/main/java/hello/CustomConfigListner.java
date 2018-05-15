@@ -19,7 +19,6 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
 		
-    
 		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.defaultClient();
 		GetParameterRequest parameterRequest = new GetParameterRequest();
 		parameterRequest.withName("datasource.url").setWithDecryption(Boolean.valueOf(true));

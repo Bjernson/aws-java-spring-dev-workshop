@@ -65,7 +65,7 @@ mvn
 ![ec2 instance](./images/module-00/05.png)	
 	
 	5. Wait for launching	
-	
+
 ##### 2. Install VNC viewer
 
 - Download : https://www.realvnc.com/en/connect/download/viewer
