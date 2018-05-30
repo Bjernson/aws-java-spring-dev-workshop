@@ -152,15 +152,14 @@ Resources:
 2. packaging
 
 ```
-aws cloudformation package --template lambda-package-example.yaml --s3-bucket <your bucket> --output-
-template template-export.yml
+aws cloudformation package --template lambda-package-example.yaml --s3-bucket <your bucket> --output-template template-export.yml
 
 ```
 
 #### 2.3 Deploy Lambda using **"aws cloudformatin deploy"**
 
 ```
-aws cloudformation deploy --template-file ./template-export.yml --stack-name <your stack name>
+aws cloudformation deploy --template-file ./template-export.yml --stack-name <your stack name> --capabilities CAPABILITY_IAM
 
 ```
 
@@ -179,6 +178,82 @@ aws cloudformation deploy --template-file ./template-export.yml --stack-name <yo
 }
 
 ```
+
+
+### 3. SAM for API GW
+
+ref : https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html#api-gateway-proxy-integration-lambda-function-java
+https://github.com/aws-samples/startup-kit-serverless-workload 
+
+#### 3.1 Use module-05-lambda-api-sam
+
+	1. Check sam-api-lambda.yaml (see the differences)
+	
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: RESTful API backed by AI and DynamoDB
+
+Globals:
+
+  Function:
+    Runtime: java8
+
+  Api:
+    # enable CORS; to make more specific, change the origin wildcard
+    # to a particular domain name, e.g. "'www.example.com'"
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+
+ 
+Resources:
+   
+  TranslateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.amazonaws.lambda.Translate::handleRequest
+      Runtime: java8
+      FunctionName: workshop-hello
+      Policies: TranslateReadOnly
+      MemorySize : 1024
+      Timeout : 30   
+      Events:
+        PostResource:
+          Type: Api
+          Properties:
+            Path: /hello/do
+            Method: post      
+      Environment:
+        Variables: 
+          S3_BUCKET: s3://seon-virginia-01
+      Tags:
+        ContactTag: workshop-translte            
+          
+```
+	
+	2. Check step-input.json in src/main/resources
+	3. Packaging and deploy 
+
+
+```
+
+rm -rf ./temp/*
+mvn compile package -Dmaven.test.skip=true
+cd temp
+
+cp ../target/module-05-lamdba-api-sam-1.0.0.jar .
+unzip *.jar
+rm *.jar
+
+cp ../sam-api-lambda.yaml .
+
+aws cloudformation package --template ./sam-api-lambda.yaml --s3-bucket <Your Bucket> --output-template template-export.yml
+
+aws cloudformation deploy --template-file ./template-export.yml --stack-name <Your Stack Name> --capabilities CAPABILITY_IAM
+    
+```	
 
 
 <hr>

@@ -44,13 +44,13 @@ public class UserPageController {
 
 	    @RequestMapping(path = "/users/edit/{id}", method = RequestMethod.GET)
 	    public String editProduct(Model model, @PathVariable(value = "id") Integer id) {
-	        model.addAttribute("user", userRepository.findOne(id));
+	        model.addAttribute("user", userRepository.findById(id));
 	        return "edit";
 	    }
 
 	    @RequestMapping(path = "/users/delete/{id}", method = RequestMethod.GET)
 	    public String deleteProduct(@PathVariable(name = "id") Integer id) {
-	        userRepository.delete(id);
+	        userRepository.deleteById(id);
 	        return "redirect:/users";
 	    }
 }

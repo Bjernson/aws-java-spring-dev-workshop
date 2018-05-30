@@ -1,15 +1,30 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Description: RESTful API backed by AI and DynamoDB
+Globals:
+  Api:
+    Cors:
+      AllowHeaders: '''*'''
+      AllowMethods: '''*'''
+      AllowOrigin: '''*'''
+  Function:
+    Runtime: java8
 Resources:
-  ServelessFunction:
+  TranslateFunction:
     Properties:
-      CodeUri: s3://seon-virginia-01/79dd834d6cabd116f51f05504b883144
+      CodeUri: s3://seon-virginia-01/bb00b47d358c5a26340c34523af250dc
       Environment:
         Variables:
           S3_BUCKET: s3://seon-virginia-01
-      FunctionName: workshop-translate
+      Events:
+        PostResource:
+          Properties:
+            Method: post
+            Path: /translate/do
+          Type: Api
+      FunctionName: workshop-translate-01
       Handler: com.amazonaws.lambda.LambdaTranslateHandler::handleRequest
       MemorySize: 1024
-      Role: arn:aws:iam::550622896891:role/Alexa-DevOps-Role
+      Policies: TranslateReadOnly
       Runtime: java8
       Tags:
         ContactTag: workshop-translte
