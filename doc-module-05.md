@@ -253,7 +253,54 @@ aws cloudformation package --template ./sam-api-lambda.yaml --s3-bucket <Your Bu
 
 aws cloudformation deploy --template-file ./template-export.yml --stack-name <Your Stack Name> --capabilities CAPABILITY_IAM
     
-```	
+```
+
+	4. Test a URL with curl in your console in API GWs
+
+```
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"text" : "Hello, hello","sourceLangCode" :"en", "targetLangCode" : "es"}' \
+  <Your invoke url>/hello/do
+```
+
+### 4. Create API key
+- Currently, every body can access your API (it is now public)
+- Change your API to require API key.
+- Follow the instruction : 
+https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-setup-api-key-with-console.html
+
+1. Deploy your API again with key required true
+2. Run a curl
+
+```
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"text" : "Hello, hello","sourceLangCode" :"en", "targetLangCode" : "es"}' \
+  <Your invoke url>/hello/do
+```
+
+3. you will get a following message
+
+```
+{"message": "Forbidden"}
+
+```
+
+4. Create API key and curl again
+
+```
+curl --header "Content-Type: application/json" --header "x-api-key: <your key>" \
+  --request POST \
+  --data '{"text" : "Hello, hello","sourceLangCode" :"en", "targetLangCode" : "es"}' \
+  <Your invoke url>/hello/do
+
+```
+- Usage plan
+With usage plans you can set throttling and request quota limits on a per-API-key basis. There are no additional charges for enabling Usage Plans. Click "Enable Usage Plans" to migrate your existing API keys to a usage plan.
+
+
 
 
 <hr>

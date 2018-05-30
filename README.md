@@ -78,6 +78,10 @@
 
 <hr>
 
+## [Module-12 workshop (API GW)](./doc-module-12.md)
+
+<hr>
+
 ### Spring Cloud
 https://cloud.spring.io/spring-cloud-aws/
 Now Spring Cloud support S3, SNS, SQS, ElastiCache,CloudFormation and RDS
