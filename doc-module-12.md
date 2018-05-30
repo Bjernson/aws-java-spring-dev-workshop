@@ -2,15 +2,16 @@
 
 ### 1. API G/W for private endpiont
 - There are 2 approaches, 
-- 1. API GW client side termination.
+- (1) API GW client side termination.
 refer:
 https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html
 
-- 2. API GW endpint integrations
+- (2) API GW endpint integrations
 refer:
 https://aws.amazon.com/about-aws/whats-new/2017/11/amazon-api-gateway-supports-endpoint-integrations-with-private-vpcs/
 
-- Recommend 2 as API GW and back end resources
+
+- Recommend 2 as an integration of API GW and back end resources
 
 #### 1.1 To create a network load balancer for private integration using the API Gateway console
 
@@ -32,12 +33,16 @@ refer : https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-sta
 	
 ![target](./images/module-12/03.png)
 
-#### 1.2 Test a API
+#### 1.2 Create API resource and proxy+
+
+
+#### 1.3 Test a API
 
 ```
 curl <API invoke URL>
 curl '<API invoke URL>/workshop/users/all'
-```	 
+```
+
 <hr>
 
 
