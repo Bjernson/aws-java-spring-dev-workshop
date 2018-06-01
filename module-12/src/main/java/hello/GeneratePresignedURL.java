@@ -14,8 +14,8 @@ public class GeneratePresignedURL {
 
     public static void main(String[] args) throws IOException {
         String clientRegion = "us-east-1";
-        String bucketName = "seon-virginia-01";
-        String objectKey = "test.png";
+        String bucketName = "YOUR BUCKET";
+        String objectKey = "YOUR FILE";
 
         try {            
             AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
