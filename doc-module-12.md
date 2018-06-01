@@ -56,8 +56,8 @@ openid provider: https://docs.aws.amazon.com/cognito/latest/developerguide/open-
 
 <hr>
 
-Morning Session : 
-S3 access control
+### 4. Morning Session : 
+#### 4.1 S3 access control
 
 1.	Create presignedURL : https://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURLJavaSDK.html
 
@@ -65,10 +65,13 @@ S3 access control
 
 3.	Example of access control : https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access.html
 
-NLB with ElasticBeanstalk : https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-nlb.html
+#### 4.2 NLB with ElasticBeanstalk : https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-nlb.html
 1.	Install EB CLI : https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
 
+#### 4.3 StepFunction
+module-06
 
+#### 4.4. CI/CD
 
 
 
