@@ -19,7 +19,7 @@ public class LambdaTranslateHandler implements RequestHandler<StepEventInput, St
   @Override
   public StepEventOutput handleRequest(StepEventInput input, Context context) {
   	
-	  	StepEventOutput output = new StepEventOutput();
+	  StepEventOutput output = new StepEventOutput();
 	  
 	  this.initTranslateClient();
 	  

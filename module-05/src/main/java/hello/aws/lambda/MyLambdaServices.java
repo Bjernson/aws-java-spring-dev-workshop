@@ -17,20 +17,13 @@ public interface MyLambdaServices {
 	@LambdaFunction(functionName="MyCustomFunc")
 	CustomEventOutput myCustumFunc(CustomEventInput input);
 	
-//	@LambdaFunction(functionName="MyFunction-workshop-dynamodb")
-//	DDBEventOutput myDynamoDBFunc(DDBEventInput input);	
-//	@LambdaFunction(functionName="MyFunction-workshop-rekognition")
-//  RekoEventOutput myRekognitionFunc(RekoEventInput input);
-//	@LambdaFunction(functionName="MyFunction-workshop-translate")
-//  TransEventOutput myTranslateFunc(TransEventInput input);	
-	
 	@LambdaFunction(functionName="MyFunction-workshop-dynamodb")
 	StepEventOutput myDynamoDBFunc(StepEventInput input);	
 
 	@LambdaFunction(functionName="MyFunction-workshop-rekognition")
 	StepEventOutput myRekognitionFunc(StepEventInput input);
 
-	@LambdaFunction(functionName="MyFunction-workshop-translate")
+	@LambdaFunction(functionName="MyFunction-translate")
 	StepEventOutput myTranslateFunc(StepEventInput input);
 	
 }

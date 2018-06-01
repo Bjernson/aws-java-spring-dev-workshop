@@ -11,7 +11,7 @@ Globals:
 Resources:
   TranslateFunction:
     Properties:
-      CodeUri: s3://seon-virginia-01/93d40ee12bf54a3e06fd13fc87297e2d
+      CodeUri: s3://seon-virginia-01/193fdf238e2b90856c1c660853190c84
       Environment:
         Variables:
           S3_BUCKET: s3://seon-virginia-01

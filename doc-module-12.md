@@ -35,7 +35,6 @@ refer : https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-sta
 
 #### 1.2 Create API resource and proxy+
 
-
 #### 1.3 Test a API
 
 ```
@@ -54,6 +53,21 @@ openid provider: https://docs.aws.amazon.com/cognito/latest/developerguide/open-
 <hr>
 
 ### 3. API G/W cognito user pools.
+
+<hr>
+
+Morning Session : 
+S3 access control
+
+1.	Create presignedURL : https://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURLJavaSDK.html
+
+2.	Overview of access control of S3 : https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html
+
+3.	Example of access control : https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access.html
+
+NLB with ElasticBeanstalk : https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-nlb.html
+1.	Install EB CLI : https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
+
 
 
 

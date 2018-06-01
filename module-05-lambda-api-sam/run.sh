@@ -6,4 +6,4 @@ unzip *.jar
 rm *.jar
 cp ../sam-api-lambda.yaml .
 aws cloudformation package --template ./sam-api-lambda.yaml --s3-bucket seon-virginia-01 --output-template template-export.yml
-aws cloudformation deploy --template-file ./template-export.yml --stack-name test-hello --capabilities CAPABILITY_IAM
+aws cloudformation deploy --template-file ./template-export.yml --stack-name test-hello-02 --capabilities CAPABILITY_IAM
