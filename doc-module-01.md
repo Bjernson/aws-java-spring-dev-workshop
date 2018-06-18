@@ -97,6 +97,7 @@ ALTER USER sa SET PASSWORD '12345678';
 ![H2 database](./images/module-01/07.png)
 
 
+
 #### 1.4 Change application.properties
 
 Please see application.properties in **moudle-01/src/main/resources**
@@ -178,28 +179,7 @@ java -jar target/module-01-0.1.0.jar
 </dependency>    		
 ```
 
-### 4. actuator
-https://www.devglan.com/spring-boot/spring-boot-actuator-rest-endpoints-example
-https://www.devglan.com/spring-security/spring-boot-security-custom-form-login-example
 
-https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
-
-need to only include
-
-```
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-actuator</artifactId>
-			</dependency>
-```
-and use following properties
-
-```
-management.endpoints.web.exposure.include=*
-management.endpoints.web.exposure.exclude=env,info
-```
-
-if you include "spring-boot-starter-security" then, it is not possible to call each endpoints.
 
 ### 4. Appedix. 
 If you have errors like this "jaxb-core-2.2.11.jar; ZipFile invalid LOC header ", when you try to mvn compilation or packaging, 

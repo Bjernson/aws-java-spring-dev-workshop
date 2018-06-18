@@ -28,7 +28,7 @@ java -jar target/module-02-0.1.0.jar
 1. Configure Your Parameter Store
 2. Check your EC2 roles (If you have errors after creating parameters in Parameter Store, then check it)
  
-### 1. Configure Dev environment
+### 1. Externalize Configuration 
 
 
 #### 1.1. Configure AWS CLI to allow application to get access key and secret key 
@@ -59,6 +59,14 @@ Complete the following tasks to configure application parameters for ParameterSt
 - Check your EC2 role, if you have errors after creating parameters in Parameter Store.
 
 
+
+### 2. Expose Application Metrics and Information
+We are using "spring-boot-starter-actuator", please check application metrics and information using following command
+
+```
+curl localhost:8080/heath
+curl localhost:8080/beans
+```
 
 <hr>
 <hr>
@@ -200,7 +208,7 @@ public class ParameterStoreTest {
 
 ```
 
-3. Run ParameterStoreTest.java
+	3. Run ParameterStoreTest.java
 
 ### 3. Run your application
 
@@ -230,3 +238,39 @@ http://localhost:8080/trace
 http://localhost:8080/mappings	
 	
 ```
+
+### 4. Actuator
+
+reference:
+https://www.devglan.com/spring-boot/spring-boot-actuator-rest-endpoints-example
+https://www.devglan.com/spring-security/spring-boot-security-custom-form-login-example
+https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
+
+1. Add a following dependecy in pom.xml
+
+```
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+			</dependency>
+```
+
+2. Specify following properties (if spring 1.5x)
+
+```
+endpoints.actuator.enabled=true
+management.security.enabled=false
+
+```
+
+3. Specify following properties (if spring 2.x)
+
+```
+endpoints.actuator.enabled=true
+management.endpoints.web.exposure.include=*
+management.endpoints.web.exposure.exclude=env
+```
+
+if you include "spring-boot-starter-security" then, it is not possible to call each endpoints.
+
+
