@@ -48,9 +48,11 @@ public class MysqlDBConfig {
 	 */
 	@Bean
 	@ConfigurationProperties(prefix = "spring.mysql.datasource")
+//	@ConfigurationProperties(prefix = "spring.datarouce.jdbc-url")
 	public DataSource mysqlDataSource() {
 		System.out.println("##### DataSource called");
 		DataSource ds = DataSourceBuilder.create().build();
+		    
 		System.out.println("##### DataSource url = " + environment.getProperty("spring.mysql.datasource.url").toString());
 		return ds ;
 	}
