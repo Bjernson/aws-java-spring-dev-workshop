@@ -44,22 +44,31 @@ aws
 mvn
 ```
 
+<hr>
 
 #### 1.2 Configure a remote dev environment
 
 - If you have some troubles to configure your local environment, then just use remote dev instance and connect it with VNC viewer, following below steps.
 
+#### 0. Create a EC2 Roles
+
+	1. Create a IAM role for EC2, name as "EC2-Javaworkshop-Role"
+	2. configure this role to have the full access of "SSM, S3, DynamoDB, Translate, Rekonition"
+
+![ec2 instance](./images/module-00/10.png)
+
 ##### 1. launch your instance 
 
-**Use "java-workshop-rehel-dev-v2"** in ap-southeast-1, ap-northeast-2
-**Select instance type **"m5.large"**
+1. **Use "java-workshop-rehel-dev-v2"** in ap-southeast-1, ap-northeast-2
+
+2. Select instance type **"t2.medium"** at least.
 
 ![ec2 instance](./images/module-00/04.png)
 
 	2. Select "Red Hat Enterprise Linux 7.5 (HVM), SSD Volume Type" in Singapore Region	
 	3. Specify launch setup 
 	   Enable public IP
-	   Create a new IAM role  -> You need to change a role to have a privilege to access AWS services later
+		 Specify a create a new IAM role "EC2-Javaworkshop-Role"
 	4. Configure Security Group
 			Add ports : 80, 8080, 5905
 ![ec2 instance](./images/module-00/05.png)	
