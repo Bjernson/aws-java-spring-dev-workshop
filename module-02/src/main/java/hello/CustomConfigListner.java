@@ -12,6 +12,8 @@ import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterResult;
 
+import com.amazonaws.SDKGlobalConfiguration;
+
 
 public class CustomConfigListner implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 	
@@ -19,9 +21,10 @@ public class CustomConfigListner implements ApplicationListener<ApplicationEnvir
 	@Override
 	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
 		
+		System.setProperty(SDKGlobalConfiguration.DISABLE_CERT_CHECKING_SYSTEM_PROPERTY, "true");
+		
 		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.standard().build();
-		
-		
+			
 		GetParameterRequest parameterRequest = new GetParameterRequest();
 		parameterRequest.withName("datasource.url").setWithDecryption(Boolean.valueOf(true));
 		GetParameterResult parameterResult = client.getParameter(parameterRequest);
